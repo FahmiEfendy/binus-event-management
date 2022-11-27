@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/binus-event-management/static/css/main.e6c13ad2.css",
+    "main.js": "/binus-event-management/static/js/main.079c2ca5.js",
+    "index.html": "/binus-event-management/index.html",
+    "main.e6c13ad2.css.map": "/binus-event-management/static/css/main.e6c13ad2.css.map",
+    "main.079c2ca5.js.map": "/binus-event-management/static/js/main.079c2ca5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.079c2ca5.js"
+  ]
+}
