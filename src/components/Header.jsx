@@ -59,7 +59,17 @@ const Header = () => {
           Home
         </NavLink>
       </p>
-      <p className="h5 my-auto mx-4">Organization List</p>
+      <p className="h5 my-auto mx-4">
+        <NavLink
+          to="/organization-list"
+          exact="true"
+          style={({ isActive }) =>
+            isActive ? styles.activeLink : styles.inactiveLink
+          }
+        >
+          Organization List
+        </NavLink>
+      </p>
       <p className="h5 my-auto mx-4">Event History</p>
       <div className="ms-auto d-flex">
         <p className="h5 my-auto mx-4">{username}</p>
