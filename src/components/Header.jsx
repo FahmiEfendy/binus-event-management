@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const styles = {
   container: {
@@ -15,6 +15,7 @@ const styles = {
   },
   activeLink: {
     borderBottom: "1px solid white",
+    paddingBottom: ".3rem",
     color: "#000000",
     textDecoration: "none",
   },
@@ -32,12 +33,14 @@ const Header = () => {
       style={styles.container}
       className="container-fluid d-flex align-items-center"
     >
-      <img
-        style={styles.logo}
-        className="ms-4 py-2"
-        src={require("../assets/logo-binus.png")}
-        alt="Logo Binus"
-      />
+      <Link to="/">
+        <img
+          style={styles.logo}
+          className="ms-4 py-2"
+          src={require("../assets/logo-binus.png")}
+          alt="Logo Binus"
+        />
+      </Link>
       <div className="input-group w-25 mx-4">
         <input
           type="text"
@@ -70,7 +73,17 @@ const Header = () => {
           Organization List
         </NavLink>
       </p>
-      <p className="h5 my-auto mx-4">Event History</p>
+      <p className="h5 my-auto mx-4">
+        <NavLink
+          to="/event-history"
+          exact="true"
+          style={({ isActive }) =>
+            isActive ? styles.activeLink : styles.inactiveLink
+          }
+        >
+          Event History
+        </NavLink>
+      </p>
       <div className="ms-auto d-flex">
         <p className="h5 my-auto mx-4">{username}</p>
         <img

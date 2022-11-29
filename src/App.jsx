@@ -1,7 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 
-import Header from "./components/Header";
 import Home from "./components/Home";
+import Header from "./components/Header";
+import EventHistory from "./components/EventHistory";
 import OrganizationList from "./components/OrganizationList";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/organization-list" element={<OrganizationList />} />
+        <Route path="/event-history" element={<EventHistory />} />
       </Routes>
     </>
   );
