@@ -38,7 +38,7 @@ const Home = () => {
         </div>
         <div className="col-1 d-flex" style={styles.header}>
           <button type="button" className="btn btn-light px-3 mx-auto">
-            <i className="bi bi-funnel px-1" aria-hidden="true"></i>Filters
+            <i className="bi bi-funnel px-1" aria-hidden="true"></i>Filter
           </button>
         </div>
       </div>

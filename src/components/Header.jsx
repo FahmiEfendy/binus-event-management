@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 const styles = {
   container: {
     backgroundColor: "gray",
@@ -10,6 +12,15 @@ const styles = {
   profilePicture: {
     height: "50px",
     width: "50px",
+  },
+  activeLink: {
+    borderBottom: "1px solid white",
+    color: "#000000",
+    textDecoration: "none",
+  },
+  inactiveLink: {
+    color: "#000000",
+    textDecoration: "none",
   },
 };
 
@@ -37,7 +48,17 @@ const Header = () => {
           <i className="bi bi-search"></i>
         </span>
       </div>
-      <p className="h5 my-auto mx-4">Home</p>
+      <p className="h5 my-auto mx-4">
+        <NavLink
+          to="/"
+          exact="true"
+          style={({ isActive }) =>
+            isActive ? styles.activeLink : styles.inactiveLink
+          }
+        >
+          Home
+        </NavLink>
+      </p>
       <p className="h5 my-auto mx-4">Organization List</p>
       <p className="h5 my-auto mx-4">Event History</p>
       <div className="ms-auto d-flex">
