@@ -17,10 +17,13 @@ const Header = () => {
   const username = "John Doe";
 
   return (
-    <div style={styles.container} className="d-flex align-items-center">
+    <div
+      style={styles.container}
+      className="container-fluid d-flex align-items-center"
+    >
       <img
         style={styles.logo}
-        className="ms-5 py-2"
+        className="ms-4 py-2"
         src={require("../assets/logo-binus.png")}
         alt="Logo Binus"
       />
@@ -30,7 +33,9 @@ const Header = () => {
           className="form-control"
           placeholder="Search something..."
         />
-        <span className="input-group-text">Search</span>
+        <span className="input-group-text">
+          <i className="bi bi-search"></i>
+        </span>
       </div>
       <p className="h5 my-auto mx-4">Home</p>
       <p className="h5 my-auto mx-4">Organization List</p>
@@ -41,7 +46,7 @@ const Header = () => {
           style={styles.profilePicture}
           src={require("../assets/user-profile-picture.jpg")}
           alt="User Profile"
-          className="rounded-circle me-5"
+          className="rounded-circle me-4"
         />
       </div>
     </div>
