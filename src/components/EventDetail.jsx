@@ -22,7 +22,9 @@ const styles = {
   },
 };
 
-const EventDetail = () => {
+const EventDetail = (props) => {
+  const { type } = props;
+
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isRegistrationSuccessModalOpen, setIsRegistrationSuccessModalOpen] =
     useState(false);
@@ -66,20 +68,28 @@ const EventDetail = () => {
             <span className="col-9 h3">Example Event Participant</span>
           </div>
           <div className="row">
-            <span className="col-3 h4">Price</span>
-            <span className="col-9 h3">Example Event Price</span>
+            <span className="col-3 h4">
+              {type === "history" ? "Status" : "Price"}
+            </span>
+            <span className="col-9 h3">{`Example Event ${
+              type === "history" ? "Status" : "Price"
+            }`}</span>
           </div>
-          <div className="row">
-            <button
-              type="button"
-              className="btn btn-primary py-2 col-12"
-              data-toggle="modal"
-              data-target="#registrationConfirmationModal"
-              onClick={registerHandler}
-            >
-              <p className="h4">Register</p>
-            </button>
-          </div>
+          {type === "history" ? (
+            ""
+          ) : (
+            <div className="row">
+              <button
+                type="button"
+                className="btn btn-primary py-2 col-12"
+                data-toggle="modal"
+                data-target="#registrationConfirmationModal"
+                onClick={registerHandler}
+              >
+                <p className="h4">Register</p>
+              </button>
+            </div>
+          )}
         </div>
       </div>
       <div>

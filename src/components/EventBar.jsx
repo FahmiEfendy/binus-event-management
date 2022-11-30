@@ -17,6 +17,10 @@ const EventBar = (props) => {
     navigate("/example-event-path");
   };
 
+  const eventHistoryDetailHandler = () => {
+    navigate("/example-event-history-path");
+  };
+
   return (
     <div className="row w-100 d-flex align-items-center">
       <div className="col-3 d-flex">
@@ -41,7 +45,9 @@ const EventBar = (props) => {
         <button
           type="button"
           className="btn btn-primary px-4 mx-auto"
-          onClick={eventDetailHandler}
+          onClick={
+            type === "history" ? eventHistoryDetailHandler : eventDetailHandler
+          }
         >
           Detail
         </button>

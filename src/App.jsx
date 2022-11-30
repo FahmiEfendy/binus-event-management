@@ -15,6 +15,11 @@ function App() {
         <Route path="/organization-list" element={<OrganizationList />} />
         <Route path="/event-history" element={<EventHistory />} />
         <Route path="/example-event-path" element={<EventDetail />} />
+        <Route
+          end
+          path="/example-event-history-path"
+          element={<EventDetail type="history" />}
+        />
       </Routes>
     </>
   );
