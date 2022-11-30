@@ -1,3 +1,6 @@
+import { useState } from "react";
+import RegisterConfirmationModal from "./RegisterConfirmationModal";
+
 const styles = {
   container: {
     maxWidth: "110rem",
@@ -19,6 +22,12 @@ const styles = {
 };
 
 const EventDetail = () => {
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+
+  const registerHandler = () => {
+    setIsRegisterModalOpen(true);
+  };
+
   return (
     <div style={styles.container} className="container mx-auto rounded mb-5">
       <div className="d-flex me-5">
@@ -57,7 +66,13 @@ const EventDetail = () => {
             <span className="col-9 h3">Example Event Price</span>
           </div>
           <div className="row">
-            <button type="button" className="btn btn-primary py-2  col-12">
+            <button
+              type="button"
+              className="btn btn-primary py-2 col-12"
+              data-toggle="modal"
+              data-target="#exampleModalCenter"
+              onClick={registerHandler}
+            >
               <p className="h4">Register</p>
             </button>
           </div>
@@ -89,6 +104,11 @@ const EventDetail = () => {
           nibh.
         </p>
       </div>
+      {isRegisterModalOpen && (
+        <RegisterConfirmationModal
+          setIsRegisterModalOpen={setIsRegisterModalOpen}
+        />
+      )}
     </div>
   );
 };
