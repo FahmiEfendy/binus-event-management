@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import Header from "./components/Header";
 import EventHistory from "./components/EventHistory";
 import OrganizationList from "./components/OrganizationList";
+import EventDetail from "./components/EventDetail";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/organization-list" element={<OrganizationList />} />
         <Route path="/event-history" element={<EventHistory />} />
+        <Route path="/example-event-path" element={<EventDetail />} />
       </Routes>
     </>
   );
