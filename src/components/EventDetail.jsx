@@ -1,5 +1,6 @@
 import { useState } from "react";
 import RegisterConfirmationModal from "./RegisterConfirmationModal";
+import RegistrationSuccessModal from "./RegistrationSuccessModal";
 
 const styles = {
   container: {
@@ -23,9 +24,12 @@ const styles = {
 
 const EventDetail = () => {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+  const [isRegistrationSuccessModalOpen, setIsRegistrationSuccessModalOpen] =
+    useState(false);
 
   const registerHandler = () => {
     setIsRegisterModalOpen(true);
+    console.log(isRegisterModalOpen);
   };
 
   return (
@@ -70,7 +74,7 @@ const EventDetail = () => {
               type="button"
               className="btn btn-primary py-2 col-12"
               data-toggle="modal"
-              data-target="#exampleModalCenter"
+              data-target="#registrationConfirmationModal"
               onClick={registerHandler}
             >
               <p className="h4">Register</p>
@@ -107,6 +111,12 @@ const EventDetail = () => {
       {isRegisterModalOpen && (
         <RegisterConfirmationModal
           setIsRegisterModalOpen={setIsRegisterModalOpen}
+          setIsRegistrationSuccessModalOpen={setIsRegistrationSuccessModalOpen}
+        />
+      )}
+      {isRegistrationSuccessModalOpen && (
+        <RegistrationSuccessModal
+          setIsRegistrationSuccessModalOpen={setIsRegistrationSuccessModalOpen}
         />
       )}
     </div>

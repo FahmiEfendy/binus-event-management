@@ -5,10 +5,12 @@ const styles = {
 };
 
 const RegisterConfirmationModal = (props) => {
-  const { setIsRegisterModalOpen } = props;
+  const { setIsRegisterModalOpen, setIsRegistrationSuccessModalOpen } = props;
 
   const registerHandler = () => {
-    console.log("Registered!");
+    console.log("Register Success!");
+    setIsRegistrationSuccessModalOpen(true);
+    setIsRegisterModalOpen(false);
   };
 
   const closeModalHandler = () => {
@@ -18,7 +20,7 @@ const RegisterConfirmationModal = (props) => {
   return (
     <div
       className="modal fade"
-      id="exampleModalCenter"
+      id="registrationConfirmationModal"
       tabIndex="-1"
       role="dialog"
       aria-labelledby="exampleModalCenterTitle"
@@ -69,6 +71,10 @@ const RegisterConfirmationModal = (props) => {
                 <button
                   type="button"
                   className="btn btn-primary mx-4 px-5"
+                  data-toggle="modal"
+                  data-target="#registrationSuccessModal"
+                  data-dismiss="modal"
+                  aria-label="Close"
                   onClick={registerHandler}
                 >
                   Register
