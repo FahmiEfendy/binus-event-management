@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 const styles = {
   eventOrganizerLogo: {
     height: "40px",
@@ -7,6 +9,12 @@ const styles = {
 };
 
 const OrganizationBar = () => {
+  const navigate = useNavigate();
+
+  const organizationDetailHandler = () => {
+    navigate("/example-organization-path");
+  };
+
   return (
     <div className="row w-100 d-flex align-items-center">
       <div className="col-5 d-flex">
@@ -22,7 +30,11 @@ const OrganizationBar = () => {
       </div>
       <div className="col-5">Example Event Organizer Type</div>
       <div className="col-2  d-flex">
-        <button type="button" className="btn btn-primary px-4 mx-auto">
+        <button
+          type="button"
+          className="btn btn-primary px-4 mx-auto"
+          onClick={organizationDetailHandler}
+        >
           Detail
         </button>
       </div>
