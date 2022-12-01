@@ -24,6 +24,10 @@ const Login = (props) => {
     navigate("/");
   };
 
+  const goRegisterPage = () => {
+    navigate("/register");
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="d-flex align-items-center mh-100 inline-block">
@@ -57,7 +61,9 @@ const Login = (props) => {
           </button>
           <div className="d-flex flex-column mt-4">
             <button className="btn btn-lg mb-1">Forgot password?</button>
-            <button className="btn btn-lg">Don't have account?</button>
+            <button className="btn btn-lg" onClick={goRegisterPage}>
+              Don't have account?
+            </button>
           </div>
         </div>
       </div>

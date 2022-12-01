@@ -8,6 +8,7 @@ import OrganizationList from "./components/OrganizationList";
 import EventDetail from "./components/EventDetail";
 import OrganizationDetail from "./components/OrganizationDetail";
 import Login from "./components/Login";
+import Register from "./components/Register";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -29,6 +30,7 @@ function App() {
           element={<OrganizationDetail />}
         />
         <Route path="/login" element={<Login setIsLogin={setIsLogin} />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </>
   );
