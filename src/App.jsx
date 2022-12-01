@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Home from "./components/Home";
@@ -6,11 +7,14 @@ import EventHistory from "./components/EventHistory";
 import OrganizationList from "./components/OrganizationList";
 import EventDetail from "./components/EventDetail";
 import OrganizationDetail from "./components/OrganizationDetail";
+import Login from "./components/Login";
 
 function App() {
+  const [isLogin, setIsLogin] = useState(false);
+
   return (
     <>
-      <Header />
+      {isLogin && <Header />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/organization-list" element={<OrganizationList />} />
@@ -24,6 +28,7 @@ function App() {
           path="/example-organization-path"
           element={<OrganizationDetail />}
         />
+        <Route path="/login" element={<Login setIsLogin={setIsLogin} />} />
       </Routes>
     </>
   );
