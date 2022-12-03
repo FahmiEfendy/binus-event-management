@@ -24,7 +24,7 @@ const Register = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    // navigate("/login");
+    navigate("/login");
   };
 
   const genderOptions = [
@@ -65,11 +65,7 @@ const Register = () => {
     },
   ];
 
-  // TODO: fix get data based on selected checkbox
-  const notificationOptions = [
-    { value: "emailNotification", label: "Email" },
-    { value: "emailNotifications", label: "Emails" },
-  ];
+  const notificationOptions = [{ value: "emailNotification", label: "Email" }];
 
   return (
     <form
@@ -77,16 +73,6 @@ const Register = () => {
       style={styles.container}
       className="d-flex"
     >
-      {/* 
-        TODO: fix background image
-      <img alt="Register Background"
-        className="bg-image"
-        style={{
-          height: "100vh",
-          opacity: "0.5",
-          backgroundImage: `url(require("../assets/login-image.jpg"))`,
-        }}
-      /> */}
       <div
         style={styles.registerFormContainer}
         className="rounded p-5 m-auto d-flex flex-column"
@@ -164,7 +150,7 @@ const Register = () => {
           />
           <CheckForm
             control={control}
-            name="notificationPreference"
+            name="emailNotification"
             label="Notification Preference"
             options={notificationOptions}
           />
