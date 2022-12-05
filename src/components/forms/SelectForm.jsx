@@ -1,0 +1,40 @@
+import { Controller } from "react-hook-form";
+
+const SelectForm = (props) => {
+  const { control, name, isRequired, label, options, placeholder, style } =
+    props;
+
+  return (
+    <Controller
+      name={name}
+      control={control}
+      defaultValue=""
+      rules={{ required: isRequired }}
+      render={({ field }) => {
+        return (
+          <div className="form-group" style={{ width: "100%", ...style }}>
+            <label htmlFor={name} className="mb-2 ms-2">
+              {label}
+            </label>
+            <select
+              {...field}
+              className="form-control custom-select"
+              style={{ height: "4rem" }}
+            >
+              <option value="">{placeholder}</option>
+              {options.map((data) => {
+                return (
+                  <option key={data.value} value={data.value}>
+                    {data.label}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        );
+      }}
+    />
+  );
+};
+
+export default SelectForm;

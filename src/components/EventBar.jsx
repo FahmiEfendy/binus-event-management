@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 const styles = {
   eventOrganizerLogo: {
     height: "40px",
@@ -8,6 +10,16 @@ const styles = {
 
 const EventBar = (props) => {
   const { type } = props;
+
+  const navigate = useNavigate();
+
+  const eventDetailHandler = () => {
+    navigate("/example-event-path");
+  };
+
+  const eventHistoryDetailHandler = () => {
+    navigate("/example-event-history-path");
+  };
 
   return (
     <div className="row w-100 d-flex align-items-center">
@@ -30,7 +42,13 @@ const EventBar = (props) => {
         type === "history" ? "Status" : "Price"
       }`}</div>
       <div className="col-1 d-flex">
-        <button type="button" className="btn btn-primary px-4 mx-auto">
+        <button
+          type="button"
+          className="btn btn-primary px-4 mx-auto"
+          onClick={
+            type === "history" ? eventHistoryDetailHandler : eventDetailHandler
+          }
+        >
           Detail
         </button>
       </div>
