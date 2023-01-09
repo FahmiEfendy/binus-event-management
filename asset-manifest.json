@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/binus-event-management/static/css/main.e6c13ad2.css",
-    "main.js": "/binus-event-management/static/js/main.8525a70e.js",
-    "static/media/login-image.jpg": "/binus-event-management/static/media/login-image.cc88af8d5c54a0a75979.jpg",
-    "static/media/example-event-poster.jpg": "/binus-event-management/static/media/example-event-poster.729709b02791279e6b35.jpg",
-    "static/media/logo-binus.png": "/binus-event-management/static/media/logo-binus.728434cc841b32f63933.png",
-    "static/media/user-profile-picture.jpg": "/binus-event-management/static/media/user-profile-picture.eb7615a06f56bbaea513.jpg",
-    "static/media/success_vector.png": "/binus-event-management/static/media/success_vector.ea7e2809a1281316db22.png",
-    "index.html": "/binus-event-management/index.html",
-    "main.e6c13ad2.css.map": "/binus-event-management/static/css/main.e6c13ad2.css.map",
-    "main.8525a70e.js.map": "/binus-event-management/static/js/main.8525a70e.js.map"
+    "main.css": "/binus-event-management/login/static/css/main.e6c13ad2.css",
+    "main.js": "/binus-event-management/login/static/js/main.6f9d1804.js",
+    "static/media/login-image.jpg": "/binus-event-management/login/static/media/login-image.cc88af8d5c54a0a75979.jpg",
+    "static/media/example-event-poster.jpg": "/binus-event-management/login/static/media/example-event-poster.729709b02791279e6b35.jpg",
+    "static/media/logo-binus.png": "/binus-event-management/login/static/media/logo-binus.728434cc841b32f63933.png",
+    "static/media/user-profile-picture.jpg": "/binus-event-management/login/static/media/user-profile-picture.eb7615a06f56bbaea513.jpg",
+    "static/media/success_vector.png": "/binus-event-management/login/static/media/success_vector.ea7e2809a1281316db22.png",
+    "index.html": "/binus-event-management/login/index.html",
+    "main.e6c13ad2.css.map": "/binus-event-management/login/static/css/main.e6c13ad2.css.map",
+    "main.6f9d1804.js.map": "/binus-event-management/login/static/js/main.6f9d1804.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.8525a70e.js"
+    "static/js/main.6f9d1804.js"
   ]
 }
