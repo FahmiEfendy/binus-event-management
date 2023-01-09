@@ -32,6 +32,7 @@ function App() {
         />
         <Route path="/login" element={<Login setIsLogin={setIsLogin} />} />
         <Route path="/register" element={<Register />} />
+        <Route path="*" element={<p>URL Not Found!</p>} />
       </Routes>
     </>
   );

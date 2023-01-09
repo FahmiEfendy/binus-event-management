@@ -9,7 +9,8 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 console.log("index.js rendered");
 root.render(
   <React.StrictMode>
-    <Router basename="/binus-event-management">
+    {/* <Router basename="/binus-event-management"> */}
+    <Router>
       <App />
     </Router>
   </React.StrictMode>
