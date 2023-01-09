@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Home from "./components/Home";
 import Header from "./components/Header";
@@ -11,8 +12,15 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 
 function App() {
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
   console.log("App.jsx rendered");
+
+  useEffect(() => {
+    if (!isLogin) {
+      navigate("/login");
+    }
+  }, [isLogin, navigate]);
 
   return (
     <>
