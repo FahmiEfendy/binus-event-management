@@ -1,4 +1,4 @@
-import OrganizationBar from "./OrganizationBar";
+import { OrganizationBar } from "../atoms";
 
 const styles = {
   container: {

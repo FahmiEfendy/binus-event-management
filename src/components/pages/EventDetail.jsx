@@ -1,6 +1,6 @@
 import { useState } from "react";
-import RegisterConfirmationModal from "./RegisterConfirmationModal";
-import RegistrationSuccessModal from "./RegistrationSuccessModal";
+
+import { RegisterConfirmationModal, RegistrationSuccessModal } from "../atoms";
 
 const styles = {
   container: {
@@ -39,7 +39,7 @@ const EventDetail = (props) => {
       <div className="d-flex me-5">
         <img
           style={styles.eventPoster}
-          src={require("../assets/example-event-poster.jpg")}
+          src={require("../../assets/example-event-poster.jpg")}
           alt="Example Event Poster"
           className="img-fluid me-5"
         />

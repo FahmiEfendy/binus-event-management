@@ -1,4 +1,4 @@
-import EventBar from "./EventBar";
+import { EventBar } from "../atoms";
 
 const styles = {
   container: {
@@ -31,7 +31,7 @@ const OrganizationDetail = () => {
       <div className="d-flex me-5">
         <img
           style={styles.organizationLogo}
-          src={require("../assets/logo-binus.png")}
+          src={require("../../assets/logo-binus.png")}
           alt="Example Event Poster"
           className="img-fluid me-5"
         />

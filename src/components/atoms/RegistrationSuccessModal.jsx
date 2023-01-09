@@ -38,7 +38,7 @@ const RegistrationSuccessModal = (props) => {
           <div className="modal-body d-flex flex-column align-items-center pt-4 pb-5">
             <img
               style={styles.successVector}
-              src={require("../assets/success_vector.png")}
+              src={require("../../assets/success-vector.png")}
               alt="Registration Success"
               className="img-fluid mx-5"
             />

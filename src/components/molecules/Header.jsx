@@ -37,7 +37,7 @@ const Header = () => {
         <img
           style={styles.logo}
           className="ms-4 py-2"
-          src={require("../assets/logo-binus.png")}
+          src={require("../../assets/logo-binus.png")}
           alt="Logo Binus"
         />
       </Link>
@@ -88,7 +88,7 @@ const Header = () => {
         <p className="h5 my-auto mx-4">{username}</p>
         <img
           style={styles.profilePicture}
-          src={require("../assets/user-profile-picture.jpg")}
+          src={require("../../assets/user-profile-picture.jpg")}
           alt="User Profile"
           className="rounded-circle me-4"
         />

@@ -21,7 +21,7 @@ const OrganizationBar = () => {
         <img
           style={styles.eventOrganizerLogo}
           className="rounded my-auto"
-          src={require("../assets/logo-binus.png")}
+          src={require("../../assets/logo-binus.png")}
           alt="Example Event Organizer Logo"
         />
         <div className="mx-3 my-auto">

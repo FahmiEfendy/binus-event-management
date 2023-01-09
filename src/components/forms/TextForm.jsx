@@ -1,6 +1,6 @@
 import { Controller } from "react-hook-form";
 
-const TextField = (props) => {
+const TextForm = (props) => {
   const {
     control,
     name,
@@ -38,4 +38,4 @@ const TextField = (props) => {
   );
 };
 
-export default TextField;
+export default TextForm;

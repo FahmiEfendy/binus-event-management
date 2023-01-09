@@ -1,9 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import CheckForm from "./forms/CheckForm";
-import SelectForm from "./forms/SelectForm";
-import TextField from "./forms/TextField";
+import { CheckForm, SelectForm, TextForm } from "../forms";
 
 const styles = {
   container: {
@@ -81,7 +79,7 @@ const Register = () => {
           Binus Event User Management Register
         </p>
         <div className="d-flex justify-content-between">
-          <TextField
+          <TextForm
             control={control}
             name="email"
             isRequired
@@ -89,7 +87,7 @@ const Register = () => {
             placeholder="Enter your Email..."
             style={{ width: "48%" }}
           />
-          <TextField
+          <TextForm
             control={control}
             name="nim"
             isRequired
@@ -100,7 +98,7 @@ const Register = () => {
           />
         </div>
         <div className="d-flex justify-content-between">
-          <TextField
+          <TextForm
             control={control}
             name="fullName"
             isRequired
@@ -108,7 +106,7 @@ const Register = () => {
             placeholder="Enter your Full Name..."
             style={{ width: "48%" }}
           />
-          <TextField
+          <TextForm
             control={control}
             name="password"
             isRequired
@@ -119,7 +117,7 @@ const Register = () => {
           />
         </div>
         <div className="d-flex justify-content-between">
-          <TextField
+          <TextForm
             control={control}
             name="phoneNumber"
             isRequired

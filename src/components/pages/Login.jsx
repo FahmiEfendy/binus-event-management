@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import TextField from "./forms/TextField";
+import { TextForm } from "../forms";
 
 const styles = {
   image: {
@@ -33,7 +33,7 @@ const Login = (props) => {
       <div className="d-flex align-items-center mh-100 inline-block">
         <div className="w-50 bg-dark">
           <img
-            src={require("../assets/login-image.jpg")}
+            src={require("../../assets/login-image.jpg")}
             alt="Login"
             style={styles.image}
           />
@@ -41,14 +41,14 @@ const Login = (props) => {
         <div className="w-50 px-5">
           <p className="h1 text-center">Binus Event Management</p>
           <p className="h1 text-center mb-4">User Login</p>
-          <TextField
+          <TextForm
             control={control}
             name="email"
             label="Email"
             isRequired
             placeholder="Enter your email..."
           />
-          <TextField
+          <TextForm
             control={control}
             name="password"
             label="Password"

@@ -6,11 +6,9 @@ import "./index.css";
 import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-console.log("index.js rendered");
 root.render(
   <React.StrictMode>
-    {/* <Router basename="/binus-event-management"> */}
-    <Router>
+    <Router basename="/binus-event-management">
       <App />
     </Router>
   </React.StrictMode>

@@ -1,4 +1,4 @@
-import EventBar from "./EventBar";
+import { EventBar } from "../atoms";
 
 const styles = {
   container: {

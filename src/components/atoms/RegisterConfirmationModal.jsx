@@ -48,7 +48,7 @@ const RegisterConfirmationModal = (props) => {
           <div className="modal-body d-flex pt-4 pb-5">
             <img
               style={styles.eventPoster}
-              src={require("../assets/example-event-poster.jpg")}
+              src={require("../../assets/example-event-poster.jpg")}
               alt="Example Event Poster"
               className="img-fluid mx-5 w-25"
             />
