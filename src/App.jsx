@@ -12,6 +12,7 @@ import Register from "./components/Register";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
+  console.log("App.jsx rendered");
 
   return (
     <>
