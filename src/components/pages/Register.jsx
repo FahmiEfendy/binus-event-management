@@ -42,8 +42,8 @@ const Register = () => {
       label: "Islam",
     },
     {
-      value: "krsiten",
-      label: "Krsiten",
+      value: "kristen",
+      label: "Kristen",
     },
     {
       value: "katolik",
