@@ -5,6 +5,7 @@ import Login from "./Login";
 import OrganizationDetail from "./OrganizationDetail";
 import OrganizationList from "./OrganizationList";
 import Register from "./Register.jsx";
+import ResetPassword from "./ResetPassword";
 
 export {
   EventDetail,
@@ -14,4 +15,5 @@ export {
   OrganizationDetail,
   OrganizationList,
   Register,
+  ResetPassword,
 };

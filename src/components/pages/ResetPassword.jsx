@@ -11,23 +11,18 @@ const styles = {
   },
 };
 
-const Login = ({ setIsLogin }) => {
+const ResetPassword = () => {
   const { handleSubmit, control } = useForm();
 
   const navigate = useNavigate();
 
-  const goToRegisterPage = () => {
-    navigate("/register");
-  };
-
-  const goToResetPasswordPage = () => {
-    navigate("/reset-password");
+  const goToLoginPage = () => {
+    navigate("/login");
   };
 
   const onSubmit = (data) => {
     console.log(data);
-    setIsLogin(true);
-    navigate("/");
+    goToLoginPage();
   };
 
   return (
@@ -36,13 +31,13 @@ const Login = ({ setIsLogin }) => {
         <div className="w-50 bg-dark">
           <img
             src={require("../../assets/login-image.jpg")}
-            alt="Login"
+            alt="Reset Password"
             style={styles.image}
           />
         </div>
         <div className="w-50 px-5">
           <p className="h1 text-center">Binus Event Management</p>
-          <p className="h1 text-center mb-4">User Login</p>
+          <p className="h1 text-center mb-4">Reset Password</p>
           <TextForm
             control={control}
             name="email"
@@ -58,15 +53,28 @@ const Login = ({ setIsLogin }) => {
             placeholder="Enter your password..."
             type="password"
           />
+          <TextForm
+            control={control}
+            name="newPassword"
+            label="New Password"
+            isRequired
+            placeholder="Enter your new password..."
+            type="password"
+          />
+          <TextForm
+            control={control}
+            name="confirmNewpassword"
+            label="Confirm New Password"
+            isRequired
+            placeholder="Enter your confirmation new password..."
+            type="password"
+          />
           <button type="submit" className="btn btn-lg btn-primary w-100 py-3">
-            Login
+            Save Changes
           </button>
           <div className="d-flex flex-column mt-4">
-            <button className="btn btn-lg mb-1" onClick={goToResetPasswordPage}>
-              Forgot password?
-            </button>
-            <button className="btn btn-lg" onClick={goToRegisterPage}>
-              Don't have account?
+            <button className="btn btn-lg" onClick={goToLoginPage}>
+              Back to Login
             </button>
           </div>
         </div>
@@ -75,4 +83,4 @@ const Login = ({ setIsLogin }) => {
   );
 };
 
-export default Login;
+export default ResetPassword;
