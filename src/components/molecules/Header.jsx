@@ -1,5 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 
+import { ProfileDropdown } from "../atoms";
+
 const styles = {
   container: {
     backgroundColor: "gray",
@@ -8,10 +10,6 @@ const styles = {
   logo: {
     height: "60px",
     width: "80px",
-  },
-  profilePicture: {
-    height: "50px",
-    width: "50px",
   },
   activeLink: {
     borderBottom: "1px solid white",
@@ -25,9 +23,7 @@ const styles = {
   },
 };
 
-const Header = () => {
-  const username = "John Doe";
-
+const Header = ({ setIsLogin }) => {
   return (
     <div
       style={styles.container}
@@ -84,14 +80,8 @@ const Header = () => {
           Event History
         </NavLink>
       </p>
-      <div className="ms-auto d-flex">
-        <p className="h5 my-auto mx-4">{username}</p>
-        <img
-          style={styles.profilePicture}
-          src={require("../../assets/user-profile-picture.jpg")}
-          alt="User Profile"
-          className="rounded-circle me-4"
-        />
+      <div className="ms-auto">
+        <ProfileDropdown setIsLogin={setIsLogin} />
       </div>
     </div>
   );

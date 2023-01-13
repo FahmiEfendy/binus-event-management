@@ -19,7 +19,7 @@ function App() {
 
   return (
     <>
-      {isLogin && <Header />}
+      {isLogin && <Header setIsLogin={setIsLogin} />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/setting" element={<Setting />}></Route>
