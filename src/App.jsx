@@ -11,6 +11,7 @@ import {
   OrganizationList,
   Register,
   ResetPassword,
+  Setting,
 } from "./components/pages";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
       {isLogin && <Header />}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/setting" element={<Setting />}></Route>
 
         <Route path="/example-event-path" element={<EventDetail />} />
         <Route

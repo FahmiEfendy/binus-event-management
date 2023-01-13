@@ -20,9 +20,13 @@ const Register = () => {
 
   const navigate = useNavigate();
 
+  const goToLoginPage = () => {
+    navigate("/login");
+  };
+
   const onSubmit = (data) => {
     console.log(data);
-    navigate("/login");
+    goToLoginPage();
   };
 
   const genderOptions = [
@@ -154,7 +158,10 @@ const Register = () => {
           />
         </div>
         <div className="d-flex ms-auto mt-4">
-          <button className="btn btn-light border border-primary px-5 py-2 mx-4">
+          <button
+            className="btn btn-light border border-primary px-5 py-2 mx-4"
+            onClick={goToLoginPage}
+          >
             Cancel
           </button>
           <button className="btn btn-primary px-5 py-2">Register</button>
