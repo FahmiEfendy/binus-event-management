@@ -1,7 +1,9 @@
 import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { TextForm } from "../forms";
+import { useMahasiswaLoginMutation } from "../../api/authApi";
 
 const styles = {
   image: {
@@ -12,6 +14,18 @@ const styles = {
 };
 
 const Login = ({ setIsLogin }) => {
+  const [responseMessage, setResponseMessage] = useState("");
+
+  const [
+    mahasiswaLogin,
+    {
+      data: dataMahasiswaLogin,
+      isSuccess: isSuccessMahasiswaLogin,
+      isError: isErrorMahasiswaLogin,
+      error: errorMahasiswaLogin,
+    },
+  ] = useMahasiswaLoginMutation();
+
   const { handleSubmit, control } = useForm();
 
   const navigate = useNavigate();
@@ -24,11 +38,32 @@ const Login = ({ setIsLogin }) => {
     navigate("/reset-password");
   };
 
-  const onSubmit = (data) => {
-    console.log(data);
-    setIsLogin(true);
-    navigate("/");
+  const onSubmit = async (data) => {
+    const payload = {
+      ...data,
+    };
+
+    await mahasiswaLogin(payload);
   };
+
+  useEffect(() => {
+    if (isSuccessMahasiswaLogin) {
+      setResponseMessage(dataMahasiswaLogin?.message);
+      setIsLogin(true);
+      navigate("/");
+    } else if (isErrorMahasiswaLogin) {
+      setResponseMessage(errorMahasiswaLogin?.data);
+    }
+    console.log(responseMessage);
+  }, [
+    dataMahasiswaLogin?.message,
+    errorMahasiswaLogin?.data,
+    isErrorMahasiswaLogin,
+    isSuccessMahasiswaLogin,
+    navigate,
+    responseMessage,
+    setIsLogin,
+  ]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

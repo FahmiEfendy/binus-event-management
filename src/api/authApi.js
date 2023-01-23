@@ -7,7 +7,7 @@ export const authApi = api.injectEndpoints({
       invalidateTags: ["auth"],
       query: (payload) => {
         return {
-          url: `http://binus-event.com:8081/binus-event-api/auth/mahasiswa/registration`,
+          url: `${STUDENT_AUTH_URL}/registration`,
           method: "POST",
           body: payload,
         };
@@ -19,7 +19,7 @@ export const authApi = api.injectEndpoints({
       query: (payload) => ({
         url: `${STUDENT_AUTH_URL}/login`,
         method: "POST",
-        data: payload,
+        body: payload,
       }),
     }),
 
@@ -28,7 +28,7 @@ export const authApi = api.injectEndpoints({
       query: (payload) => ({
         url: `${STUDENT_AUTH_URL}/reset-password`,
         method: "POST",
-        data: payload,
+        body: payload,
       }),
     }),
 
@@ -37,10 +37,11 @@ export const authApi = api.injectEndpoints({
       query: (payload) => ({
         url: `${STUDENT_AUTH_URL}/new-password`,
         method: "POST",
-        data: payload,
+        body: payload,
       }),
     }),
   }),
 });
 
-export const { useMahasiswaRegistrationMutation } = authApi;
+export const { useMahasiswaRegistrationMutation, useMahasiswaLoginMutation } =
+  authApi;
