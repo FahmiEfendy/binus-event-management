@@ -1,7 +1,9 @@
 import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { CheckForm, SelectForm, TextForm } from "../forms";
+import { SelectForm, TextForm } from "../forms";
+import { useMahasiswaRegistrationMutation } from "../../api/authApi";
 
 const styles = {
   container: {
@@ -16,7 +18,19 @@ const styles = {
 };
 
 const Register = () => {
-  const { handleSubmit, control } = useForm();
+  const [responseMessage, setResponseMessage] = useState("");
+
+  const [
+    mahasiswaRegistration,
+    {
+      data: dataMahasiswaRegister,
+      isSuccess: isSuccessMahasiswaRegister,
+      isError: isErrorMahasiswaRegister,
+      error: errorMahasiswaRegister,
+    },
+  ] = useMahasiswaRegistrationMutation();
+
+  const { handleSubmit, control } = useForm({});
 
   const navigate = useNavigate();
 
@@ -24,50 +38,69 @@ const Register = () => {
     navigate("/login");
   };
 
-  const onSubmit = (data) => {
-    console.log(data);
-    goToLoginPage();
+  const onSubmit = async (data) => {
+    const payload = {
+      ...data,
+    };
+
+    await mahasiswaRegistration(payload);
   };
 
   const genderOptions = [
     {
-      value: "male",
+      value: "Male",
       label: "Male",
     },
     {
-      value: "female",
+      value: "Female",
       label: "Female",
     },
   ];
 
   const religionOptions = [
     {
-      value: "islam",
+      value: "Islam",
       label: "Islam",
     },
     {
-      value: "kristen",
+      value: "Kristen",
       label: "Kristen",
     },
     {
-      value: "katolik",
+      value: "Katolik",
       label: "Katolik",
     },
     {
-      value: "hindu",
+      value: "Hindu",
       label: "Hindu",
     },
     {
-      value: "buddha",
+      value: "Buddha",
       label: "Buddha",
     },
     {
-      value: "kongHuCu",
+      value: "Kong Hu Cu",
       label: "Kong Hu Cu",
     },
   ];
 
-  const notificationOptions = [{ value: "emailNotification", label: "Email" }];
+  // TODO: add notificationPreference (true or false)
+  // const notificationOptions = [{ value: "emailNotification", label: "Email" }];
+
+  useEffect(() => {
+    if (isSuccessMahasiswaRegister) {
+      setResponseMessage(dataMahasiswaRegister?.message);
+    } else if (isErrorMahasiswaRegister) {
+      setResponseMessage(errorMahasiswaRegister?.data);
+    }
+    console.log(responseMessage);
+  }, [
+    dataMahasiswaRegister?.message,
+    errorMahasiswaRegister,
+    isErrorMahasiswaRegister,
+    isSuccessMahasiswaRegister,
+    responseMessage,
+  ]);
 
   return (
     <form
@@ -104,10 +137,10 @@ const Register = () => {
         <div className="d-flex justify-content-between">
           <TextForm
             control={control}
-            name="fullName"
+            name="name"
             isRequired
-            label="Full Name"
-            placeholder="Enter your Full Name..."
+            label="Name"
+            placeholder="Enter your Name..."
             style={{ width: "48%" }}
           />
           <TextForm
@@ -123,10 +156,10 @@ const Register = () => {
         <div className="d-flex justify-content-between">
           <TextForm
             control={control}
-            name="phoneNumber"
+            name="phoneNo"
             isRequired
-            label="Phone Number"
-            placeholder="Enter your Phone Number..."
+            label="Phone No"
+            placeholder="Enter your Phone No..."
             style={{ width: "48%" }}
           />
 
@@ -150,12 +183,12 @@ const Register = () => {
             options={genderOptions}
             style={{ width: "48%" }}
           />
-          <CheckForm
+          {/* <CheckForm
             control={control}
             name="emailNotification"
             label="Notification Preference"
             options={notificationOptions}
-          />
+          /> */}
         </div>
         <div className="d-flex ms-auto mt-4">
           <button
