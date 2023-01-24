@@ -112,10 +112,10 @@ const Register = () => {
         style={styles.registerFormContainer}
         className="rounded p-5 m-auto d-flex flex-column"
       >
-        <p className="h1 text-center my-4">
+        <p className="h1 text-center my-3">
           Binus Event User Management Register
         </p>
-        <div className="d-flex justify-content-between">
+        <div className="d-flex justify-content-between mt-2">
           <TextForm
             control={control}
             name="email"

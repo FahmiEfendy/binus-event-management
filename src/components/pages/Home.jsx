@@ -3,14 +3,13 @@ import { EventBar } from "../atoms";
 const styles = {
   container: {
     maxWidth: "110rem",
-    width: "100%",
-    backgroundColor: "gray",
-    marginTop: "5rem",
-    padding: "3rem 1rem",
+    width: "97%",
+    marginTop: "3rem",
+    padding: "2rem",
   },
   header: {
     fontWeight: "600",
-    fontSize: "22px",
+    fontSize: "20px"
   },
 };
 
@@ -18,22 +17,22 @@ const Home = () => {
   return (
     <div
       style={styles.container}
-      className="container d-flex flex-column mx-auto px-4 rounded"
+      className="container d-flex flex-column mx-auto px-4 rounded general-style"
     >
       <div className="row w-100 mb-4">
-        <div className="col-3" style={styles.header}>
+        <div className="col-3 my-auto" style={styles.header}>
           Event
         </div>
-        <div className="col-2" style={styles.header}>
+        <div className="col-2 my-auto" style={styles.header}>
           Date
         </div>
-        <div className="col-2" style={styles.header}>
+        <div className="col-2 my-auto" style={styles.header}>
           Location
         </div>
-        <div className="col-2" style={styles.header}>
+        <div className="col-2 my-auto" style={styles.header}>
           Participant
         </div>
-        <div className="col-2" style={styles.header}>
+        <div className="col-2 my-auto" style={styles.header}>
           Price
         </div>
         <div className="col-1 d-flex" style={styles.header}>

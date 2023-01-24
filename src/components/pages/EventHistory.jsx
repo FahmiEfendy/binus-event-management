@@ -3,10 +3,9 @@ import { EventBar } from "../atoms";
 const styles = {
   container: {
     maxWidth: "110rem",
-    width: "100%",
-    backgroundColor: "gray",
-    marginTop: "5rem",
-    padding: "3rem 1rem",
+    width: "97%",
+    marginTop: "3rem",
+    padding: "2rem",
   },
   header: {
     fontWeight: "600",
@@ -18,7 +17,7 @@ const EventHistory = () => {
   return (
     <div
       style={styles.container}
-      className="container d-flex flex-column mx-auto px-4 rounded"
+      className="container d-flex flex-column mx-auto px-4 rounded general-style"
     >
       <div className="row w-100 mb-4">
         <div className="col-3" style={styles.header}>

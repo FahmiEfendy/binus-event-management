@@ -16,3 +16,14 @@ code {
   background-color: rgb(145, 220, 228) !important;
   color: rgb(40, 39, 39) !important;
 }
+
+.disable-input-focusable-shadow:focus {
+  border-width: 2px;
+  outline: none;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+.grey-color {
+  color: rgb(126, 126, 126);
+}

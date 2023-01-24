@@ -37,7 +37,7 @@ const ProfileDropdown = ({ setIsLogin }) => {
           className="rounded-circle me-4"
         />
       </div>
-      <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <div className="dropdown-menu me-4 mt-2" aria-labelledby="dropdownMenuButton">
         <button
           className="dropdown-item"
           style={styles.dropdownMenu}

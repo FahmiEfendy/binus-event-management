@@ -3,13 +3,13 @@ import { EventBar } from "../atoms";
 const styles = {
   container: {
     maxWidth: "110rem",
-    width: "100%",
-    backgroundColor: "gray",
-    marginTop: "5rem",
-    padding: "3rem 6rem",
+    width: "92%",
+    marginTop: "3rem",
+    padding: "3rem 5rem",
   },
   organizationLogo: {
-    width: "500px",
+    width: "300px",
+    height: "150px",
     backgroundColor: "white",
   },
   organizationDetail: {
@@ -21,36 +21,36 @@ const styles = {
   },
   header: {
     fontWeight: "600",
-    fontSize: "22px",
+    fontSize: "20px",
   },
 };
 
 const OrganizationDetail = () => {
   return (
-    <div style={styles.container} className="container mx-auto rounded mb-5">
+    <div style={styles.container} className="container mx-auto rounded mb-5 general-style">
       <div className="d-flex me-5">
         <img
           style={styles.organizationLogo}
           src={require("../../assets/logo-binus.png")}
           alt="Example Event Poster"
-          className="img-fluid me-5"
+          className="img-fluid me-5 border"
         />
         <div
-          className="d-flex flex-column justify-content-around mx-5"
+          className="d-flex flex-column mx-5 my-4"
           style={styles.organizationDetail}
         >
-          <div className="row">
-            <span className="col-3 h4">Organization</span>
-            <span className="col-9 h3">Example Organization</span>
+          <div className="row my-3">
+            <span className="col-4 h4">Organization</span>
+            <span className="col-8 h5">Example Organization</span>
           </div>
           <div className="row">
-            <span className="col-3 h4">Organization Type</span>
-            <span className="col-9 h3">Example Organization Type</span>
+            <span className="col-4 h4">Organization Type</span>
+            <span className="col-8 h5">Example Organization Type</span>
           </div>
         </div>
       </div>
       <div>
-        <p className="h2 mt-5 mb-4">Organization Details</p>
+        <p className="h3 mt-5 mb-4">Organization Details</p>
         <p className="h6 mt-3" style={styles.organizationDetailDescription}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a
           pellentesque risus, id aliquam urna. Mauris feugiat feugiat urna, at
@@ -76,7 +76,7 @@ const OrganizationDetail = () => {
         </p>
       </div>
       <div>
-        <p className="h2 mt-5 mb-4">Organization Events</p>
+        <p className="h3 mt-5 mb-4">Organization Events</p>
         <div className="row w-100 mb-4">
           <div className="col-3" style={styles.header}>
             Event
@@ -94,7 +94,7 @@ const OrganizationDetail = () => {
             Price
           </div>
           <div className="col-1 d-flex" style={styles.header}>
-            <button type="button" className="btn btn-light px-3 mx-auto">
+            <button type="button" className="btn btn-light px-3 mx-auto d-flex">
               <i className="bi bi-funnel px-1" aria-hidden="true"></i>Filter
             </button>
           </div>

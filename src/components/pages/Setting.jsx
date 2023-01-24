@@ -7,10 +7,9 @@ import { FileInput, TextForm } from "../forms";
 const styles = {
   container: {
     maxWidth: "110rem",
-    width: "100%",
-    backgroundColor: "gray",
-    marginTop: "5rem",
-    padding: "3rem 6rem",
+    width: "92%",
+    marginTop: "3rem",
+    padding: "2rem",
   },
 };
 
@@ -36,7 +35,7 @@ const Setting = () => {
 
   return (
     <>
-      <div style={styles.container} className="container mx-auto rounded mb-5">
+      <div style={styles.container} className="container mx-auto rounded mb-5 general-style">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="d-flex me-5 flex-column">
             <p className="h1 text-center my-4">Edit Profile</p>

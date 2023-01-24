@@ -58,15 +58,15 @@ const Login = ({ setIsLogin }) => {
             placeholder="Enter your password..."
             type="password"
           />
-          <button type="submit" className="btn btn-lg btn-primary w-100 py-3">
+          <button type="submit" className="btn btn-lg btn-primary w-100 py-2 mt-3">
             Login
           </button>
           <div className="d-flex flex-column mt-4">
-            <button className="btn btn-lg mb-1" onClick={goToResetPasswordPage}>
-              Forgot password?
+            <button className="btn btn-lg mb-1 grey-color" style={{cursor:"default"}}>
+              <span style={{borderBottom: "1px solid #7E7E7E", cursor:"pointer"}} onClick={goToResetPasswordPage}>Forgot password?</span>
             </button>
-            <button className="btn btn-lg" onClick={goToRegisterPage}>
-              Don't have account?
+            <button className="btn btn-lg grey-color" style={{cursor:"default"}}>
+            <span style={{borderBottom: "1px solid #7E7E7E", cursor:"pointer"}} onClick={goToRegisterPage}>Don't have account?</span>
             </button>
           </div>
         </div>

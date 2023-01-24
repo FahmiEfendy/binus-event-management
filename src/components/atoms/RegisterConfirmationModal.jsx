@@ -1,7 +1,12 @@
 const styles = {
   eventPoster: {
     width: "250px",
+    height: "220px"
   },
+  buttonClose: {
+    border: "none",
+    backgroundColor: "transparent"
+  }
 };
 
 const RegisterConfirmationModal = (props) => {
@@ -28,11 +33,12 @@ const RegisterConfirmationModal = (props) => {
     >
       <div
         className="modal-dialog modal-dialog-centered modal-lg"
+        style={{maxWidth:"650px"}}
         role="document"
       >
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalLongTitle">
+            <h5 className="modal-title ms-2" id="exampleModalLongTitle">
               Event Register Confirmation
             </h5>
             <button
@@ -41,6 +47,7 @@ const RegisterConfirmationModal = (props) => {
               data-dismiss="modal"
               aria-label="Close"
               onClick={closeModalHandler}
+              style={styles.buttonClose}
             >
               <i className="bi bi-x-circle"></i>
             </button>
@@ -50,18 +57,18 @@ const RegisterConfirmationModal = (props) => {
               style={styles.eventPoster}
               src={require("../../assets/example-event-poster.jpg")}
               alt="Example Event Poster"
-              className="img-fluid mx-5 w-25"
+              className="img-fluid mx-4 w-25 border"
             />
-            <div className="w-75 d-flex flex-column">
-              <p className="h1">Example Event Title</p>
+            <div className="w-75 d-flex flex-column mt-2">
+              <p className="h3">Example Event Title</p>
               <p className="h4 mt-2">Example Event Organizer</p>
-              <p className="text-center h4 mt-auto">
+              <p className=" h5 mt-auto">
                 Are you sure want to register?
               </p>
-              <div className="d-flex justify-content-center mt-3 mb-2">
+              <div className="d-flex mt-3">
                 <button
                   type="button"
-                  className="btn btn-light border border-primary mx-4 px-5"
+                  className="btn btn-light border border-primary me-3 px-4"
                   data-dismiss="modal"
                   aria-label="Close"
                   onClick={closeModalHandler}
@@ -70,7 +77,7 @@ const RegisterConfirmationModal = (props) => {
                 </button>
                 <button
                   type="button"
-                  className="btn btn-primary mx-4 px-5"
+                  className="btn btn-primary px-4"
                   data-toggle="modal"
                   data-target="#registrationSuccessModal"
                   data-dismiss="modal"
