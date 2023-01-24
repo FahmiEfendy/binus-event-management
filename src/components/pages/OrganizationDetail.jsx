@@ -50,7 +50,7 @@ const OrganizationDetail = () => {
         </div>
       </div>
       <div>
-        <p className="h3 mt-5 mb-4">Organization Details</p>
+        <p className="h4 mt-5 mb-4">Detail</p>
         <p className="h6 mt-3" style={styles.organizationDetailDescription}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a
           pellentesque risus, id aliquam urna. Mauris feugiat feugiat urna, at
@@ -76,8 +76,8 @@ const OrganizationDetail = () => {
         </p>
       </div>
       <div>
-        <p className="h3 mt-5 mb-4">Organization Events</p>
-        <div className="row w-100 mb-4">
+        <p className="h4 mt-5 mb-4">Event List</p>
+        <div className="row w-100 mb-4 ps-4 pe-3">
           <div className="col-3" style={styles.header}>
             Event
           </div>
@@ -94,20 +94,16 @@ const OrganizationDetail = () => {
             Price
           </div>
           <div className="col-1 d-flex" style={styles.header}>
-            <button type="button" className="btn btn-light px-3 mx-auto d-flex">
+            <button type="button" className="btn btn-light px-3 ms-1 d-flex">
               <i className="bi bi-funnel px-1" aria-hidden="true"></i>Filter
             </button>
           </div>
         </div>
-        <EventBar />
-        <hr />
-        <EventBar />
-        <hr />
-        <EventBar />
-        <hr />
-        <EventBar />
-        <hr />
-        <EventBar />
+        <div className="w-100 ms-2">
+          <EventBar />
+          <EventBar />
+          <EventBar />
+        </div>
       </div>
     </div>
   );

@@ -86,7 +86,7 @@ const Setting = () => {
             </div>
             <div className="d-flex ms-auto mt-4">
               <button
-                className="btn btn-light border border-primary px-5 py-2 mx-4"
+                className="btn btn-light px-5 py-2 mx-4"
                 onClick={goToHomePage}
               >
                 Cancel

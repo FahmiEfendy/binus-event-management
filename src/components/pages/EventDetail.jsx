@@ -94,7 +94,7 @@ const EventDetail = (props) => {
         </div>
       </div>
       <div>
-        <p className="h3 mt-5">Event Details</p>
+        <p className="h4 mt-5">Detail</p>
         <p className="h6 mt-3" style={styles.eventDetailDescription}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a
           pellentesque risus, id aliquam urna. Mauris feugiat feugiat urna, at

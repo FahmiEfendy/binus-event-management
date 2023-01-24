@@ -46,7 +46,7 @@ const RegistrationSuccessModal = (props) => {
             <div className="d-flex justify-content-center mt-3 mb-2">
               <button
                 type="button"
-                className="btn btn-light border border-primary mx-4 px-5"
+                className="btn btn-light mx-4 px-5"
                 data-dismiss="modal"
                 aria-label="Close"
                 onClick={goCheckEventHistoryHandler}

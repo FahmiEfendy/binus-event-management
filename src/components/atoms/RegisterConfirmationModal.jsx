@@ -68,7 +68,7 @@ const RegisterConfirmationModal = (props) => {
               <div className="d-flex mt-3">
                 <button
                   type="button"
-                  className="btn btn-light border border-primary me-3 px-4"
+                  className="btn btn-light me-3 px-4"
                   data-dismiss="modal"
                   aria-label="Close"
                   onClick={closeModalHandler}

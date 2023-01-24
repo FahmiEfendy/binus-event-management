@@ -17,9 +17,9 @@ const Home = () => {
   return (
     <div
       style={styles.container}
-      className="container d-flex flex-column mx-auto px-4 rounded general-style"
+      className="container d-flex flex-column mx-auto px-4 rounded container-general-style"
     >
-      <div className="row w-100 mb-4">
+      <div className="row w-100 mb-4 mx-auto px-3">
         <div className="col-3 my-auto" style={styles.header}>
           Event
         </div>
@@ -36,20 +36,16 @@ const Home = () => {
           Price
         </div>
         <div className="col-1 d-flex" style={styles.header}>
-          <button type="button" className="btn btn-light px-3 mx-auto">
+          <button type="button" className="btn btn-light px-3 d-flex">
             <i className="bi bi-funnel px-1" aria-hidden="true"></i>Filter
           </button>
         </div>
       </div>
-      <EventBar />
-      <hr />
-      <EventBar />
-      <hr />
-      <EventBar />
-      <hr />
-      <EventBar />
-      <hr />
-      <EventBar />
+      <div className="w-100 ms-3">
+        <EventBar />
+        <EventBar />
+        <EventBar />
+      </div>
     </div>
   );
 };

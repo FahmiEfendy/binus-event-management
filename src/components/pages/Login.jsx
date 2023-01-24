@@ -41,8 +41,8 @@ const Login = ({ setIsLogin }) => {
           />
         </div>
         <div className="w-50 px-5">
-          <p className="h1 text-center">Binus Event Management</p>
-          <p className="h1 text-center mb-4">User Login</p>
+          <p className="h2 text-center">Binus Event Management</p>
+          <p className="h2 text-center mb-4">User Login</p>
           <TextForm
             control={control}
             name="email"
@@ -62,11 +62,13 @@ const Login = ({ setIsLogin }) => {
             Login
           </button>
           <div className="d-flex flex-column mt-4">
-            <button className="btn btn-lg mb-1 grey-color" style={{cursor:"default"}}>
-              <span style={{borderBottom: "1px solid #7E7E7E", cursor:"pointer"}} onClick={goToResetPasswordPage}>Forgot password?</span>
+            <button className="btn btn-lg mb-1 grey-color">
+              <span style={{borderBottom: "1px solid #7E7E7E", cursor:"pointer"}} className="link-click" 
+                    onClick={goToResetPasswordPage}>Forgot password?</span>
             </button>
-            <button className="btn btn-lg grey-color" style={{cursor:"default"}}>
-            <span style={{borderBottom: "1px solid #7E7E7E", cursor:"pointer"}} onClick={goToRegisterPage}>Don't have account?</span>
+            <button className="btn btn-lg grey-color">
+            <span style={{borderBottom: "1px solid #7E7E7E", cursor:"pointer"}} className="link-click" 
+                    onClick={goToRegisterPage}>Don't have account?</span>
             </button>
           </div>
         </div>

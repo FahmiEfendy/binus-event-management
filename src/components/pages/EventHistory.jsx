@@ -19,7 +19,7 @@ const EventHistory = () => {
       style={styles.container}
       className="container d-flex flex-column mx-auto px-4 rounded general-style"
     >
-      <div className="row w-100 mb-4">
+      <div className="row w-100 mb-4 mx-auto px-3">
         <div className="col-3" style={styles.header}>
           Event
         </div>
@@ -36,20 +36,17 @@ const EventHistory = () => {
           Status
         </div>
         <div className="col-1 d-flex" style={styles.header}>
-          <button type="button" className="btn btn-light px-3 mx-auto">
+          <button type="button" className="btn btn-light px-3 d-flex">
             <i className="bi bi-funnel px-1" aria-hidden="true"></i>Filter
           </button>
         </div>
       </div>
-      <EventBar type="history" />
-      <hr />
-      <EventBar type="history" />
-      <hr />
-      <EventBar type="history" />
-      <hr />
-      <EventBar type="history" />
-      <hr />
-      <EventBar type="history" />
+
+      <div className="w-100 ms-3">
+        <EventBar type="history" />
+        <EventBar type="history" />
+        <EventBar type="history" />
+      </div>
     </div>
   );
 };

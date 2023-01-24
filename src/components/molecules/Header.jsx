@@ -11,13 +11,13 @@ const styles = {
     width: "80px",
   },
   activeLink: {
-    borderBottom: "3px groove black",
+    borderBottom: "3px groove #6643b5",
     paddingBottom: ".3rem",
-    color: "#000000",
+    color: "rgb(40,39,39)",
     textDecoration: "none",
   },
   inactiveLink: {
-    color: "#656464",
+    color: "#7E7E7E",
     textDecoration: "none",
     opacity: "0.9"
   },
@@ -37,17 +37,17 @@ const Header = ({ setIsLogin }) => {
           alt="Logo Binus"
         />
       </Link>
-      <div className="input-group w-25 mx-4 mt-2">
+      <div className="input-group w-25 mx-4">
         <input
           type="text"
           className="form-control disable-input-focusable-shadow"
           placeholder="Search something..."
         />
-        <span className="input-group-text">
-          <i className="bi bi-search"></i>
+        <span className="input-group-text" style={{backgroundColor:"#6643b5"}}>
+          <i className="bi bi-search" style={{color:"white"}}></i>
         </span>
       </div>
-      <p className="h5 my-auto mx-4">
+      <p className="h6 my-auto">
         <NavLink
           to="/"
           exact="true"
@@ -58,7 +58,7 @@ const Header = ({ setIsLogin }) => {
           Home
         </NavLink>
       </p>
-      <p className="h5 my-auto mx-4">
+      <p className="h6 my-auto mx-4">
         <NavLink
           to="/organization-list"
           exact="true"
@@ -69,7 +69,7 @@ const Header = ({ setIsLogin }) => {
           Organization List
         </NavLink>
       </p>
-      <p className="h5 my-auto mx-4">
+      <p className="h6 my-auto">
         <NavLink
           to="/event-history"
           exact="true"
