@@ -45,7 +45,7 @@ const EventList = ({ data }) => {
         </div>
       </div>
       <div className="w-100 ms-3">
-        {data?.eventList.map((data) => {
+        {data?.eventList?.map((data) => {
           return (
             <EventBar
               key={data._id}

@@ -3,10 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { TextForm } from "../../forms";
-import {
-  setPenyelenggaraToken,
-  setPenyelenggaraId,
-} from "../../../utils/storage";
+import { setToken, setPenyelenggaraId } from "../../../utils/storage";
 import { usePenyelenggaraLoginMutation } from "../../../api/authPenyelenggaraApi";
 
 const styles = {
@@ -42,7 +39,7 @@ const LoginPenyelenggara = ({ setIsLogin }) => {
 
   useEffect(() => {
     if (data?.token && JSON.stringify(data?.token) !== "{}") {
-      setPenyelenggaraToken(data?.token);
+      setToken(data?.token);
       setPenyelenggaraId(data?.penyelenggara._id);
     }
   }, [data?.penyelenggara._id, data?.token]);

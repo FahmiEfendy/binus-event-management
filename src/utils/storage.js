@@ -1,17 +1,9 @@
 export function setToken(value) {
-  localStorage.setItem("USER_TOKEN", value);
+  localStorage.setItem("BEM_TOKEN", value);
 }
 
 export function getToken() {
-  return localStorage.getItem("USER_TOKEN") || "";
-}
-
-export function setPenyelenggaraToken(value) {
-  localStorage.setItem("PENYELENGGARA_TOKEN", value);
-}
-
-export function getPenyelenggaraToken() {
-  return localStorage.getItem("PENYELENGGARA_TOKEN" || "");
+  return localStorage.getItem("BEM_TOKEN") || "";
 }
 
 export function setMahasiswaId(value) {
