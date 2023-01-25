@@ -7,7 +7,6 @@ const styles = {
   },
   dropdownMenu: {
     minWidth: "13rem",
-    // fontSize: "1.1rem",
     textAlign: "center",
   },
 };
