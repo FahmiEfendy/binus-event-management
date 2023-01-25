@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { Header } from "./components/molecules";
+import { LoginPenyelenggara } from "./components/pages/penyelenggara";
 import {
   EventDetail,
   EventHistory,
@@ -46,7 +47,20 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/new-password" element={<NewPassword />} />
 
-        <Route path="*" element={<p style={{margin:"1rem", fontWeight:"bold"}}>URL Not Found !</p>} />
+        <Route
+          path="*"
+          element={
+            <p style={{ margin: "1rem", fontWeight: "bold" }}>
+              URL Not Found !
+            </p>
+          }
+        />
+
+        {/* Penyelenggara */}
+        <Route
+          path="/penyelenggara/login"
+          element={<LoginPenyelenggara setIsLogin={setIsLogin} />}
+        />
       </Routes>
     </>
   );
