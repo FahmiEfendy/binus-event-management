@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { genderOptions, religionOptions } from "../../constants/option";
 import { SelectForm, TextForm } from "../forms";
 import { useMahasiswaRegistrationMutation } from "../../api/authApi";
 
@@ -45,47 +46,6 @@ const Register = () => {
 
     await mahasiswaRegistration(payload);
   };
-
-  const genderOptions = [
-    {
-      value: "Male",
-      label: "Male",
-    },
-    {
-      value: "Female",
-      label: "Female",
-    },
-  ];
-
-  const religionOptions = [
-    {
-      value: "Islam",
-      label: "Islam",
-    },
-    {
-      value: "Kristen",
-      label: "Kristen",
-    },
-    {
-      value: "Katolik",
-      label: "Katolik",
-    },
-    {
-      value: "Hindu",
-      label: "Hindu",
-    },
-    {
-      value: "Buddha",
-      label: "Buddha",
-    },
-    {
-      value: "Kong Hu Cu",
-      label: "Kong Hu Cu",
-    },
-  ];
-
-  // TODO: add notificationPreference (true or false)
-  // const notificationOptions = [{ value: "emailNotification", label: "Email" }];
 
   useEffect(() => {
     if (isSuccessMahasiswaRegister) {
