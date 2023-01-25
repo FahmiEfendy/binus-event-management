@@ -48,7 +48,7 @@ const LoginPenyelenggara = ({ setIsLogin }) => {
     if (isSuccess) {
       setResponseMessage(data?.message);
       setIsLogin(true);
-      navigate("/penyelenggara");
+      navigate("/penyelenggara/");
     } else if (isError) {
       setResponseMessage(error?.data?.message || "Error");
     }

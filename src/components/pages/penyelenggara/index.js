@@ -1,3 +1,4 @@
+import HomePenyelenggara from "./HomePenyelenggara";
 import LoginPenyelenggara from "./LoginPenyelenggara";
 
-export { LoginPenyelenggara };
+export { HomePenyelenggara, LoginPenyelenggara };

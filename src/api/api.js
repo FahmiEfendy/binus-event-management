@@ -15,6 +15,6 @@ export const api = createApi({
       return headers;
     },
   }),
-  tagTypes: ["binusAuth", "eventApi"],
+  tagTypes: ["auth", "authPenyelenggara", "eventApi"],
   endpoints: () => ({}),
 });

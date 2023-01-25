@@ -22,6 +22,38 @@ export const eventApi = api.injectEndpoints({
         };
       },
     }),
+
+    createEvent: builder.mutation({
+      invalidatesTags: ["event"],
+      query: (payload) => {
+        return {
+          url: `${STUDENT_EVENT_URL}/create`,
+          method: "POST",
+          body: payload,
+        };
+      },
+    }),
+
+    deleteEvent: builder.mutation({
+      invalidatesTags: ["Event"],
+      query: (id) => {
+        return {
+          url: `${STUDENT_EVENT_URL}/delete/${id}`,
+          method: "DELETE",
+        };
+      },
+    }),
+
+    updateEvent: builder.mutation({
+      invalidatesTags: ["Event"],
+      query: ({ id, payload }) => {
+        return {
+          url: `${STUDENT_EVENT_URL}/update-event/${id}`,
+          method: "PUT",
+          body: payload,
+        };
+      },
+    }),
   }),
 });
 

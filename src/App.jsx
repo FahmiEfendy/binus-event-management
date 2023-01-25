@@ -2,7 +2,10 @@ import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { Header } from "./components/molecules";
-import { LoginPenyelenggara } from "./components/pages/penyelenggara";
+import {
+  HomePenyelenggara,
+  LoginPenyelenggara,
+} from "./components/pages/penyelenggara";
 import {
   EventDetail,
   EventHistory,
@@ -61,6 +64,7 @@ function App() {
           path="/penyelenggara/login"
           element={<LoginPenyelenggara setIsLogin={setIsLogin} />}
         />
+        <Route path="/penyelenggara/" element={<HomePenyelenggara />} />
       </Routes>
     </>
   );
