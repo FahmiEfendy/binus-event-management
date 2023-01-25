@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { TextForm } from "../forms";
-import { setToken } from "../../utils/storage";
+import { setToken, setMahasiswaId } from "../../utils/storage";
 import { useMahasiswaLoginMutation } from "../../api/authApi";
 
 const styles = {
@@ -53,8 +53,9 @@ const Login = ({ setIsLogin }) => {
       JSON.stringify(dataMahasiswaLogin?.token) !== "{}"
     ) {
       setToken(dataMahasiswaLogin?.token);
+      setMahasiswaId(dataMahasiswaLogin?.mahasiswa._id);
     }
-  }, [dataMahasiswaLogin?.token]);
+  }, [dataMahasiswaLogin?.mahasiswa._id, dataMahasiswaLogin?.token]);
 
   useEffect(() => {
     if (isSuccessMahasiswaLogin) {
