@@ -41,7 +41,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/reset-password" element={<ResetPassword />} />
 
-        <Route path="*" element={<p>URL Not Found!</p>} />
+        <Route path="*" element={<p style={{margin:"1rem", fontWeight:"bold"}}>URL Not Found !</p>} />
       </Routes>
     </>
   );

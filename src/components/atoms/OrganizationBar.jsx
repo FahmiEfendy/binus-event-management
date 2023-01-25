@@ -16,7 +16,7 @@ const OrganizationBar = () => {
   };
 
   return (
-    <div className="row w-100 d-flex align-items-center">
+    <div className="row w-100 d-flex align-items-center table-list-border rounded">
       <div className="col-5 d-flex">
         <img
           style={styles.eventOrganizerLogo}
@@ -29,7 +29,7 @@ const OrganizationBar = () => {
         </div>
       </div>
       <div className="col-5">Example Event Organizer Type</div>
-      <div className="col-2  d-flex">
+      <div className="col-2 d-flex">
         <button
           type="button"
           className="btn btn-primary px-4 mx-auto"

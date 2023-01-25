@@ -41,8 +41,8 @@ const Login = ({ setIsLogin }) => {
           />
         </div>
         <div className="w-50 px-5">
-          <p className="h1 text-center">Binus Event Management</p>
-          <p className="h1 text-center mb-4">User Login</p>
+          <p className="h2 text-center">Binus Event Management</p>
+          <p className="h2 text-center mb-4">User Login</p>
           <TextForm
             control={control}
             name="email"
@@ -58,15 +58,17 @@ const Login = ({ setIsLogin }) => {
             placeholder="Enter your password..."
             type="password"
           />
-          <button type="submit" className="btn btn-lg btn-primary w-100 py-3">
+          <button type="submit" className="btn btn-lg btn-primary w-100 py-2 mt-3">
             Login
           </button>
           <div className="d-flex flex-column mt-4">
-            <button className="btn btn-lg mb-1" onClick={goToResetPasswordPage}>
-              Forgot password?
+            <button className="btn btn-lg mb-1 grey-color">
+              <span style={{borderBottom: "1px solid #7E7E7E", cursor:"pointer"}} className="link-click" 
+                    onClick={goToResetPasswordPage}>Forgot password?</span>
             </button>
-            <button className="btn btn-lg" onClick={goToRegisterPage}>
-              Don't have account?
+            <button className="btn btn-lg grey-color">
+            <span style={{borderBottom: "1px solid #7E7E7E", cursor:"pointer"}} className="link-click" 
+                    onClick={goToRegisterPage}>Don't have account?</span>
             </button>
           </div>
         </div>

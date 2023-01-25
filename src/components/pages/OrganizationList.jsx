@@ -3,14 +3,14 @@ import { OrganizationBar } from "../atoms";
 const styles = {
   container: {
     maxWidth: "110rem",
-    width: "100%",
-    backgroundColor: "gray",
-    marginTop: "5rem",
-    padding: "3rem 1rem",
+    width: "97%",
+    marginTop: "3rem",
+    marginBottom: "3rem",
+    padding: "2rem",
   },
   header: {
     fontWeight: "600",
-    fontSize: "22px",
+    fontSize: "20px",
   },
 };
 
@@ -18,9 +18,9 @@ const OrganizationList = () => {
   return (
     <div
       style={styles.container}
-      className="container d-flex flex-column mx-auto px-4 rounded"
+      className="container d-flex flex-column mx-auto px-4 rounded general-style"
     >
-      <div className="row w-100 mb-4">
+      <div className="row w-100 mb-4 mx-auto px-3">
         <div className="col-5" style={styles.header}>
           Organization
         </div>
@@ -28,16 +28,16 @@ const OrganizationList = () => {
           Type
         </div>
         <div className="col-2 d-flex" style={styles.header}>
-          <button type="button" className="btn btn-light px-3 mx-auto">
+          <button type="button" className="btn btn-light px-3 mx-auto d-flex">
             <i className="bi bi-funnel px-1" aria-hidden="true"></i>Filter
           </button>
         </div>
       </div>
-      <OrganizationBar />
-      <hr />
-      <OrganizationBar />
-      <hr />
-      <OrganizationBar />
+      <div className="w-100 ms-3">
+        <OrganizationBar />
+        <OrganizationBar />
+        <OrganizationBar />
+      </div>
     </div>
   );
 };

@@ -5,16 +5,17 @@ import { RegisterConfirmationModal, RegistrationSuccessModal } from "../atoms";
 const styles = {
   container: {
     maxWidth: "110rem",
-    width: "100%",
-    backgroundColor: "gray",
-    marginTop: "5rem",
-    padding: "3rem 6rem",
+    width: "92%",
+    marginTop: "3rem",
+    padding: "3rem 5rem",
   },
   eventDetail: {
     minWidth: "60%",
   },
   eventPoster: {
-    width: "500px",
+    minWidth: "400px",
+    maxWidth: "500px",
+    height: "480px",
   },
   eventDetailDescription: {
     lineHeight: "1.8rem",
@@ -35,65 +36,65 @@ const EventDetail = (props) => {
   };
 
   return (
-    <div style={styles.container} className="container mx-auto rounded mb-5">
+    <div style={styles.container} className="container mx-auto rounded mb-5 general-style">
       <div className="d-flex me-5">
         <img
           style={styles.eventPoster}
           src={require("../../assets/example-event-poster.jpg")}
           alt="Example Event Poster"
-          className="img-fluid me-5"
+          className="img-fluid border"
         />
         <div
-          className="d-flex flex-column justify-content-around mx-5"
+          className="d-flex flex-column mt-5 mx-5"
           style={styles.eventDetail}
         >
-          <div className="row">
+          <div className="row align-items-center mt-2">
             <span className="col-3 h4">Title</span>
-            <span className="col-9 h3">Example Event Title</span>
+            <span className="col-9 h5">Example Event Title</span>
           </div>
-          <div className="row">
+          <div className="row mt-4">
             <span className="col-3 h4">Organizer</span>
-            <span className="col-9 h3">Example Event Organizer</span>
+            <span className="col-9 h5">Example Event Organizer</span>
           </div>
-          <div className="row">
+          <div className="row mt-4">
             <span className="col-3 h4">Date</span>
-            <span className="col-9 h3">Example Event Date</span>
+            <span className="col-9 h5">Example Event Date</span>
           </div>
-          <div className="row">
+          <div className="row mt-4">
             <span className="col-3 h4">Location</span>
-            <span className="col-9 h3">Example Event Location</span>
+            <span className="col-9 h5">Example Event Location</span>
           </div>
-          <div className="row">
+          <div className="row mt-4">
             <span className="col-3 h4">Participant</span>
-            <span className="col-9 h3">Example Event Participant</span>
+            <span className="col-9 h5">Example Event Participant</span>
           </div>
-          <div className="row">
+          <div className="row mt-4">
             <span className="col-3 h4">
               {type === "history" ? "Status" : "Price"}
             </span>
-            <span className="col-9 h3">{`Example Event ${
+            <span className="col-9 h5">{`Example Event ${
               type === "history" ? "Status" : "Price"
             }`}</span>
           </div>
           {type === "history" ? (
             ""
           ) : (
-            <div className="row">
+            <div className="mt-auto">
               <button
                 type="button"
-                className="btn btn-primary py-2 col-12"
+                className="btn btn-primary"
                 data-toggle="modal"
                 data-target="#registrationConfirmationModal"
                 onClick={registerHandler}
               >
-                <p className="h4">Register</p>
+                <p className="h6 m-auto px-3 py-1">Register</p>
               </button>
             </div>
           )}
         </div>
       </div>
       <div>
-        <p className="h2 mt-5">Event Details</p>
+        <p className="h4 mt-5">Detail</p>
         <p className="h6 mt-3" style={styles.eventDetailDescription}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a
           pellentesque risus, id aliquam urna. Mauris feugiat feugiat urna, at

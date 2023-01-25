@@ -22,7 +22,7 @@ const EventBar = (props) => {
   };
 
   return (
-    <div className="row w-100 d-flex align-items-center">
+    <div className="row w-100 d-flex align-items-center rounded table-list-border">
       <div className="col-3 d-flex">
         <img
           style={styles.eventOrganizerLogo}
