@@ -25,7 +25,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/setting" element={<Setting />}></Route>
 
-        <Route path="/example-event-path" element={<EventDetail />} />
+        <Route path="/detail/:eventId" element={<EventDetail />} />
         <Route
           path="/example-event-history-path"
           element={<EventDetail type="history" />}

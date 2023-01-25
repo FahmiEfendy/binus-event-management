@@ -12,7 +12,17 @@ export const eventApi = api.injectEndpoints({
         };
       },
     }),
+
+    getEventDetail: builder.query({
+      invalidatesTags: ["event"],
+      query: (id) => {
+        return {
+          url: `${STUDENT_EVENT_URL}/detail/${id}`,
+          method: "GET",
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetEventListQuery } = eventApi;
+export const { useGetEventListQuery, useGetEventDetailQuery } = eventApi;

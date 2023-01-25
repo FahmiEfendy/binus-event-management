@@ -10,6 +10,7 @@ const styles = {
 
 const EventBar = ({
   type,
+  eventId,
   title,
   organizer,
   date,
@@ -20,7 +21,7 @@ const EventBar = ({
   const navigate = useNavigate();
 
   const eventDetailHandler = () => {
-    navigate("/example-event-path");
+    navigate(`/detail/${eventId}`);
   };
 
   const eventHistoryDetailHandler = () => {
@@ -30,6 +31,7 @@ const EventBar = ({
   return (
     <div className="row w-100 d-flex align-items-center">
       <div className="col-3 d-flex">
+        {/* TODO : img src should get from BE */}
         <img
           style={styles.eventOrganizerLogo}
           className="rounded my-auto"

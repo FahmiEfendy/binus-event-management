@@ -63,6 +63,7 @@ const Home = () => {
         return (
           <EventBar
             key={data._id}
+            eventId={data._id}
             title={data.title}
             organizer={data.organizer}
             date={moment(data.startDate).format("LL")}

@@ -1,5 +1,8 @@
-import { useState } from "react";
+import moment from "moment";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
+import { useGetEventDetailQuery } from "../../api/eventApi";
 import { RegisterConfirmationModal, RegistrationSuccessModal } from "../atoms";
 
 const styles = {
@@ -22,17 +25,29 @@ const styles = {
   },
 };
 
-const EventDetail = (props) => {
-  const { type } = props;
-
+const EventDetail = ({ type }) => {
+  const [responseMessage, setResponseMessage] = useState("");
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isRegistrationSuccessModalOpen, setIsRegistrationSuccessModalOpen] =
     useState(false);
+
+  const { eventId } = useParams();
+
+  const { data, isSuccess, isError } = useGetEventDetailQuery(eventId);
 
   const registerHandler = () => {
     setIsRegisterModalOpen(true);
     console.log(isRegisterModalOpen);
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      setResponseMessage("Success get event detail");
+    } else if (isError) {
+      setResponseMessage("Failed get event detail");
+    }
+    console.log(responseMessage);
+  }, [isError, isSuccess, responseMessage]);
 
   return (
     <div style={styles.container} className="container mx-auto rounded mb-5">
@@ -49,30 +64,37 @@ const EventDetail = (props) => {
         >
           <div className="row">
             <span className="col-3 h4">Title</span>
-            <span className="col-9 h3">Example Event Title</span>
+            <span className="col-9 h3">{data?.title}</span>
           </div>
           <div className="row">
             <span className="col-3 h4">Organizer</span>
-            <span className="col-9 h3">Example Event Organizer</span>
+            <span className="col-9 h3">{data?.organizer}</span>
           </div>
           <div className="row">
             <span className="col-3 h4">Date</span>
-            <span className="col-9 h3">Example Event Date</span>
+            <span className="col-9 h3">
+              {moment(data?.startDate).format("LL")}
+            </span>
+          </div>
+          <div className="row">
+            <span className="col-3 h4">Type</span>
+            <span className="col-9 h3">{data?.eventType}</span>
           </div>
           <div className="row">
             <span className="col-3 h4">Location</span>
-            <span className="col-9 h3">Example Event Location</span>
+            <span className="col-9 h3">{data?.location}</span>
           </div>
           <div className="row">
             <span className="col-3 h4">Participant</span>
-            <span className="col-9 h3">Example Event Participant</span>
+            {/* TODO: participant / totalQuota */}
+            <span className="col-9 h3">{data?.totalQuota}</span>
           </div>
           <div className="row">
             <span className="col-3 h4">
               {type === "history" ? "Status" : "Price"}
             </span>
-            <span className="col-9 h3">{`Example Event ${
-              type === "history" ? "Status" : "Price"
+            <span className="col-9 h3">{`${
+              type === "history" ? "Status" : `${data?.price}`
             }`}</span>
           </div>
           {type === "history" ? (
@@ -95,27 +117,7 @@ const EventDetail = (props) => {
       <div>
         <p className="h2 mt-5">Event Details</p>
         <p className="h6 mt-3" style={styles.eventDetailDescription}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a
-          pellentesque risus, id aliquam urna. Mauris feugiat feugiat urna, at
-          placerat tellus fermentum id. Nam pellentesque, mauris sed faucibus
-          tempus, ante felis finibus tortor, et pretium est nibh a leo. Proin
-          placerat in eros eu interdum. Sed sollicitudin ipsum non finibus
-          lacinia. Suspendisse potenti. Donec erat orci, malesuada eu neque id,
-          euismod ultrices metus. Suspendisse dolor quam, faucibus ac sem
-          pharetra, dictum tristique felis. Maecenas a libero dictum, tempus
-          mauris a, lobortis augue. Integer eu justo sit amet mi sodales
-          condimentum non vel massa. Cras vitae sodales nibh, vel tempus erat.
-          Sed id est ex. Mauris sagittis, dolor quis volutpat rutrum, leo nisi
-          elementum nisl, eget porta nisl tellus id arcu. Fusce ac vulputate
-          enim. In ac nisl dui. Fusce et dui iaculis, vehicula dolor sit amet,
-          dignissim lectus. Aliquam at metus quis ex consequat venenatis.
-          Phasellus elementum metus velit, eget tempor sem iaculis sed. Integer
-          quis molestie orci. Donec vitae hendrerit velit. Nullam eu ligula vel
-          tellus tempor consequat. Duis luctus tortor laoreet odio vehicula
-          auctor. Integer metus tellus, cursus et felis at, pulvinar ultrices
-          felis. Suspendisse justo orci, consequat in molestie eget, rhoncus ut
-          massa. Sed et tellus sit amet turpis scelerisque malesuada eget ac
-          nibh.
+          {data?.description}
         </p>
       </div>
       {isRegisterModalOpen && (
