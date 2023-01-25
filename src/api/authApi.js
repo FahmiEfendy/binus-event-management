@@ -43,5 +43,8 @@ export const authApi = api.injectEndpoints({
   }),
 });
 
-export const { useMahasiswaRegistrationMutation, useMahasiswaLoginMutation } =
-  authApi;
+export const {
+  useMahasiswaRegistrationMutation,
+  useMahasiswaLoginMutation,
+  useMahasiswaResetPasswordMutation,
+} = authApi;
