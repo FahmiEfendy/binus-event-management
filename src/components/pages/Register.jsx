@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
 
 import { genderOptions, religionOptions } from "../../constants/option";
 import { SelectForm, TextForm } from "../forms";
@@ -35,9 +35,9 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  const goToLoginPage = () => {
+  const goToLoginPage = useCallback(() => {
     navigate("/login");
-  };
+  }, [navigate]);
 
   const onSubmit = async (data) => {
     const payload = {
@@ -50,6 +50,7 @@ const Register = () => {
   useEffect(() => {
     if (isSuccessMahasiswaRegister) {
       setResponseMessage(dataMahasiswaRegister?.message);
+      goToLoginPage();
     } else if (isErrorMahasiswaRegister) {
       setResponseMessage(errorMahasiswaRegister?.data?.message[0] || "Error");
     }
@@ -57,6 +58,7 @@ const Register = () => {
   }, [
     dataMahasiswaRegister?.message,
     errorMahasiswaRegister?.data?.message,
+    goToLoginPage,
     isErrorMahasiswaRegister,
     isSuccessMahasiswaRegister,
     responseMessage,

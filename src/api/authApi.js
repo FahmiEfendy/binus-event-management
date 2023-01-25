@@ -40,6 +40,15 @@ export const authApi = api.injectEndpoints({
         body: payload,
       }),
     }),
+
+    updateProfileMahasiswa: builder.mutation({
+      invalidatesTags: ["auth"],
+      query: ({ id, payload }) => ({
+        url: `${STUDENT_AUTH_URL}/update-profile/${id}`,
+        method: "PUT",
+        body: payload,
+      }),
+    }),
   }),
 });
 
@@ -48,4 +57,5 @@ export const {
   useMahasiswaLoginMutation,
   useMahasiswaResetPasswordMutation,
   useMahasiswaNewPasswordMutation,
+  useUpdateProfileMahasiswaMutation,
 } = authApi;

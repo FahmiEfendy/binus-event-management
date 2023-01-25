@@ -63,7 +63,7 @@ const Login = ({ setIsLogin }) => {
       setIsLogin(true);
       navigate("/");
     } else if (isErrorMahasiswaLogin) {
-      setResponseMessage(errorMahasiswaLogin?.data?.message[0] || "Error");
+      setResponseMessage(errorMahasiswaLogin?.data?.message || "Error");
     }
     console.log(responseMessage);
   }, [

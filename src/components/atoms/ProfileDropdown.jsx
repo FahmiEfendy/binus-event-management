@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import { clearStorage } from "../../utils/storage";
+import { clearStorage, getMahasiswaId } from "../../utils/storage";
 
 const styles = {
   profilePicture: {
@@ -20,7 +20,7 @@ const ProfileDropdown = ({ setIsLogin }) => {
   const username = "John Doe";
 
   const goToSettingPage = () => {
-    navigate("/setting");
+    navigate(`/update-profile/${getMahasiswaId()}`);
   };
 
   const logoutHandler = () => {

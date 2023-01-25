@@ -2,9 +2,6 @@ import React, { useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 
 const styles = {
-  container: {
-    margin: "0rem 2rem",
-  },
   input: {
     height: "180px",
     width: "180px",

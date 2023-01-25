@@ -23,7 +23,10 @@ function App() {
       {isLogin && <Header setIsLogin={setIsLogin} />}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/setting" element={<Setting />}></Route>
+        <Route
+          path="/update-profile/:mahasiswaId"
+          element={<Setting />}
+        ></Route>
 
         <Route path="/detail/:eventId" element={<EventDetail />} />
         <Route
