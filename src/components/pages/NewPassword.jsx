@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { TextForm } from "../forms";
 import { SuccessModal } from "../atoms";
-import { useMahasiswaResetPasswordMutation } from "../../api/authApi";
+import { useMahasiswaNewPasswordMutation } from "../../api/authApi";
 
 const styles = {
   image: {
@@ -14,21 +14,21 @@ const styles = {
   },
 };
 
-const ResetPassword = () => {
+const NewPassword = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
 
   const [
-    mahasiswaResetPassword,
+    mahasiswaNewPassword,
     {
-      data: dataMahasiswaResetPassword,
-      isSuccess: isSuccessMahasiswaResetPassword,
-      isError: isErrorMahasiswaResetPassword,
-      error: errorMahasiswaResetPassword,
+      data: dataMahasiswaNewPassword,
+      isSuccess: isSuccessMahasiswaNewPassword,
+      isError: isErrorMahasiswaNewPassword,
+      error: errorMahasiswaNewPassword,
     },
-  ] = useMahasiswaResetPasswordMutation();
+  ] = useMahasiswaNewPasswordMutation();
 
-  const { handleSubmit, control, getValues } = useForm({});
+  const { handleSubmit, control } = useForm();
 
   const navigate = useNavigate();
 
@@ -37,26 +37,29 @@ const ResetPassword = () => {
   };
 
   const onSubmit = async (data) => {
+    //TODO: add token to payload
     const payload = {
       ...data,
     };
 
-    await mahasiswaResetPassword(payload);
+    await mahasiswaNewPassword(payload);
   };
 
   useEffect(() => {
-    if (isSuccessMahasiswaResetPassword) {
-      setResponseMessage(dataMahasiswaResetPassword?.message);
+    if (isSuccessMahasiswaNewPassword) {
+      // TODO: fix setResponseMessage
+      // setResponseMessage(dataMahasiswaNewPassword?.message);
       setIsModalOpen(true);
-    } else if (isErrorMahasiswaResetPassword) {
-      setResponseMessage(errorMahasiswaResetPassword?.data?.error || "Error");
+      console.log(dataMahasiswaNewPassword);
+    } else if (isErrorMahasiswaNewPassword) {
+      setResponseMessage(errorMahasiswaNewPassword?.data?.error || "Error");
     }
     console.log(responseMessage);
   }, [
-    dataMahasiswaResetPassword?.message,
-    errorMahasiswaResetPassword?.data?.error,
-    isErrorMahasiswaResetPassword,
-    isSuccessMahasiswaResetPassword,
+    dataMahasiswaNewPassword,
+    errorMahasiswaNewPassword?.data?.error,
+    isErrorMahasiswaNewPassword,
+    isSuccessMahasiswaNewPassword,
     responseMessage,
   ]);
 
@@ -75,18 +78,27 @@ const ResetPassword = () => {
             <p className="h1 text-center">Binus Event Management</p>
             <p className="h1 text-center mb-4">Reset Password</p>
             <TextForm
+              type="password"
               control={control}
-              name="email"
-              label="Email"
+              name="password"
+              label="Password"
               isRequired
-              placeholder="Enter your email..."
+              placeholder="Enter your password..."
+            />
+            <TextForm
+              type="password"
+              control={control}
+              name="confirmPassword"
+              label="Confirm Password"
+              isRequired
+              placeholder="Enter your confirmation password..."
             />
             <button type="submit" className="btn btn-lg btn-primary w-100 py-3">
-              Reset Password
+              Save Changes
             </button>
             <div className="d-flex flex-column mt-4">
               <button className="btn btn-lg" onClick={goToLoginPage}>
-                Back to Login
+                Cancel
               </button>
             </div>
           </div>
@@ -96,14 +108,11 @@ const ResetPassword = () => {
       <SuccessModal
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
-        title="Password Reset Request Sent!"
-        body={`Please check your email address ${getValues(
-          "email"
-        )} for instructions to reset
-          your password`}
+        title="Password Changed!"
+        body="Your password has been changed successfully."
       />
     </>
   );
 };
 
-export default ResetPassword;
+export default NewPassword;

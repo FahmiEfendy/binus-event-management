@@ -7,6 +7,7 @@ import {
   EventHistory,
   Home,
   Login,
+  NewPassword,
   OrganizationDetail,
   OrganizationList,
   Register,
@@ -40,6 +41,7 @@ function App() {
         <Route path="/login" element={<Login setIsLogin={setIsLogin} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/new-password" element={<NewPassword />} />
 
         <Route path="*" element={<p>URL Not Found!</p>} />
       </Routes>

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
 
-const ResetPasswordSuccessModal = ({ email, isOpen, setIsOpen }) => {
+const ResetPasswordSuccessModal = ({ body, isOpen, setIsOpen, title }) => {
   const navigate = useNavigate();
 
   const goToLoginPage = () => {
@@ -12,7 +12,7 @@ const ResetPasswordSuccessModal = ({ email, isOpen, setIsOpen }) => {
   return (
     <Modal size="lg" show={isOpen} centered>
       <Modal.Header closeButton style={{ padding: "1.5rem 2rem" }}>
-        <Modal.Title>Password Reset Request Sent!</Modal.Title>
+        <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body
         style={{
@@ -27,10 +27,7 @@ const ResetPasswordSuccessModal = ({ email, isOpen, setIsOpen }) => {
           alt="Reset Password Success"
           className="img-fluid mx-5 w-50"
         />
-        <p style={{ fontSize: "22px", textAlign: "center" }}>
-          Please check your email address ({email}) for instructions to reset
-          your password
-        </p>
+        <p style={{ fontSize: "22px", textAlign: "center" }}>{body}</p>
       </Modal.Body>
       <Modal.Footer>
         <Button size="lg" variant="primary" onClick={goToLoginPage}>

@@ -47,4 +47,5 @@ export const {
   useMahasiswaRegistrationMutation,
   useMahasiswaLoginMutation,
   useMahasiswaResetPasswordMutation,
+  useMahasiswaNewPasswordMutation,
 } = authApi;
