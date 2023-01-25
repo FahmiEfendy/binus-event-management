@@ -1,4 +1,8 @@
+import moment from "moment";
+import { useEffect, useState } from "react";
+
 import { EventBar } from "../atoms";
+import { useGetEventListQuery } from "../../api/eventApi";
 
 const styles = {
   container: {
@@ -15,6 +19,19 @@ const styles = {
 };
 
 const Home = () => {
+  const [responseMessage, setResponseMessage] = useState("");
+
+  const { data: eventList, error, isError, isSuccess } = useGetEventListQuery();
+
+  useEffect(() => {
+    if (isSuccess) {
+      setResponseMessage("Success get Event List");
+    } else if (isError) {
+      setResponseMessage(error);
+    }
+    console.log(responseMessage);
+  }, [error, isError, isSuccess, responseMessage]);
+
   return (
     <div
       style={styles.container}
@@ -42,15 +59,20 @@ const Home = () => {
           </button>
         </div>
       </div>
-      <EventBar />
-      <hr />
-      <EventBar />
-      <hr />
-      <EventBar />
-      <hr />
-      <EventBar />
-      <hr />
-      <EventBar />
+      {eventList?.eventList.map((data) => {
+        return (
+          <EventBar
+            key={data._id}
+            title={data.title}
+            organizer={data.organizer}
+            date={moment(data.startDate).format("LL")}
+            location={data.location}
+            // TODO: totalQuota atau jumlah yang udah ikut ?
+            participant={data.totalQuota}
+            price={data.price}
+          />
+        );
+      })}
     </div>
   );
 };

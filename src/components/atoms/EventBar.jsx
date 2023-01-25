@@ -8,9 +8,15 @@ const styles = {
   },
 };
 
-const EventBar = (props) => {
-  const { type } = props;
-
+const EventBar = ({
+  type,
+  title,
+  organizer,
+  date,
+  location,
+  participant,
+  price,
+}) => {
   const navigate = useNavigate();
 
   const eventDetailHandler = () => {
@@ -31,15 +37,15 @@ const EventBar = (props) => {
           alt="Example Event Organizer Logo"
         />
         <div className="mx-3">
-          <p className="my-1">Example Event Name</p>
-          <p className="my-1">Example Event Organizer</p>
+          <p className="my-1">{title}</p>
+          <p className="my-1">{organizer}</p>
         </div>
       </div>
-      <div className="col-2">Example Event Date</div>
-      <div className="col-2">Example Event Location</div>
-      <div className="col-2">Example Event Participant</div>
-      <div className="col-2">{`Example Event ${
-        type === "history" ? "Status" : "Price"
+      <div className="col-2">{date}</div>
+      <div className="col-2">{location}</div>
+      <div className="col-2">{participant}</div>
+      <div className="col-2">{`${
+        type === "history" ? "Status" : `${price}`
       }`}</div>
       <div className="col-1 d-flex">
         <button
