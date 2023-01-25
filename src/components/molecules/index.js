@@ -1,3 +1,4 @@
+import EventList from "./EventList";
 import Header from "./Header";
 
-export { Header };
+export { EventList, Header };
