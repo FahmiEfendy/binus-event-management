@@ -5,6 +5,7 @@ const styles = {
     maxWidth: "110rem",
     width: "97%",
     marginTop: "3rem",
+    marginBottom: "3rem",
     padding: "2rem",
   },
   header: {

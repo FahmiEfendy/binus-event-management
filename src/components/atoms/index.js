@@ -3,6 +3,7 @@ import OrganizationBar from "./OrganizationBar";
 import ProfileDropdown from "./ProfileDropdown";
 import RegisterConfirmationModal from "./RegisterConfirmationModal";
 import RegistrationSuccessModal from "./RegistrationSuccessModal";
+import CarouselComponent from "./Carousel";
 
 export {
   EventBar,
@@ -10,4 +11,5 @@ export {
   ProfileDropdown,
   RegisterConfirmationModal,
   RegistrationSuccessModal,
+  CarouselComponent,
 };
