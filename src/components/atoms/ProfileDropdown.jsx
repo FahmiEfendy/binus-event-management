@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
+import { clearStorage } from "../../utils/storage";
+
 const styles = {
   profilePicture: {
     height: "50px",
@@ -23,6 +25,7 @@ const ProfileDropdown = ({ setIsLogin }) => {
 
   const logoutHandler = () => {
     setIsLogin(false);
+    clearStorage();
     navigate("/login");
   };
 
