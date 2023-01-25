@@ -3,14 +3,14 @@ import { EventBar } from "../atoms";
 const styles = {
   container: {
     maxWidth: "110rem",
-    width: "100%",
-    backgroundColor: "gray",
-    marginTop: "5rem",
-    padding: "3rem 1rem",
+    width: "97%",
+    marginTop: "3rem",
+    marginBottom: "3rem",
+    padding: "2rem",
   },
   header: {
     fontWeight: "600",
-    fontSize: "22px",
+    fontSize: "20px",
   },
 };
 
@@ -18,9 +18,9 @@ const EventHistory = () => {
   return (
     <div
       style={styles.container}
-      className="container d-flex flex-column mx-auto px-4 rounded"
+      className="container d-flex flex-column mx-auto px-4 rounded general-style"
     >
-      <div className="row w-100 mb-4">
+      <div className="row w-100 mb-4 mx-auto px-3">
         <div className="col-3" style={styles.header}>
           Event
         </div>
@@ -37,20 +37,17 @@ const EventHistory = () => {
           Status
         </div>
         <div className="col-1 d-flex" style={styles.header}>
-          <button type="button" className="btn btn-light px-3 mx-auto">
+          <button type="button" className="btn btn-light px-3 d-flex">
             <i className="bi bi-funnel px-1" aria-hidden="true"></i>Filter
           </button>
         </div>
       </div>
-      <EventBar type="history" />
-      <hr />
-      <EventBar type="history" />
-      <hr />
-      <EventBar type="history" />
-      <hr />
-      <EventBar type="history" />
-      <hr />
-      <EventBar type="history" />
+
+      <div className="w-100 ms-3">
+        <EventBar type="history" />
+        <EventBar type="history" />
+        <EventBar type="history" />
+      </div>
     </div>
   );
 };

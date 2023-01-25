@@ -74,10 +74,10 @@ const Register = () => {
         style={styles.registerFormContainer}
         className="rounded p-5 m-auto d-flex flex-column"
       >
-        <p className="h1 text-center my-4">
+        <p className="h2 text-center my-3">
           Binus Event User Management Register
         </p>
-        <div className="d-flex justify-content-between">
+        <div className="d-flex justify-content-between mt-3">
           <TextForm
             control={control}
             name="email"
@@ -154,7 +154,7 @@ const Register = () => {
         </div>
         <div className="d-flex ms-auto mt-4">
           <button
-            className="btn btn-light border border-primary px-5 py-2 mx-4"
+            className="btn btn-light px-5 py-2 mx-4"
             onClick={goToLoginPage}
           >
             Cancel

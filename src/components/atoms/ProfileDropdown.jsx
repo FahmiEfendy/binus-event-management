@@ -9,7 +9,6 @@ const styles = {
   },
   dropdownMenu: {
     minWidth: "13rem",
-    fontSize: "1.1rem",
     textAlign: "center",
   },
 };
@@ -32,7 +31,7 @@ const ProfileDropdown = ({ setIsLogin }) => {
   return (
     <div className="dropdown">
       <div className="d-flex" data-toggle="dropdown" id="dropdownMenuButton">
-        <p className="h5 my-auto mx-4">{username}</p>
+        <p className="h6 my-auto mx-4">{username}</p>
         <img
           style={styles.profilePicture}
           src={require("../../assets/user-profile-picture.jpg")}
@@ -40,7 +39,7 @@ const ProfileDropdown = ({ setIsLogin }) => {
           className="rounded-circle me-4"
         />
       </div>
-      <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <div className="dropdown-menu me-4 mt-2" aria-labelledby="dropdownMenuButton">
         <button
           className="dropdown-item"
           style={styles.dropdownMenu}

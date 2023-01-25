@@ -73,7 +73,7 @@ const ResetPassword = () => {
           </div>
           <div className="w-50 px-5">
             <p className="h1 text-center">Binus Event Management</p>
-            <p className="h1 text-center mb-4">Reset Password</p>
+            <p className="h text-center mb-4">Reset Password</p>
             <TextForm
               control={control}
               name="email"
@@ -81,13 +81,54 @@ const ResetPassword = () => {
               isRequired
               placeholder="Enter your email..."
             />
-            <button type="submit" className="btn btn-lg btn-primary w-100 py-3">
-              Reset Password
+            <TextForm
+              control={control}
+              name="password"
+              label="Password"
+              isRequired
+              placeholder="Enter your password..."
+              type="password"
+            />
+            <TextForm
+              control={control}
+              name="newPassword"
+              label="New Password"
+              isRequired
+              placeholder="Enter your new password..."
+              type="password"
+            />
+            <TextForm
+              control={control}
+              name="confirmNewpassword"
+              label="Confirm New Password"
+              isRequired
+              placeholder="Enter your confirmation new password..."
+              type="password"
+            />
+            <button
+              type="submit"
+              className="btn btn-lg btn-primary w-100 py-2 mt-3"
+            >
+              Save Changes
             </button>
             <div className="d-flex flex-column mt-4">
-              <button className="btn btn-lg" onClick={goToLoginPage}>
-                Back to Login
+              <button className="btn btn-lg grey-color">
+                <span
+                  style={{
+                    borderBottom: "1px solid #7E7E7E",
+                    cursor: "pointer",
+                  }}
+                  className="link-click"
+                  onClick={goToLoginPage}
+                >
+                  Back to Login
+                </span>
               </button>
+              <div className="d-flex flex-column mt-4">
+                <button className="btn btn-lg" onClick={goToLoginPage}>
+                  Back to Login
+                </button>
+              </div>
             </div>
           </div>
         </div>

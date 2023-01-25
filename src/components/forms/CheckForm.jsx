@@ -17,7 +17,7 @@ const CheckForm = (props) => {
             <div className="d-flex">
               {options.map((data) => {
                 return (
-                  <div className="form-check pt-4 mx-3" key={data.value}>
+                  <div className="form-check pt-2 mx-3" key={data.value}>
                     <input
                       {...field}
                       className="form-check-input"

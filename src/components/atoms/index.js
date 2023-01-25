@@ -1,3 +1,4 @@
+import CarouselComponent from "./Carousel";
 import EventBar from "./EventBar";
 import OrganizationBar from "./OrganizationBar";
 import ProfileDropdown from "./ProfileDropdown";
@@ -6,6 +7,7 @@ import RegistrationSuccessModal from "./RegistrationSuccessModal";
 import SuccessModal from "./SuccessModal";
 
 export {
+  CarouselComponent,
   EventBar,
   OrganizationBar,
   ProfileDropdown,

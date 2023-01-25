@@ -10,10 +10,9 @@ import { genderOptions, religionOptions } from "../../constants/option";
 const styles = {
   container: {
     maxWidth: "110rem",
-    width: "100%",
-    backgroundColor: "gray",
-    marginTop: "5rem",
-    padding: "3rem 6rem",
+    width: "92%",
+    marginTop: "3rem",
+    padding: "2rem",
   },
 };
 
@@ -72,7 +71,7 @@ const Setting = () => {
 
   return (
     <>
-      <div style={styles.container} className="container mx-auto rounded mb-5">
+      <div style={styles.container} className="container mx-auto rounded mb-5 general-style">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="d-flex me-5 flex-column">
             <p className="h1 text-center my-4">Edit Profile</p>
@@ -135,7 +134,7 @@ const Setting = () => {
             <FileInput label="Profile Picture" file={file} setFile={setFile} />
             <div className="d-flex ms-auto mt-4">
               <button
-                className="btn btn-light border border-primary px-5 py-2 mx-4"
+                className="btn btn-light px-5 py-2 mx-4"
                 onClick={goToHomePage}
               >
                 Cancel

@@ -46,7 +46,7 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/new-password" element={<NewPassword />} />
 
-        <Route path="*" element={<p>URL Not Found!</p>} />
+        <Route path="*" element={<p style={{margin:"1rem", fontWeight:"bold"}}>URL Not Found !</p>} />
       </Routes>
     </>
   );

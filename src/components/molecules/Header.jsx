@@ -4,22 +4,22 @@ import { ProfileDropdown } from "../atoms";
 
 const styles = {
   container: {
-    backgroundColor: "gray",
-    height: "8vh",
+    height: "12vh",
   },
   logo: {
     height: "60px",
     width: "80px",
   },
   activeLink: {
-    borderBottom: "1px solid white",
+    borderBottom: "3px groove #6643b5",
     paddingBottom: ".3rem",
-    color: "#000000",
+    color: "rgb(40,39,39)",
     textDecoration: "none",
   },
   inactiveLink: {
-    color: "#000000",
+    color: "#7E7E7E",
     textDecoration: "none",
+    opacity: "0.9"
   },
 };
 
@@ -27,12 +27,12 @@ const Header = ({ setIsLogin }) => {
   return (
     <div
       style={styles.container}
-      className="container-fluid d-flex align-items-center"
+      className="container-fluid d-flex align-items-center px-3 general-style"
     >
       <Link to="/">
         <img
           style={styles.logo}
-          className="ms-4 py-2"
+          className="ms-1 py-2"
           src={require("../../assets/logo-binus.png")}
           alt="Logo Binus"
         />
@@ -40,14 +40,14 @@ const Header = ({ setIsLogin }) => {
       <div className="input-group w-25 mx-4">
         <input
           type="text"
-          className="form-control"
+          className="form-control disable-input-focusable-shadow"
           placeholder="Search something..."
         />
-        <span className="input-group-text">
-          <i className="bi bi-search"></i>
+        <span className="input-group-text" style={{backgroundColor:"#6643b5"}}>
+          <i className="bi bi-search" style={{color:"white"}}></i>
         </span>
       </div>
-      <p className="h5 my-auto mx-4">
+      <p className="h6 my-auto">
         <NavLink
           to="/"
           exact="true"
@@ -58,7 +58,7 @@ const Header = ({ setIsLogin }) => {
           Home
         </NavLink>
       </p>
-      <p className="h5 my-auto mx-4">
+      <p className="h6 my-auto mx-4">
         <NavLink
           to="/organization-list"
           exact="true"
@@ -69,7 +69,7 @@ const Header = ({ setIsLogin }) => {
           Organization List
         </NavLink>
       </p>
-      <p className="h5 my-auto mx-4">
+      <p className="h6 my-auto">
         <NavLink
           to="/event-history"
           exact="true"
@@ -77,10 +77,10 @@ const Header = ({ setIsLogin }) => {
             isActive ? styles.activeLink : styles.inactiveLink
           }
         >
-          Event History
+          Event Enrolled
         </NavLink>
       </p>
-      <div className="ms-auto">
+      <div className="ms-auto" style={{cursor:'pointer'}}>
         <ProfileDropdown setIsLogin={setIsLogin} />
       </div>
     </div>
