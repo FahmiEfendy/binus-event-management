@@ -52,12 +52,12 @@ const Login = ({ setIsLogin }) => {
       setIsLogin(true);
       navigate("/");
     } else if (isErrorMahasiswaLogin) {
-      setResponseMessage(errorMahasiswaLogin?.data);
+      setResponseMessage(errorMahasiswaLogin?.data?.message[0] || "Error");
     }
     console.log(responseMessage);
   }, [
     dataMahasiswaLogin?.message,
-    errorMahasiswaLogin?.data,
+    errorMahasiswaLogin?.data?.message,
     isErrorMahasiswaLogin,
     isSuccessMahasiswaLogin,
     navigate,

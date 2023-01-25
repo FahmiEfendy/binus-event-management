@@ -91,12 +91,12 @@ const Register = () => {
     if (isSuccessMahasiswaRegister) {
       setResponseMessage(dataMahasiswaRegister?.message);
     } else if (isErrorMahasiswaRegister) {
-      setResponseMessage(errorMahasiswaRegister?.data);
+      setResponseMessage(errorMahasiswaRegister?.data?.message[0] || "Error");
     }
     console.log(responseMessage);
   }, [
     dataMahasiswaRegister?.message,
-    errorMahasiswaRegister,
+    errorMahasiswaRegister?.data?.message,
     isErrorMahasiswaRegister,
     isSuccessMahasiswaRegister,
     responseMessage,
