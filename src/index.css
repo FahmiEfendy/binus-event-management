@@ -70,7 +70,7 @@ code {
 .grey-color {
   color: rgb(126, 126, 126) !important;
   border: none !important;
-  cursor: default;
+  cursor: default !important;
 }
 
 .link-click {
