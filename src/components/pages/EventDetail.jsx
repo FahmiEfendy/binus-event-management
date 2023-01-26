@@ -76,7 +76,7 @@ const EventDetail = ({ type }) => {
           </div>
           <div className="row mt-4">
             <span className="col-3 h4">Date</span>
-            <span className="col-9 h3">
+            <span className="col-9 h5">
               {moment(data?.startDate).format("LL")}
             </span>
           </div>
