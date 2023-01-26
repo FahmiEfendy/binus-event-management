@@ -10,7 +10,7 @@ const styles = {
   image: {
     objectFit: "cover",
     width: "100%",
-    height: "100vh",
+    height: "735px"
   },
 };
 
@@ -31,6 +31,12 @@ const ResetPassword = () => {
   const { handleSubmit, control, getValues } = useForm({});
 
   const navigate = useNavigate();
+
+  setTimeout(() => {
+    if(localStorage.getItem("_loginstatus").toString()==="true" && localStorage.getItem("_loginstatus")){
+      navigate("/");
+    }
+  },100)
 
   const goToLoginPage = () => {
     navigate("/login");
@@ -63,7 +69,7 @@ const ResetPassword = () => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="d-flex align-items-center mh-100 inline-block">
+        <div className="d-flex align-items-center inline-block">
           <div className="w-50 bg-dark">
             <img
               src={require("../../assets/login-image.jpg")}
@@ -71,9 +77,9 @@ const ResetPassword = () => {
               style={styles.image}
             />
           </div>
-          <div className="w-50 px-5">
-            <p className="h1 text-center">Binus Event Management</p>
-            <p className="h text-center mb-4">Reset Password</p>
+          <div className="w-50 px-5" id="register-form-id">
+            <p className="h3 text-center mt-5">Binus Event Management</p>
+            <p className="h3 text-center mb-4">Reset Password</p>
             <TextForm
               control={control}
               name="email"
@@ -111,7 +117,7 @@ const ResetPassword = () => {
             >
               Save Changes
             </button>
-            <div className="d-flex flex-column mt-4">
+            <div className="d-flex flex-column mt-3 mb-5">
               <button className="btn btn-lg grey-color">
                 <span
                   style={{
@@ -124,11 +130,6 @@ const ResetPassword = () => {
                   Back to Login
                 </span>
               </button>
-              <div className="d-flex flex-column mt-4">
-                <button className="btn btn-lg" onClick={goToLoginPage}>
-                  Back to Login
-                </button>
-              </div>
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { EventList } from "../molecules";
 import { CarouselComponent } from "../atoms";
 import { useGetEventListQuery } from "../../api/eventApi";
+import { useNavigate } from "react-router";
 
 const styles = {
   container: {
@@ -18,6 +19,14 @@ const Home = () => {
   const [responseMessage, setResponseMessage] = useState("");
 
   const { data: eventList, error, isError, isSuccess } = useGetEventListQuery();
+
+  const navigate = useNavigate();
+
+  setTimeout(() => {
+    if(localStorage.getItem("_loginstatus").toString()==="false" || !localStorage.getItem("_loginstatus")){
+      navigate("/login");
+    }
+  },100)
 
   useEffect(() => {
     if (isSuccess) {

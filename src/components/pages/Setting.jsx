@@ -69,6 +69,12 @@ const Setting = () => {
     responseMessage,
   ]);
 
+  setTimeout(() => {
+    if(localStorage.getItem("_loginstatus").toString()==="false" || !localStorage.getItem("_loginstatus")){
+      navigate("/login");
+    }
+  },100)
+
   return (
     <>
       <div style={styles.container} className="container mx-auto rounded mb-5 general-style">

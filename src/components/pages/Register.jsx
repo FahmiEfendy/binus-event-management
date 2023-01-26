@@ -8,12 +8,13 @@ import { useMahasiswaRegistrationMutation } from "../../api/authApi";
 
 const styles = {
   container: {
-    height: "100vh",
+    height: "fit-content",
     backgroundColor: "black",
+    padding: "3rem"
   },
   registerFormContainer: {
     width: "95vw",
-    height: "90vh",
+    height: "fit-content",
     backgroundColor: "white",
   },
 };
@@ -34,6 +35,12 @@ const Register = () => {
   const { handleSubmit, control } = useForm({});
 
   const navigate = useNavigate();
+
+  setTimeout(() => {
+    if(localStorage.getItem("_loginstatus").toString()==="true" && localStorage.getItem("_loginstatus")){
+      navigate("/");
+    }
+  },100)
 
   const goToLoginPage = useCallback(() => {
     navigate("/login");
@@ -72,7 +79,7 @@ const Register = () => {
     >
       <div
         style={styles.registerFormContainer}
-        className="rounded p-5 m-auto d-flex flex-column"
+        className="rounded px-5 py-4 m-auto d-flex flex-column"
       >
         <p className="h2 text-center my-3">
           Binus Event User Management Register

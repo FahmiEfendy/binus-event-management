@@ -1,6 +1,6 @@
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { useGetEventDetailQuery } from "../../api/eventApi";
 import { RegisterConfirmationModal, RegistrationSuccessModal } from "../atoms";
@@ -35,6 +35,14 @@ const EventDetail = ({ type }) => {
   const { eventId } = useParams();
 
   const { data, isSuccess, isError } = useGetEventDetailQuery(eventId);
+
+  const navigate = useNavigate();
+  
+  setTimeout(() => {
+    if(localStorage.getItem("_loginstatus").toString()==="false" || !localStorage.getItem("_loginstatus")){
+      navigate("/login");
+    }
+  },100)
 
   const registerHandler = () => {
     setIsRegisterModalOpen(true);

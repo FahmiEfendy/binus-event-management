@@ -20,7 +20,10 @@ import {
 } from "./components/pages";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState((localStorage.getItem("_loginstatus")
+                  && localStorage.getItem("_loginstatus").toString()==="true"));
+
+  localStorage.setItem("_loginstatus", isLogin)
 
   return (
     <>
