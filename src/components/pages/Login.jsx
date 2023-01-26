@@ -31,6 +31,12 @@ const Login = ({ setIsLogin }) => {
 
   const navigate = useNavigate();
 
+  setTimeout(() => {
+    if(localStorage.getItem("_loginstatus").toString()==="true" && localStorage.getItem("_loginstatus")){
+      navigate("/");
+    }
+  },100)
+
   const goToRegisterPage = () => {
     navigate("/register");
   };
@@ -87,8 +93,8 @@ const Login = ({ setIsLogin }) => {
           />
         </div>
         <div className="w-50 px-5">
-          <p className="h2 text-center">Binus Event Management</p>
-          <p className="h2 text-center mb-4">User Login</p>
+          <p className="h3 text-center">Binus Event Management</p>
+          <p className="h3 text-center mb-4">User Login</p>
           <TextForm
             control={control}
             name="email"
@@ -113,7 +119,7 @@ const Login = ({ setIsLogin }) => {
                     onClick={goToResetPasswordPage}>Forgot password?</span>
             </button>
             <button className="btn btn-lg grey-color">
-            <span style={{borderBottom: "1px solid #7E7E7E", cursor:"pointer"}} className="link-click" 
+              <span style={{borderBottom: "1px solid #7E7E7E", cursor:"pointer"}} className="link-click" 
                     onClick={goToRegisterPage}>Don't have account?</span>
             </button>
           </div>

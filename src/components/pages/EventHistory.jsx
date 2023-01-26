@@ -1,4 +1,5 @@
 import { EventBar } from "../atoms";
+import { useNavigate } from "react-router-dom";
 
 const styles = {
   container: {
@@ -15,6 +16,15 @@ const styles = {
 };
 
 const EventHistory = () => {
+
+  const navigate = useNavigate();
+
+  setTimeout(() => {
+    if(localStorage.getItem("_loginstatus").toString()==="false" || !localStorage.getItem("_loginstatus")){
+      navigate("/login");
+    }
+  },100)
+
   return (
     <div
       style={styles.container}

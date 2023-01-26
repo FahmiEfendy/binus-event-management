@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 import { EventList } from "../../molecules";
 import { useGetEventListQuery } from "../../../api/eventApi";
@@ -15,6 +16,15 @@ const styles = {
 };
 
 const HomePenyelenggara = () => {
+
+  const navigate = useNavigate();
+
+  setTimeout(() => {
+    if(localStorage.getItem("_loginstatus").toString()==="false" || !localStorage.getItem("_loginstatus")){
+      navigate("/login");
+    }
+  },100)
+
   const [responseMessage, setResponseMessage] = useState("");
 
   // TODO : Fix filter event list based on created event by organizer

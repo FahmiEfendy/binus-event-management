@@ -32,6 +32,12 @@ const NewPassword = () => {
 
   const navigate = useNavigate();
 
+  setTimeout(() => {
+    if(localStorage.getItem("_loginstatus").toString()==="true" && localStorage.getItem("_loginstatus")){
+      navigate("/");
+    }
+  },100)
+
   const goToLoginPage = () => {
     navigate("/login");
   };
@@ -75,8 +81,8 @@ const NewPassword = () => {
             />
           </div>
           <div className="w-50 px-5">
-            <p className="h1 text-center">Binus Event Management</p>
-            <p className="h1 text-center mb-4">Reset Password</p>
+            <p className="h3 text-center">Binus Event Management</p>
+            <p className="h3 text-center mb-4">Reset Password</p>
             <TextForm
               type="password"
               control={control}
@@ -93,12 +99,13 @@ const NewPassword = () => {
               isRequired
               placeholder="Enter your confirmation password..."
             />
-            <button type="submit" className="btn btn-lg btn-primary w-100 py-3">
+            <button type="submit" className="btn btn-lg btn-primary w-100 py-2 mt-3">
               Save Changes
             </button>
-            <div className="d-flex flex-column mt-4">
-              <button className="btn btn-lg" onClick={goToLoginPage}>
-                Cancel
+            <div className="d-flex flex-column mt-3">
+              <button className="btn btn-lg grey-color" onClick={goToLoginPage}>
+                  <span style={{cursor:"pointer"}} className="link-click" 
+                    onClick={goToLoginPage}>Cancel</span>
               </button>
             </div>
           </div>

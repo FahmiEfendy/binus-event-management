@@ -29,6 +29,12 @@ const LoginPenyelenggara = ({ setIsLogin }) => {
 
   const navigate = useNavigate();
 
+  setTimeout(() => {
+    if(localStorage.getItem("_loginstatus").toString()==="true" && localStorage.getItem("_loginstatus")){
+      navigate("/");
+    }
+  },100)
+
   const onSubmit = async (data) => {
     const payload = {
       ...data,
