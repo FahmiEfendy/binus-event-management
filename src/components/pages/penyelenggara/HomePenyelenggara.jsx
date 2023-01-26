@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 
-import { EventList } from "../../molecules";
+import { EventList, EventModal } from "../../molecules";
 import { useGetEventListQuery } from "../../../api/eventApi";
 
 const styles = {
@@ -15,10 +15,15 @@ const styles = {
 };
 
 const HomePenyelenggara = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
 
   // TODO : Fix filter event list based on created event by organizer
   const { data: eventList, error, isError, isSuccess } = useGetEventListQuery();
+
+  const openModalHandler = () => {
+    setIsModalOpen(true);
+  };
 
   useEffect(() => {
     if (isSuccess) {
@@ -36,12 +41,14 @@ const HomePenyelenggara = () => {
         className="container d-flex flex-column mx-auto px-4 rounded"
       >
         <div style={{ alignSelf: "end", margin: "0em 2rem" }}>
-          <Button variant="primary" size="lg">
+          <Button variant="primary" onClick={openModalHandler}>
             Add Event
           </Button>
         </div>
         <EventList data={eventList} />
       </div>
+
+      <EventModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
     </div>
   );
 };

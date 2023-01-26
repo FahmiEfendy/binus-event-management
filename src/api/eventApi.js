@@ -57,4 +57,8 @@ export const eventApi = api.injectEndpoints({
   }),
 });
 
-export const { useGetEventListQuery, useGetEventDetailQuery } = eventApi;
+export const {
+  useGetEventListQuery,
+  useGetEventDetailQuery,
+  useCreateEventMutation,
+} = eventApi;

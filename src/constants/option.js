@@ -39,3 +39,14 @@ export const religionOptions = [
 export const notificationOptions = [
   { value: "emailNotification", label: "Email" },
 ];
+
+export const eventOptions = [
+  {
+    label: "SAT",
+    value: "SAT",
+  },
+  {
+    label: "JamSos",
+    value: "JamSos",
+  },
+];
