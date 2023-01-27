@@ -87,8 +87,8 @@ const Login = ({ setIsLogin }) => {
           />
         </div>
         <div className="w-50 px-5">
-          <p className="h2 text-center">Binus Event Management</p>
-          <p className="h2 text-center mb-4">User Login</p>
+          <p className="h3 text-center">Binus Event Management</p>
+          <p className="h3 text-center mb-4">User Login</p>
           <TextForm
             control={control}
             name="email"
@@ -107,7 +107,7 @@ const Login = ({ setIsLogin }) => {
           <button type="submit" className="btn btn-lg btn-primary w-100 py-2 mt-3">
             Login
           </button>
-          <div className="d-flex flex-column mt-4">
+          <div className="d-flex flex-column mt-3">
             <button className="btn btn-lg mb-1 grey-color">
               <span style={{borderBottom: "1px solid #7E7E7E", cursor:"pointer"}} className="link-click" 
                     onClick={goToResetPasswordPage}>Forgot password?</span>

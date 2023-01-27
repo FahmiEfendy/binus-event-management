@@ -187,3 +187,7 @@ select:focus > option:checked {
     margin: auto;
   }
 }
+
+.btn-lg{
+  font-size: 18px;
+}

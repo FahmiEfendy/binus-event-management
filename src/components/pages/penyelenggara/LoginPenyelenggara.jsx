@@ -74,8 +74,8 @@ const LoginPenyelenggara = ({ setIsLogin }) => {
           />
         </div>
         <div className="w-50 px-5">
-          <p className="h2 text-center">Binus Event Management</p>
-          <p className="h2 text-center mb-4">Penyelenggara Login</p>
+          <p className="h3 text-center">Binus Event Management</p>
+          <p className="h3 text-center mb-4">Penyelenggara Login</p>
           <TextForm
             control={control}
             name="email"
