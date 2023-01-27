@@ -26,6 +26,10 @@ code {
   box-shadow: 8px 8px 8px rgba(102, 67, 181, 0.8);
 }
 
+.btn-delete:hover {
+  transform: translateY(-2px);
+}
+
 .btn-primary {
   background-color: #6643b5;
   color: white !important;
