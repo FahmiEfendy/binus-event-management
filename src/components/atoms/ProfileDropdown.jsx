@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useGetMahasiswaDetailQuery } from "../../api/authApi";
 
 import {
   clearStorage,
@@ -18,9 +20,10 @@ const styles = {
 };
 
 const ProfileDropdown = () => {
-  const navigate = useNavigate();
+  const [responseMessage, setResponseMessage] = useState(null)
 
-  const username = "John Doe";
+  const [username, setUsername] = useState("user")
+  const navigate = useNavigate();
 
   const goToSettingPage = () => {
     if (getMahasiswaId() !== null) {
@@ -39,6 +42,20 @@ const ProfileDropdown = () => {
 
     clearStorage();
   };
+
+  const { data, isSuccess, isError } = useGetMahasiswaDetailQuery(
+    getMahasiswaId()
+  );
+
+  useEffect(() => {
+    if (isSuccess) {
+      setResponseMessage("Success get Mahasiswa Profile Data");
+    } else if (isError) {
+      setResponseMessage("Failed get Mahasiswa Profile Data");
+    }
+    console.log(data)
+    setUsername(data?.['name'])
+  }, [data, isError, isSuccess, responseMessage]);
 
   return (
     <div className="dropdown">
