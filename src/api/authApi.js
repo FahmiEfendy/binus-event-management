@@ -4,7 +4,6 @@ import { STUDENT_AUTH_URL } from "../constants/api";
 export const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
     mahasiswaRegistration: builder.mutation({
-      invalidateTags: ["auth"],
       query: (payload) => {
         return {
           url: `${STUDENT_AUTH_URL}/registration`,
@@ -15,7 +14,6 @@ export const authApi = api.injectEndpoints({
     }),
 
     mahasiswaLogin: builder.mutation({
-      invalidatesTags: ["auth"],
       query: (payload) => ({
         url: `${STUDENT_AUTH_URL}/login`,
         method: "POST",
@@ -23,8 +21,14 @@ export const authApi = api.injectEndpoints({
       }),
     }),
 
+    getMahasiswaDetail: builder.query({
+      query: (id) => ({
+        url: `${STUDENT_AUTH_URL}/${id}`,
+        method: "GET",
+      }),
+    }),
+
     mahasiswaResetPassword: builder.mutation({
-      invalidatesTags: ["auth"],
       query: (payload) => ({
         url: `${STUDENT_AUTH_URL}/reset-password`,
         method: "POST",
@@ -33,7 +37,6 @@ export const authApi = api.injectEndpoints({
     }),
 
     mahasiswaNewPassword: builder.mutation({
-      invalidatesTags: ["auth"],
       query: (payload) => ({
         url: `${STUDENT_AUTH_URL}/new-password`,
         method: "POST",
@@ -42,7 +45,6 @@ export const authApi = api.injectEndpoints({
     }),
 
     updateProfileMahasiswa: builder.mutation({
-      invalidatesTags: ["auth"],
       query: ({ id, payload }) => ({
         url: `${STUDENT_AUTH_URL}/update-profile/${id}`,
         method: "PUT",
@@ -55,6 +57,7 @@ export const authApi = api.injectEndpoints({
 export const {
   useMahasiswaRegistrationMutation,
   useMahasiswaLoginMutation,
+  useGetMahasiswaDetailQuery,
   useMahasiswaResetPasswordMutation,
   useMahasiswaNewPasswordMutation,
   useUpdateProfileMahasiswaMutation,

@@ -4,7 +4,10 @@ import { useCallback, useEffect, useState } from "react";
 
 import { getMahasiswaId } from "../../utils/storage";
 import { FileInput, SelectForm, TextForm } from "../forms";
-import { useUpdateProfileMahasiswaMutation } from "../../api/authApi";
+import {
+  useGetMahasiswaDetailQuery,
+  useUpdateProfileMahasiswaMutation,
+} from "../../api/authApi";
 import { genderOptions, religionOptions } from "../../constants/option";
 
 const styles = {
@@ -20,20 +23,16 @@ const Setting = () => {
   const [file, setFile] = useState(null);
   const [responseMessage, setResponseMessage] = useState("");
 
-  const [updateProfileMahasiswa, { data, isSuccess, isError, error }] =
-    useUpdateProfileMahasiswaMutation();
+  const { data, isSuccess, isError } = useGetMahasiswaDetailQuery(
+    getMahasiswaId()
+  );
 
-  const { handleSubmit, control } = useForm({
-    // TODO : setValue mahasiswa detail from BE
-    defaultValues: {
-      name: "Fahmi Efendy",
-      nim: "2301876051",
-      email: "fahmi.efendy@binus.com",
-      phoneNo: "0812312323",
-      religion: "Kristen",
-      gender: "Male",
-    },
-  });
+  const [
+    updateProfileMahasiswa,
+    { data: updateData, isSuccessUpdate, isErrorUpdate, error: errUpdate },
+  ] = useUpdateProfileMahasiswaMutation();
+
+  const { handleSubmit, control, setValue } = useForm();
 
   const navigate = useNavigate();
 
@@ -43,8 +42,11 @@ const Setting = () => {
 
   const onSubmit = async (data) => {
     const payload = {
-      ...data,
-      // profilePicture: file,
+      email: data.email,
+      phoneNo: data.phoneNo,
+      religion: data.religion,
+      gender: data.gender,
+      // TODO : profilePicture: file,
     };
 
     const mahasiswaId = getMahasiswaId();
@@ -54,24 +56,45 @@ const Setting = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      setResponseMessage(data?.message);
-      goToHomePage();
+      setResponseMessage("Success Get Detail Mahasiswa");
     } else if (isError) {
-      setResponseMessage(error?.data?.message || "Error");
+      setResponseMessage("Failed Get Detail Mahasiswa");
+    }
+
+    if (isSuccessUpdate) {
+      setResponseMessage(updateData?.message);
+      goToHomePage();
+    } else if (isErrorUpdate) {
+      setResponseMessage(errUpdate?.data?.message || "Error");
     }
     console.log(responseMessage);
   }, [
-    data?.message,
-    error?.data?.message,
+    errUpdate?.data?.message,
     goToHomePage,
     isError,
+    isErrorUpdate,
     isSuccess,
+    isSuccessUpdate,
     responseMessage,
+    updateData?.message,
   ]);
+
+  useEffect(() => {
+    // TODO : get image
+    setValue("name", data?.name);
+    setValue("nim", data?.nim);
+    setValue("email", data?.email);
+    setValue("religion", data?.religion);
+    setValue("phoneNo", data?.phoneNo);
+    setValue("gender", data?.gender);
+  }, [data, setValue]);
 
   return (
     <>
-      <div style={styles.container} className="container mx-auto rounded mb-5 general-style">
+      <div
+        style={styles.container}
+        className="container mx-auto rounded mb-5 general-style"
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="d-flex me-5 flex-column">
             <p className="h2 text-center my-4">Edit Profile</p>
@@ -79,6 +102,7 @@ const Setting = () => {
               <TextForm
                 control={control}
                 name="name"
+                isDisabled
                 isRequired
                 label="Name"
                 placeholder="Enter your Name..."
@@ -87,6 +111,7 @@ const Setting = () => {
               <TextForm
                 control={control}
                 name="nim"
+                isDisabled
                 isRequired
                 label="NIM"
                 placeholder="Enter your NIM..."

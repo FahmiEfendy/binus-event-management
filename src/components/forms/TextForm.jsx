@@ -4,6 +4,7 @@ const TextForm = (props) => {
   const {
     control,
     name,
+    isDisabled = false,
     isRequired,
     label,
     placeholder,
@@ -21,12 +22,11 @@ const TextForm = (props) => {
         return (
           <div className="form-group" style={{ width: "100%", ...style }}>
             <label htmlFor={name} className="mb-2 ms-2">
-              {label} 
-              { isRequired && 
-                (<span style={{color:"red"}}> *</span>)
-              }
+              {label}
+              {isRequired && <span style={{ color: "red" }}> *</span>}
             </label>
             <input
+              disabled={isDisabled}
               {...field}
               type={type}
               className="form-control mb-4 disable-input-focusable-shadow"
