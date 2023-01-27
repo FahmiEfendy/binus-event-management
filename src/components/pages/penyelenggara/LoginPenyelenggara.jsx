@@ -21,10 +21,7 @@ const LoginPenyelenggara = ({ setIsLogin }) => {
     usePenyelenggaraLoginMutation();
 
   const { handleSubmit, control } = useForm({
-    defaultValues: {
-      email: "christina7@gmail.com",
-      password: "christina123",
-    },
+    defaultValues: {},
   });
 
   const navigate = useNavigate();
@@ -96,6 +93,13 @@ const LoginPenyelenggara = ({ setIsLogin }) => {
             className="btn btn-lg btn-primary w-100 py-2 mt-3"
           >
             Login
+          </button>
+          <button
+            type="button"
+            className="btn btn-lg btn-light w-100 py-2 mt-3"
+            onClick={() => navigate("/login")}
+          >
+            Login as Mahasiswa
           </button>
         </div>
       </div>

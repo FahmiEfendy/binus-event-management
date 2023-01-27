@@ -104,17 +104,37 @@ const Login = ({ setIsLogin }) => {
             placeholder="Enter your password..."
             type="password"
           />
-          <button type="submit" className="btn btn-lg btn-primary w-100 py-2 mt-3">
+          <button
+            type="submit"
+            className="btn btn-lg btn-primary w-100 py-2 mt-3"
+          >
             Login
+          </button>
+          <button
+            type="button"
+            className="btn btn-lg btn-light w-100 py-2 mt-3"
+            onClick={() => navigate("/penyelenggara/login")}
+          >
+            Login as Penyelenggara
           </button>
           <div className="d-flex flex-column mt-4">
             <button className="btn btn-lg mb-1 grey-color">
-              <span style={{borderBottom: "1px solid #7E7E7E", cursor:"pointer"}} className="link-click" 
-                    onClick={goToResetPasswordPage}>Forgot password?</span>
+              <span
+                style={{ borderBottom: "1px solid #7E7E7E", cursor: "pointer" }}
+                className="link-click"
+                onClick={goToResetPasswordPage}
+              >
+                Forgot password?
+              </span>
             </button>
             <button className="btn btn-lg grey-color">
-            <span style={{borderBottom: "1px solid #7E7E7E", cursor:"pointer"}} className="link-click" 
-                    onClick={goToRegisterPage}>Don't have account?</span>
+              <span
+                style={{ borderBottom: "1px solid #7E7E7E", cursor: "pointer" }}
+                className="link-click"
+                onClick={goToRegisterPage}
+              >
+                Don't have account?
+              </span>
             </button>
           </div>
         </div>
