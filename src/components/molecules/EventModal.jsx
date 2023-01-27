@@ -46,17 +46,12 @@ const EventModal = ({ isOpen, setIsOpen }) => {
   useEffect(() => {
     if (isSuccess) {
       setResponseMessage(data?.message);
+      setIsOpen(false);
     } else if (isError) {
-      setResponseMessage(error?.data?.message);
+      setResponseMessage(error);
     }
     console.log(responseMessage);
-  }, [
-    data?.message,
-    error?.data?.message,
-    isError,
-    isSuccess,
-    responseMessage,
-  ]);
+  }, [data?.message, error, isError, isSuccess, responseMessage, setIsOpen]);
 
   return (
     <>
@@ -149,7 +144,7 @@ const EventModal = ({ isOpen, setIsOpen }) => {
                   Cancel
                 </button>
                 <button className="btn btn-primary px-5 py-2" type="submit">
-                  Save Changes
+                  Add Event
                 </button>
               </div>
             </div>

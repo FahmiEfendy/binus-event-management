@@ -1,4 +1,10 @@
+import { Button } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Trash } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
+
+import { getPenyelenggaraId } from "../../utils/storage";
+import { useDeleteEventMutation } from "../../api/eventApi";
 
 const styles = {
   eventOrganizerLogo: {
@@ -18,7 +24,12 @@ const EventBar = ({
   participant,
   price,
 }) => {
+  const [responseMessage, setResponseMessage] = useState("");
+
   const navigate = useNavigate();
+
+  const [deleteEvent, { data, isSuccess, isError, error }] =
+    useDeleteEventMutation();
 
   const eventDetailHandler = () => {
     navigate(`/detail/${eventId}`);
@@ -27,6 +38,25 @@ const EventBar = ({
   const eventHistoryDetailHandler = () => {
     navigate("/example-event-history-path");
   };
+
+  const deleteEventHandler = async () => {
+    await deleteEvent(eventId);
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      setResponseMessage(data?.message);
+    } else if (isError) {
+      setResponseMessage(error?.data?.message);
+    }
+    console.log(responseMessage);
+  }, [
+    data?.message,
+    error?.data?.message,
+    isError,
+    isSuccess,
+    responseMessage,
+  ]);
 
   return (
     <div className="row w-100 d-flex align-items-center rounded table-list-border">
@@ -46,13 +76,22 @@ const EventBar = ({
       <div className="col-2">{date}</div>
       <div className="col-2">{location}</div>
       <div className="col-2">{participant}</div>
-      <div className="col-2">{`${
+      <div className="col-1">{`${
         type === "history" ? "Status" : `${price}`
       }`}</div>
-      <div className="col-1 d-flex">
+      <div className="col-2 d-flex">
+        {getPenyelenggaraId() !== "" && (
+          <Button
+            variant="danger"
+            className="ms-auto"
+            onClick={deleteEventHandler}
+          >
+            <Trash />
+          </Button>
+        )}
         <button
           type="button"
-          className="btn btn-primary px-4 mx-auto"
+          className="btn btn-primary px-4 ms-auto"
           onClick={
             type === "history" ? eventHistoryDetailHandler : eventDetailHandler
           }

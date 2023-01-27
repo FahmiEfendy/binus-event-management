@@ -4,7 +4,7 @@ import { STUDENT_EVENT_URL } from "../constants/api";
 export const eventApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getEventList: builder.query({
-      invalidatesTags: ["event"],
+      providesTags: ["event"],
       query: () => {
         return {
           url: `${STUDENT_EVENT_URL}/`,
@@ -14,7 +14,6 @@ export const eventApi = api.injectEndpoints({
     }),
 
     getEventDetail: builder.query({
-      invalidatesTags: ["event"],
       query: (id) => {
         return {
           url: `${STUDENT_EVENT_URL}/detail/${id}`,
@@ -35,7 +34,7 @@ export const eventApi = api.injectEndpoints({
     }),
 
     deleteEvent: builder.mutation({
-      invalidatesTags: ["Event"],
+      invalidatesTags: ["event"],
       query: (id) => {
         return {
           url: `${STUDENT_EVENT_URL}/delete/${id}`,
@@ -45,7 +44,7 @@ export const eventApi = api.injectEndpoints({
     }),
 
     updateEvent: builder.mutation({
-      invalidatesTags: ["Event"],
+      invalidatesTags: ["event"],
       query: ({ id, payload }) => {
         return {
           url: `${STUDENT_EVENT_URL}/update-event/${id}`,
@@ -61,4 +60,5 @@ export const {
   useGetEventListQuery,
   useGetEventDetailQuery,
   useCreateEventMutation,
+  useDeleteEventMutation,
 } = eventApi;

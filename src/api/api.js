@@ -15,6 +15,6 @@ export const api = createApi({
       return headers;
     },
   }),
-  tagTypes: ["auth", "authPenyelenggara", "eventApi"],
+  tagTypes: ["auth", "authPenyelenggara", "event"],
   endpoints: () => ({}),
 });
