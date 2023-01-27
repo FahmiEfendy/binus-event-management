@@ -1,6 +1,10 @@
 import { useNavigate } from "react-router-dom";
 
-import { clearStorage, getMahasiswaId } from "../../utils/storage";
+import {
+  clearStorage,
+  getMahasiswaId,
+  getPenyelenggaraId,
+} from "../../utils/storage";
 
 const styles = {
   profilePicture: {
@@ -23,9 +27,14 @@ const ProfileDropdown = ({ setIsLogin }) => {
   };
 
   const logoutHandler = () => {
-    setIsLogin(false);
+    if (getMahasiswaId() !== null) {
+      navigate("/login");
+    } else if (getPenyelenggaraId() !== null) {
+      navigate("/penyelenggara/login");
+    }
+
     clearStorage();
-    navigate("/login");
+    setIsLogin(false);
   };
 
   return (
@@ -39,7 +48,10 @@ const ProfileDropdown = ({ setIsLogin }) => {
           className="rounded-circle me-4"
         />
       </div>
-      <div className="dropdown-menu me-4 mt-2" aria-labelledby="dropdownMenuButton">
+      <div
+        className="dropdown-menu me-4 mt-2"
+        aria-labelledby="dropdownMenuButton"
+      >
         <button
           className="dropdown-item"
           style={styles.dropdownMenu}
