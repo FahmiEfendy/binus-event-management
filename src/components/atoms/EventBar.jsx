@@ -98,7 +98,7 @@ const EventBar = ({
             </Button>
             <Button
               variant="danger"
-              className="ms-auto"
+              className="mx-1 btn-delete"
               onClick={deleteEventHandler}
             >
               <Trash />
