@@ -16,7 +16,7 @@ const styles = {
   },
 };
 
-const EventList = ({ data }) => {
+const EventList = ({ data, setEditId, setIsOpen }) => {
   return (
     <div
       style={styles.container}
@@ -57,6 +57,8 @@ const EventList = ({ data }) => {
               // TODO: totalQuota atau jumlah yang udah ikut ?
               participant={data.totalQuota}
               price={data.price}
+              setEditId={setEditId}
+              setIsOpen={setIsOpen}
             />
           );
         })}

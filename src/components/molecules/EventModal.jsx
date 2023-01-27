@@ -1,33 +1,43 @@
+import moment from "moment";
 import { useForm } from "react-hook-form";
 import Modal from "react-bootstrap/Modal";
 import React, { useEffect, useState } from "react";
 
 import { eventOptions } from "../../constants/option";
-import { useCreateEventMutation } from "../../api/eventApi";
 import { DateForm, FileInput, SelectForm, TextForm } from "../forms";
+import {
+  useGetEventDetailQuery,
+  useCreateEventMutation,
+  useUpdateEventMutation,
+} from "../../api/eventApi";
 
-const EventModal = ({ isOpen, setIsOpen }) => {
+const EventModal = ({ editId, isOpen, setIsOpen }) => {
   const [file, setFile] = useState(null);
   const [responseMessage, setResponseMessage] = useState("");
 
-  const [createEvent, { data, isSuccess, isError, error }] =
-    useCreateEventMutation();
+  const { data, isSuccess, isError } = useGetEventDetailQuery(editId);
 
-  const { handleSubmit, control } = useForm({
-    // TODO : fix get data from event detail
-    defaultValues: {
-      organizer: "Test Organizer 1",
-      title: "Test Title 1",
-      description:
-        "Test Description 1 Test Description 1 Test Description 1 Test Description 1 Test Description 1",
-      eventType: "SAT",
-      startDate: "2023-01-29",
-      endDate: "2023-01-31",
-      totalQuota: "50",
-      location: "Jakarta",
-      price: "50000",
+  const [
+    createEvent,
+    {
+      data: createData,
+      isSuccess: isSuccessCreate,
+      isError: isErrorCreate,
+      error: errCreate,
     },
-  });
+  ] = useCreateEventMutation();
+
+  const [
+    updateEvent,
+    {
+      data: updateData,
+      isSuccess: isSuccessUpdate,
+      isError: isErrorUpdate,
+      error: errUpdate,
+    },
+  ] = useUpdateEventMutation();
+
+  const { handleSubmit, control, reset, setValue } = useForm();
 
   const closeModalHandler = () => {
     setIsOpen(false);
@@ -40,24 +50,74 @@ const EventModal = ({ isOpen, setIsOpen }) => {
       organizer: "Example Organizer 1",
     };
 
-    await createEvent(payload);
+    if (editId === null) {
+      await createEvent(payload);
+    } else if (editId !== null) {
+      await updateEvent({ id: editId, payload });
+    }
   };
 
   useEffect(() => {
     if (isSuccess) {
-      setResponseMessage(data?.message);
-      setIsOpen(false);
+      setResponseMessage("Success Get Event Detail");
     } else if (isError) {
-      setResponseMessage(error);
+      setResponseMessage("Failed get event detail");
     }
+
+    if (isSuccessCreate) {
+      setResponseMessage(createData?.message);
+      reset();
+      setIsOpen(false);
+    } else if (isErrorCreate) {
+      setResponseMessage(errCreate);
+    }
+
+    if (isSuccessUpdate) {
+      setResponseMessage(updateData?.message);
+      reset();
+      setIsOpen(false);
+    } else if (isErrorUpdate) {
+      setResponseMessage(errUpdate);
+    }
+
     console.log(responseMessage);
-  }, [data?.message, error, isError, isSuccess, responseMessage, setIsOpen]);
+  }, [
+    createData?.message,
+    errCreate,
+    errUpdate,
+    isError,
+    isErrorCreate,
+    isErrorUpdate,
+    isSuccess,
+    isSuccessCreate,
+    isSuccessUpdate,
+    reset,
+    responseMessage,
+    setIsOpen,
+    updateData?.message,
+  ]);
+
+  useEffect(() => {
+    if (editId !== null) {
+      // TODO : get image
+      setValue("title", data?.title);
+      setValue("description", data?.description);
+      setValue("eventType", data?.eventType);
+      setValue("startDate", moment(data?.startDate).format("YYYY-MM-DD"));
+      setValue("endDate", moment(data?.endDate).format("YYYY-MM-DD"));
+      setValue("totalQuota", data?.totalQuota);
+      setValue("location", data?.location);
+      setValue("price", data?.price);
+    } else {
+      reset();
+    }
+  }, [data, editId, reset, setValue]);
 
   return (
     <>
       <Modal show={isOpen} onHide={closeModalHandler} centered fullscreen>
         <Modal.Header closeButton>
-          <Modal.Title>Add Event</Modal.Title>
+          <Modal.Title>{editId !== null ? "Update" : "Add"} Event</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -144,7 +204,7 @@ const EventModal = ({ isOpen, setIsOpen }) => {
                   Cancel
                 </button>
                 <button className="btn btn-primary px-5 py-2" type="submit">
-                  Add Event
+                  {editId !== null ? "Update" : "Add"} Event
                 </button>
               </div>
             </div>

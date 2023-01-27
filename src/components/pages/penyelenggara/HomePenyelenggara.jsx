@@ -16,14 +16,11 @@ const styles = {
 
 const HomePenyelenggara = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editId, setEditId] = useState(null);
   const [responseMessage, setResponseMessage] = useState("");
 
   // TODO : Fix filter event list based on created event by organizer
   const { data: eventList, error, isError, isSuccess } = useGetEventListQuery();
-
-  const openModalHandler = () => {
-    setIsModalOpen(true);
-  };
 
   useEffect(() => {
     if (isSuccess) {
@@ -49,10 +46,18 @@ const HomePenyelenggara = () => {
             Add Event
           </Button>
         </div>
-        <EventList data={eventList} />
+        <EventList
+          data={eventList}
+          setIsOpen={setIsModalOpen}
+          setEditId={setEditId}
+        />
       </div>
 
-      <EventModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
+      <EventModal
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+        editId={editId}
+      />
     </div>
   );
 };

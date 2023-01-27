@@ -1,6 +1,6 @@
 import { Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { Trash } from "react-bootstrap-icons";
+import { Pencil, Trash } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 
 import { getPenyelenggaraId } from "../../utils/storage";
@@ -23,6 +23,8 @@ const EventBar = ({
   location,
   participant,
   price,
+  setEditId,
+  setIsOpen,
 }) => {
   const [responseMessage, setResponseMessage] = useState("");
 
@@ -41,6 +43,11 @@ const EventBar = ({
 
   const deleteEventHandler = async () => {
     await deleteEvent(eventId);
+  };
+
+  const updateEventHandler = () => {
+    setIsOpen(true);
+    setEditId(eventId);
   };
 
   useEffect(() => {
@@ -81,13 +88,22 @@ const EventBar = ({
       }`}</div>
       <div className="col-2 d-flex">
         {getPenyelenggaraId() !== "" && (
-          <Button
-            variant="danger"
-            className="ms-auto"
-            onClick={deleteEventHandler}
-          >
-            <Trash />
-          </Button>
+          <>
+            <Button
+              variant="light"
+              className="ms-auto"
+              onClick={updateEventHandler}
+            >
+              <Pencil />
+            </Button>
+            <Button
+              variant="danger"
+              className="ms-auto"
+              onClick={deleteEventHandler}
+            >
+              <Trash />
+            </Button>
+          </>
         )}
         <button
           type="button"
