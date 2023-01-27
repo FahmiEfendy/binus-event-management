@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
+import { PrivateRoutes } from "./routes";
 import { Header } from "./components/molecules";
 import {
   HomePenyelenggara,
@@ -26,23 +27,63 @@ function App() {
     <>
       {isLogin && <Header setIsLogin={setIsLogin} />}
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            <PrivateRoutes>
+              <Home />
+            </PrivateRoutes>
+          }
+        />
         <Route
           path="/update-profile/:mahasiswaId"
-          element={<Setting />}
+          element={
+            <PrivateRoutes>
+              <Setting />
+            </PrivateRoutes>
+          }
         ></Route>
 
-        <Route path="/detail/:eventId" element={<EventDetail />} />
+        <Route
+          path="/detail/:eventId"
+          element={
+            <PrivateRoutes>
+              <EventDetail />
+            </PrivateRoutes>
+          }
+        />
         <Route
           path="/example-event-history-path"
-          element={<EventDetail type="history" />}
+          element={
+            <PrivateRoutes>
+              <EventDetail type="history" />
+            </PrivateRoutes>
+          }
         />
-        <Route path="/event-history" element={<EventHistory />} />
+        <Route
+          path="/event-history"
+          element={
+            <PrivateRoutes>
+              <EventHistory />
+            </PrivateRoutes>
+          }
+        />
 
-        <Route path="/organization-list" element={<OrganizationList />} />
+        <Route
+          path="/organization-list"
+          element={
+            <PrivateRoutes>
+              <OrganizationList />
+            </PrivateRoutes>
+          }
+        />
         <Route
           path="/example-organization-path"
-          element={<OrganizationDetail />}
+          element={
+            <PrivateRoutes>
+              <OrganizationDetail />
+            </PrivateRoutes>
+          }
         />
 
         <Route path="/login" element={<Login setIsLogin={setIsLogin} />} />
@@ -64,7 +105,14 @@ function App() {
           path="/penyelenggara/login"
           element={<LoginPenyelenggara setIsLogin={setIsLogin} />}
         />
-        <Route path="/penyelenggara/" element={<HomePenyelenggara />} />
+        <Route
+          path="/penyelenggara/"
+          element={
+            <PrivateRoutes>
+              <HomePenyelenggara />
+            </PrivateRoutes>
+          }
+        />
       </Routes>
     </>
   );
