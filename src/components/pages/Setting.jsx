@@ -74,7 +74,7 @@ const Setting = () => {
       <div style={styles.container} className="container mx-auto rounded mb-5 general-style">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="d-flex me-5 flex-column">
-            <p className="h1 text-center my-4">Edit Profile</p>
+            <p className="h2 text-center my-4">Edit Profile</p>
             <div className="d-flex justify-content-between">
               <TextForm
                 control={control}

@@ -70,30 +70,30 @@ const EventDetail = ({ type }) => {
             <span className="col-3 h4">Title</span>
             <span className="col-9 h5">{data?.title}</span>
           </div>
-          <div className="row mt-4">
+          <div className="row mt-3">
             <span className="col-3 h4">Organizer</span>
             <span className="col-9 h5">{data?.organizer}</span>
           </div>
-          <div className="row mt-4">
+          <div className="row mt-3">
             <span className="col-3 h4">Date</span>
             <span className="col-9 h5">
               {moment(data?.startDate).format("LL")}
             </span>
           </div>
-          <div className="row">
+          <div className="row mt-3">
             <span className="col-3 h4">Type</span>
             <span className="col-9 h5">{data?.eventType}</span>
           </div>
-          <div className="row mt-4">
+          <div className="row mt-3">
             <span className="col-3 h4">Location</span>
             <span className="col-9 h5">{data?.location}</span>
           </div>
-          <div className="row mt-4">
+          <div className="row mt-3">
             <span className="col-3 h4">Participant</span>
             {/* TODO: participant / totalQuota */}
             <span className="col-9 h5">{data?.totalQuota}</span>
           </div>
-          <div className="row mt-4">
+          <div className="row mt-3">
             <span className="col-3 h4">
               {type === "history" ? "Status" : "Price"}
             </span>

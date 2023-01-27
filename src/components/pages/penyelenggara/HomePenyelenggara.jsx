@@ -40,8 +40,12 @@ const HomePenyelenggara = () => {
         style={styles.container}
         className="container d-flex flex-column mx-auto px-4 rounded"
       >
-        <div style={{ alignSelf: "end", margin: "0em 2rem" }}>
-          <Button variant="primary" onClick={openModalHandler}>
+        <div style={{ alignSelf: "end", margin: "1rem 3rem" }}>
+          <Button
+            variant="primary"
+            size="md"
+            style={{ padding: "0.5rem 1.5rem", marginRight: "0.5rem" }}
+          >
             Add Event
           </Button>
         </div>
