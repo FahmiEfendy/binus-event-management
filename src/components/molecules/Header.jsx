@@ -19,11 +19,11 @@ const styles = {
   inactiveLink: {
     color: "#7E7E7E",
     textDecoration: "none",
-    opacity: "0.9"
+    opacity: "0.9",
   },
 };
 
-const Header = ({ setIsLogin }) => {
+const Header = () => {
   return (
     <div
       style={styles.container}
@@ -43,8 +43,11 @@ const Header = ({ setIsLogin }) => {
           className="form-control disable-input-focusable-shadow"
           placeholder="Search something..."
         />
-        <span className="input-group-text" style={{backgroundColor:"#6643b5"}}>
-          <i className="bi bi-search" style={{color:"white"}}></i>
+        <span
+          className="input-group-text"
+          style={{ backgroundColor: "#6643b5" }}
+        >
+          <i className="bi bi-search" style={{ color: "white" }}></i>
         </span>
       </div>
       <p className="h6 my-auto">
@@ -80,8 +83,8 @@ const Header = ({ setIsLogin }) => {
           Event Enrolled
         </NavLink>
       </p>
-      <div className="ms-auto" style={{cursor:'pointer'}}>
-        <ProfileDropdown setIsLogin={setIsLogin} />
+      <div className="ms-auto" style={{ cursor: "pointer" }}>
+        <ProfileDropdown />
       </div>
     </div>
   );

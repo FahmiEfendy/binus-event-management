@@ -17,7 +17,7 @@ const styles = {
   },
 };
 
-const ProfileDropdown = ({ setIsLogin }) => {
+const ProfileDropdown = () => {
   const navigate = useNavigate();
 
   const username = "John Doe";
@@ -38,7 +38,6 @@ const ProfileDropdown = ({ setIsLogin }) => {
     }
 
     clearStorage();
-    setIsLogin(false);
   };
 
   return (

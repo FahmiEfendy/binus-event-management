@@ -14,7 +14,7 @@ const styles = {
   },
 };
 
-const LoginPenyelenggara = ({ setIsLogin }) => {
+const LoginPenyelenggara = () => {
   const [responseMessage, setResponseMessage] = useState("");
 
   const [penyelenggaraLogin, { data, isSuccess, isError, error }] =
@@ -44,7 +44,6 @@ const LoginPenyelenggara = ({ setIsLogin }) => {
   useEffect(() => {
     if (isSuccess) {
       setResponseMessage(data?.message);
-      setIsLogin(true);
       navigate("/penyelenggara/");
     } else if (isError) {
       setResponseMessage(error?.data?.message || "Error");
@@ -57,7 +56,6 @@ const LoginPenyelenggara = ({ setIsLogin }) => {
     isSuccess,
     navigate,
     responseMessage,
-    setIsLogin,
   ]);
 
   return (

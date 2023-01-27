@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { PrivateRoutes } from "./routes";
@@ -6,6 +5,7 @@ import { Header } from "./components/molecules";
 import {
   HomePenyelenggara,
   LoginPenyelenggara,
+  // SettingPenyelenggara,
 } from "./components/pages/penyelenggara";
 import {
   EventDetail,
@@ -19,13 +19,12 @@ import {
   ResetPassword,
   Setting,
 } from "./components/pages";
+import { getToken } from "./utils/storage";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
-
   return (
     <>
-      {isLogin && <Header setIsLogin={setIsLogin} />}
+      {getToken() !== "" && <Header />}
       <Routes>
         <Route
           path="/"
@@ -86,7 +85,7 @@ function App() {
           }
         />
 
-        <Route path="/login" element={<Login setIsLogin={setIsLogin} />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/new-password" element={<NewPassword />} />
@@ -101,10 +100,7 @@ function App() {
         />
 
         {/* Penyelenggara */}
-        <Route
-          path="/penyelenggara/login"
-          element={<LoginPenyelenggara setIsLogin={setIsLogin} />}
-        />
+        <Route path="/penyelenggara/login" element={<LoginPenyelenggara />} />
         <Route
           path="/penyelenggara/"
           element={
@@ -113,6 +109,14 @@ function App() {
             </PrivateRoutes>
           }
         />
+        {/* <Route
+          path="/penyelenggara/update-profile/:mahasiswaId"
+          element={
+            <PrivateRoutes>
+              <SettingPenyelenggara />
+            </PrivateRoutes>
+          }
+        /> */}
       </Routes>
     </>
   );

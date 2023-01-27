@@ -14,7 +14,7 @@ const styles = {
   },
 };
 
-const Login = ({ setIsLogin }) => {
+const Login = () => {
   const [responseMessage, setResponseMessage] = useState("");
 
   const [
@@ -60,7 +60,6 @@ const Login = ({ setIsLogin }) => {
   useEffect(() => {
     if (isSuccessMahasiswaLogin) {
       setResponseMessage(dataMahasiswaLogin?.message);
-      setIsLogin(true);
       navigate("/");
     } else if (isErrorMahasiswaLogin) {
       setResponseMessage(errorMahasiswaLogin?.data?.message || "Error");
@@ -73,7 +72,6 @@ const Login = ({ setIsLogin }) => {
     isSuccessMahasiswaLogin,
     navigate,
     responseMessage,
-    setIsLogin,
   ]);
 
   return (
