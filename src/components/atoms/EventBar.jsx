@@ -87,7 +87,7 @@ const EventBar = ({
         type === "history" ? "Status" : `${price}`
       }`}</div>
       <div className="col-2 d-flex">
-        {getPenyelenggaraId() !== "" && (
+        {getPenyelenggaraId() !== null && (
           <>
             <Button
               variant="light"

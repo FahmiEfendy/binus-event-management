@@ -23,7 +23,11 @@ const ProfileDropdown = ({ setIsLogin }) => {
   const username = "John Doe";
 
   const goToSettingPage = () => {
-    navigate(`/update-profile/${getMahasiswaId()}`);
+    if (getMahasiswaId() !== null) {
+      navigate(`/update-profile/${getMahasiswaId()}`);
+    } else if (getPenyelenggaraId() !== null) {
+      navigate(`/penyelenggara/update-profile/${getPenyelenggaraId()}`);
+    }
   };
 
   const logoutHandler = () => {
