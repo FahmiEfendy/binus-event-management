@@ -13,20 +13,28 @@ export const eventApi = api.injectEndpoints({
       },
     }),
 
-    // getEnrolledEvent: builder.query({
-    //   query: (payload) => {
-    //     return {
-    //       url: `${STUDENT_EVENT_URL}-enrolled/`,
-    //       method: "GET",
-    //       body: payload,
-    //     };
-    //   },
-    // }),
+    getEnrolledEvent: builder.query({
+      query: (id) => {
+        return {
+          url: `${STUDENT_EVENT_URL}-enrolled/list-enrolled/${id}`,
+          method: "GET",
+        };
+      },
+    }),
 
     getEventDetail: builder.query({
       query: (id) => {
         return {
           url: `${STUDENT_EVENT_URL}/detail/${id}`,
+          method: "GET",
+        };
+      },
+    }),
+
+    getEnrolledEventDetail: builder.query({
+      query: (id) => {
+        return {
+          url: `${STUDENT_EVENT_URL}-enrolled/view/${id}`,
           method: "GET",
         };
       },
@@ -78,8 +86,9 @@ export const eventApi = api.injectEndpoints({
 
 export const {
   useGetEventListQuery,
-  // useGetEnrolledEventQuery,
+  useGetEnrolledEventQuery,
   useGetEventDetailQuery,
+  useGetEnrolledEventDetailQuery,
   useCreateEventMutation,
   useDeleteEventMutation,
   useUpdateEventMutation,

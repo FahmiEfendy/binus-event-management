@@ -62,7 +62,7 @@ function App() {
           }
         />
         <Route
-          path="/example-event-history-path"
+          path="/detail/enrolled/:eventId"
           element={
             <PrivateRoutes>
               <EventDetail type="history" />

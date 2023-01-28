@@ -2,7 +2,10 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { useGetEventDetailQuery } from "../../api/eventApi";
+import {
+  useGetEventDetailQuery,
+  useGetEnrolledEventDetailQuery,
+} from "../../api/eventApi";
 import { RegisterConfirmationModal, RegistrationSuccessModal } from "../atoms";
 import { useNavigate } from "react-router-dom";
 
@@ -28,22 +31,33 @@ const styles = {
 };
 
 const EventDetail = ({ type }) => {
-  const navigate = useNavigate();
-
-  setTimeout(() => {
-    if(localStorage.getItem("_loginstatus").toString()==="false" || !localStorage.getItem("_loginstatus")){
-      navigate("/login");
-    }
-  },100)
-
   const [responseMessage, setResponseMessage] = useState("");
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isRegistrationSuccessModalOpen, setIsRegistrationSuccessModalOpen] =
     useState(false);
 
+  setTimeout(() => {
+    if (
+      localStorage.getItem("_loginstatus").toString() === "false" ||
+      !localStorage.getItem("_loginstatus")
+    ) {
+      navigate("/login");
+    }
+  }, 100);
+
+  const navigate = useNavigate();
+
   const { eventId } = useParams();
 
-  const { data, isSuccess, isError } = useGetEventDetailQuery(eventId);
+  const { data, isSuccess, isError } = useGetEventDetailQuery(eventId, {
+    skip: !eventId,
+  });
+
+  const {
+    data: eventEnrolledDetail,
+    isSuccess: isSuccessGetEnrolledDetail,
+    isError: isErrorGetEnrolledDetail,
+  } = useGetEnrolledEventDetailQuery(eventId);
 
   const registerHandler = () => {
     setIsRegisterModalOpen(true);
@@ -58,6 +72,16 @@ const EventDetail = ({ type }) => {
     }
     console.log(responseMessage);
   }, [isError, isSuccess, responseMessage]);
+
+  useEffect(() => {
+    if (isSuccessGetEnrolledDetail) {
+      responseMessage("Success get enrolled event detail");
+    } else if (isErrorGetEnrolledDetail) {
+      responseMessage("Failed get enrolled event detail");
+    }
+
+    console.log(responseMessage);
+  }, [isErrorGetEnrolledDetail, isSuccessGetEnrolledDetail, responseMessage]);
 
   return (
     <div
@@ -84,7 +108,7 @@ const EventDetail = ({ type }) => {
             <span className="col-9 h5">{data?.organizer}</span>
           </div>
           <div className="row mt-3">
-            <span className="col-3 h4">Date</span>
+            <span className="col-3 h4">Start Date</span>
             <span className="col-9 h5">
               {moment(data?.startDate).format("LL")}
             </span>
