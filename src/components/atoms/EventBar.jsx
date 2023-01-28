@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { Pencil, Trash } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
@@ -26,6 +26,10 @@ const EventBar = ({
   setEditId,
   setIsOpen,
 }) => {
+  const [show, setShow] = useState(false)
+  const handleDeleteBtnClose = () => setShow(false);
+  const handleDeleteBtnShow = () => setShow(true);
+
   const [responseMessage, setResponseMessage] = useState("");
 
   const navigate = useNavigate();
@@ -99,7 +103,7 @@ const EventBar = ({
             <Button
               variant="danger"
               className="mx-1 btn-delete"
-              onClick={deleteEventHandler}
+              onClick={handleDeleteBtnShow}
             >
               <Trash />
             </Button>
@@ -115,6 +119,25 @@ const EventBar = ({
           Detail
         </button>
       </div>
+      <Modal
+        show={show}
+        onHide={handleDeleteBtnClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Event</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you really sure you want to delete it?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="light" onClick={handleDeleteBtnClose}>
+            Close
+          </Button>
+          <Button variant="danger" onClick={deleteEventHandler}>Save Changes</Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

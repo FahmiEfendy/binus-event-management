@@ -34,6 +34,7 @@ const HomePenyelenggara = ({ searchValue }) => {
   const { data: eventList, error, isError, isSuccess } = useGetEventListQuery();
 
   const openModalHandler = () => {
+    setEditId(null)
     setIsModalOpen(true);
   };
 
