@@ -71,7 +71,7 @@ const ProfileDropdown = ({ setIsLogin }) => {
         />
       </div>
       <div
-        className="dropdown-menu me-4 mt-2"
+        className="dropdown-menu me-5 mt-2" style={{transform: "translate3d(0,0,0) !important"}}
         aria-labelledby="dropdownMenuButton"
       >
         <button

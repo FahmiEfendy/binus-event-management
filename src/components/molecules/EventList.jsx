@@ -46,7 +46,7 @@ const EventList = ({ data, searchValue, setEditId, setIsOpen }) => {
       style={styles.container}
       className="container d-flex flex-column mx-auto px-4 rounded container-general-style"
     >
-      <div className="row w-100 mb-4 mx-auto px-3">
+      <div className="d-flex w-100 mb-4 mx-auto px-3">
         <div className="col-3 my-auto" style={styles.header}>
           Event
         </div>
@@ -63,27 +63,27 @@ const EventList = ({ data, searchValue, setEditId, setIsOpen }) => {
           Price
         </div>
         <div className="col-1" style={styles.header}>
-          <Dropdown>
+          <Dropdown align="end">
             <Dropdown.Toggle id="dropdown-basic">
               <Funnel /> Filter{" "}
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item onClick={() => setFilterType("")} className="m-2">
-                All Types
+              <Dropdown.Item onClick={() => setFilterType("")} className="">
+                &nbsp; &nbsp; All Types
               </Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item
                 onClick={() => setFilterType("JamSos")}
-                className="m-2"
+                className=""
               >
-                Jam Sosial
+                &nbsp; &nbsp; Jam Sosial
               </Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item
                 onClick={() => setFilterType("SAT")}
-                className="m-2"
+                className=""
               >
-                SAT
+                &nbsp; &nbsp; SAT
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>

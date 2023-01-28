@@ -77,7 +77,7 @@ const EventBar = ({
           alt="Example Event Organizer Logo"
         />
         <div className="mx-3">
-          <p className="my-1">{title}</p>
+          <p className="my-1" style={{fontWeight:"semibold"}}>{title}</p>
           <p className="my-1">{eventType} Provided</p>
         </div>
       </div>
