@@ -12,6 +12,11 @@ import {
 } from "../../api/eventApi";
 
 const EventModal = ({ editId, isOpen, setIsOpen }) => {
+
+  const [showPopUp, setShowPopUp] = useState(false)
+  const handlePopUpClose = () => setShowPopUp(false);
+  const handlePopUpShow = () => setShowPopUp(true);
+
   const [file, setFile] = useState(null);
   const [acceptedFile, setAcceptedFile] = useState(null);
   const [responseMessage, setResponseMessage] = useState("");
@@ -45,6 +50,7 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
 
   const closeModalHandler = () => {
     setIsOpen(false);
+    setShowPopUp(false);
   };
 
   const onSubmit = async (data) => {
@@ -60,6 +66,7 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
     } else if (editId !== null) {
       await updateEvent({ id: editId, payload });
     }
+    setShowPopUp(false);
   };
 
   useEffect(() => {
@@ -209,9 +216,40 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
                 >
                   Cancel
                 </button>
-                <button className="btn btn-primary px-5 py-2" type="submit">
+                <button
+                  type="button"
+                  className="btn px-5 py-2 mx-4 btn-primary"
+                  onClick={handlePopUpShow}
+                >
                   {editId !== null ? "Update" : "Add"} Event
                 </button>
+                { showPopUp &&
+                    <div className="shadow-bg">
+                    <div style={{ backgroundColor:"white", position:"absolute", width:"450px", height:"180px", top:"20%", left:"25%", zIndex:"10"}}
+                        className="border rounded p-3">
+                    <div className="d-flex">
+                      <h5>{editId !== null ? "Update" : "Add"} Event</h5>
+                        <button
+                          type="button"
+                          className="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                          onClick={handlePopUpClose}
+                          style={{border: "none", backgroundColor: "transparent"}}
+                        />
+                    </div>
+                    <p className="my-3">Are you really sure you want to  {editId !== null ? "Update" : "Add"} it?</p>
+                    <div className="text-end">
+                      <button className="btn btn-light px-3 py-2 ms-auto me-3 mt-3" onClick={handlePopUpClose}>
+                        Cancel
+                      </button>
+                      <button className="btn btn-success px-3 py-2 mt-3" type="submit">
+                        Save Changes
+                      </button>
+                    </div>
+                  </div>
+                  </div>
+                  }
               </div>
             </div>
           </form>

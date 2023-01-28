@@ -26,7 +26,7 @@ code {
   box-shadow: 8px 8px 8px rgba(102, 67, 181, 0.8);
 }
 
-.btn-delete:hover {
+.btn-delete:hover, .btn-danger:hover, .btn-success:hover {
   transform: translateY(-2px);
 }
 
@@ -194,4 +194,17 @@ select:focus > option:checked {
 
 .btn-lg{
   font-size: 18px;
+}
+
+.shadow-bg{
+  --bs-backdrop-zindex: 1050;
+  --bs-backdrop-bg: rgba(0,0,0,0.5);
+  --bs-backdrop-opacity: 0.5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--bs-backdrop-zindex);
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bs-backdrop-bg);
 }
