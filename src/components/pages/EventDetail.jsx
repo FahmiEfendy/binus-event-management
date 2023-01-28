@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 
 import { useGetEventDetailQuery } from "../../api/eventApi";
 import { RegisterConfirmationModal, RegistrationSuccessModal } from "../atoms";
+import { useNavigate } from "react-router-dom";
 
 const styles = {
   container: {
@@ -27,6 +28,14 @@ const styles = {
 };
 
 const EventDetail = ({ type }) => {
+  const navigate = useNavigate();
+
+  setTimeout(() => {
+    if(localStorage.getItem("_loginstatus").toString()==="false" || !localStorage.getItem("_loginstatus")){
+      navigate("/login");
+    }
+  },100)
+
   const [responseMessage, setResponseMessage] = useState("");
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isRegistrationSuccessModalOpen, setIsRegistrationSuccessModalOpen] =

@@ -14,7 +14,7 @@ const styles = {
   },
 };
 
-const Login = () => {
+const Login = ({setIsLogin}) => {
   const [responseMessage, setResponseMessage] = useState("");
 
   const [
@@ -30,6 +30,12 @@ const Login = () => {
   const { handleSubmit, control } = useForm();
 
   const navigate = useNavigate();
+
+  setTimeout(() => {
+    if(localStorage.getItem("_loginstatus").toString()==="true" && localStorage.getItem("_loginstatus") && localStorage.getItem("MAHASISWA_ID").toString()!=='null'){
+      navigate("/");
+    }
+  },100)
 
   const goToRegisterPage = () => {
     navigate("/register");
@@ -60,6 +66,7 @@ const Login = () => {
   useEffect(() => {
     if (isSuccessMahasiswaLogin) {
       setResponseMessage(dataMahasiswaLogin?.message);
+      setIsLogin(true);
       navigate("/");
     } else if (isErrorMahasiswaLogin) {
       setResponseMessage(errorMahasiswaLogin?.data?.message || "Error");
@@ -72,6 +79,7 @@ const Login = () => {
     isSuccessMahasiswaLogin,
     navigate,
     responseMessage,
+    setIsLogin
   ]);
 
   return (
@@ -86,7 +94,7 @@ const Login = () => {
         </div>
         <div className="w-50 px-5">
           <p className="h3 text-center">Binus Event Management</p>
-          <p className="h3 text-center mb-4">User Login</p>
+          <p className="h3 text-center mb-4">Mahasiswa Login</p>
           <TextForm
             control={control}
             name="email"

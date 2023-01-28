@@ -23,7 +23,7 @@ const styles = {
   },
 };
 
-const Header = () => {
+const Header = ({setIsLogin}) => {
   return (
     <div
       style={styles.container}
@@ -61,7 +61,7 @@ const Header = () => {
           Home
         </NavLink>
       </p>
-      <p className="h6 my-auto mx-4">
+      {/* <p className="h6 my-auto mx-4">
         <NavLink
           to="/organization-list"
           exact="true"
@@ -71,8 +71,8 @@ const Header = () => {
         >
           Organization List
         </NavLink>
-      </p>
-      <p className="h6 my-auto">
+      </p> */}
+      <p className="h6 my-auto ms-4">
         <NavLink
           to="/event-history"
           exact="true"
@@ -84,7 +84,7 @@ const Header = () => {
         </NavLink>
       </p>
       <div className="ms-auto" style={{ cursor: "pointer" }}>
-        <ProfileDropdown />
+        <ProfileDropdown setIsLogin={setIsLogin}/>
       </div>
     </div>
   );

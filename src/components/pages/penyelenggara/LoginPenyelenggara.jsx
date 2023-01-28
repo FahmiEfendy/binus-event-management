@@ -14,7 +14,7 @@ const styles = {
   },
 };
 
-const LoginPenyelenggara = () => {
+const LoginPenyelenggara = ({setIsLogin}) => {
   const [responseMessage, setResponseMessage] = useState("");
 
   const [penyelenggaraLogin, { data, isSuccess, isError, error }] =
@@ -25,6 +25,12 @@ const LoginPenyelenggara = () => {
   });
 
   const navigate = useNavigate();
+
+  setTimeout(() => {
+    if(localStorage.getItem("_loginstatus").toString()==="true" && localStorage.getItem("_loginstatus") && localStorage.getItem("PENYELENGGARA_ID").toString()!=='null'){
+      navigate("/penyelenggara/");
+    }
+  },100)
 
   const onSubmit = async (data) => {
     const payload = {
@@ -44,6 +50,7 @@ const LoginPenyelenggara = () => {
   useEffect(() => {
     if (isSuccess) {
       setResponseMessage(data?.message);
+      setIsLogin(true);
       navigate("/penyelenggara/");
     } else if (isError) {
       setResponseMessage(error?.data?.message || "Error");
@@ -56,6 +63,7 @@ const LoginPenyelenggara = () => {
     isSuccess,
     navigate,
     responseMessage,
+    setIsLogin
   ]);
 
   return (
