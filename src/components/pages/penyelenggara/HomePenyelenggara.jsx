@@ -22,6 +22,10 @@ const HomePenyelenggara = () => {
   // TODO : Fix filter event list based on created event by organizer
   const { data: eventList, error, isError, isSuccess } = useGetEventListQuery();
 
+  const openModalHandler = () => {
+    setIsModalOpen(true);
+  };
+
   useEffect(() => {
     if (isSuccess) {
       setResponseMessage("Success get Event List");
@@ -39,6 +43,7 @@ const HomePenyelenggara = () => {
       >
         <div style={{ alignSelf: "end", margin: "1rem 3rem" }}>
           <Button
+            onClick={openModalHandler}
             variant="primary"
             size="md"
             style={{ padding: "0.5rem 1.5rem", marginRight: "0.5rem" }}
