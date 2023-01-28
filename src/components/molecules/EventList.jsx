@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Funnel } from "react-bootstrap-icons";
 import Dropdown from "react-bootstrap/Dropdown";
 
-import { EventBar } from "../atoms";
+import { EventBar, Loading } from "../atoms";
 
 const styles = {
   container: {
@@ -21,7 +21,7 @@ const styles = {
 
 const EventList = ({ data, searchValue, setEditId, setIsOpen }) => {
   const [filterType, setFilterType] = useState("");
-  const [filteredData, setFilteredData] = useState(data);
+  const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
     if (filterType !== "") {
@@ -39,7 +39,7 @@ const EventList = ({ data, searchValue, setEditId, setIsOpen }) => {
         )
       );
     }
-  }, [data?.eventList, filterType, searchValue]);
+  }, [data, filterType, searchValue]);
 
   return (
     <div
@@ -90,23 +90,27 @@ const EventList = ({ data, searchValue, setEditId, setIsOpen }) => {
         </div>
       </div>
       <div className="w-100 ms-3">
-        {filteredData?.map((data) => {
-          return (
-            <EventBar
-              key={data._id}
-              eventId={data._id}
-              title={data.title}
-              eventType={data.eventType}
-              date={moment(data.startDate).format("LL")}
-              location={data.location}
-              // TODO: totalQuota atau jumlah yang udah ikut ?
-              participant={data.totalQuota}
-              price={data.price}
-              setEditId={setEditId}
-              setIsOpen={setIsOpen}
-            />
-          );
-        })}
+        {filteredData ? (
+          filteredData?.map((data) => {
+            return (
+              <EventBar
+                key={data._id}
+                eventId={data._id}
+                title={data.title}
+                eventType={data.eventType}
+                date={moment(data.startDate).format("LL")}
+                location={data.location}
+                // TODO: totalQuota atau jumlah yang udah ikut ?
+                participant={data.totalQuota}
+                price={data.price}
+                setEditId={setEditId}
+                setIsOpen={setIsOpen}
+              />
+            );
+          })
+        ) : (
+          <Loading />
+        )}
       </div>
     </div>
   );

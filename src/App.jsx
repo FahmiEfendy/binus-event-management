@@ -118,7 +118,7 @@ function App() {
           path="/penyelenggara/"
           element={
             <PrivateRoutes>
-              <HomePenyelenggara />
+              <HomePenyelenggara searchValue={searchValue} />
             </PrivateRoutes>
           }
         />

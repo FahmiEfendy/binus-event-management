@@ -15,14 +15,17 @@ const styles = {
   },
 };
 
-const HomePenyelenggara = () => {
+const HomePenyelenggara = ({ searchValue }) => {
   const navigate = useNavigate();
 
   setTimeout(() => {
-    if(localStorage.getItem("_loginstatus").toString()==="false" || !localStorage.getItem("_loginstatus")){
+    if (
+      localStorage.getItem("_loginstatus").toString() === "false" ||
+      !localStorage.getItem("_loginstatus")
+    ) {
       navigate("/penyelenggara/login");
     }
-  },100)
+  }, 100);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editId, setEditId] = useState(null);
   const [responseMessage, setResponseMessage] = useState("");
@@ -61,6 +64,7 @@ const HomePenyelenggara = () => {
         </div>
         <EventList
           data={eventList}
+          searchValue={searchValue}
           setIsOpen={setIsModalOpen}
           setEditId={setEditId}
         />
