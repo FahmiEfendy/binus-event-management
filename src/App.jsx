@@ -62,7 +62,7 @@ function App() {
           }
         />
         <Route
-          path="/example-event-history-path"
+          path="/detail/enrolled/:eventId"
           element={
             <PrivateRoutes>
               <EventDetail type="history" />
@@ -98,7 +98,7 @@ function App() {
         <Route path="/login" element={<Login setIsLogin={setIsLogin} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/new-password" element={<NewPassword />} />
+        <Route path="mahasiswa/new-password/:token" element={<NewPassword />} />
 
         <Route
           path="*"

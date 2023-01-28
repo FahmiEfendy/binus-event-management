@@ -23,6 +23,7 @@ const EventBar = ({
   location,
   participant,
   price,
+  status,
   setEditId,
   setIsOpen,
 }) => {
@@ -42,7 +43,7 @@ const EventBar = ({
   };
 
   const eventHistoryDetailHandler = () => {
-    navigate("/example-event-history-path");
+    navigate(`/detail/enrolled/${eventId}`);
   };
 
   const deleteEventHandler = async () => {
@@ -88,7 +89,7 @@ const EventBar = ({
       <div className="col-2">{location}</div>
       <div className="col-2">{participant}</div>
       <div className="col-1">{`${
-        type === "history" ? "Status" : `${price}`
+        type === "history" ? status : `${price}`
       }`}</div>
       <div className="col-2 d-flex">
         {getPenyelenggaraId() !== null && (

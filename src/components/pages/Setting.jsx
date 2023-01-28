@@ -4,12 +4,12 @@ import { useCallback, useEffect, useState } from "react";
 
 import { getMahasiswaId } from "../../utils/storage";
 import { FileInput, SelectForm, TextForm } from "../forms";
+import { genderOptions, religionOptions } from "../../constants/option";
 import {
   useGetMahasiswaDetailQuery,
   useUpdateProfileImageMahasiswaMutation,
   useUpdateProfileMahasiswaMutation,
 } from "../../api/authApi";
-import { genderOptions, religionOptions } from "../../constants/option";
 
 const styles = {
   container: {
@@ -31,12 +31,22 @@ const Setting = () => {
 
   const [
     updateProfileMahasiswa,
-    { data: updateData, isSuccessUpdate, isErrorUpdate, error: errUpdate },
+    {
+      data: updateData,
+      isSuccess: isSuccessUpdate,
+      isError: isErrorUpdate,
+      error: errUpdate,
+    },
   ] = useUpdateProfileMahasiswaMutation();
 
   const [
     updateProfileImageMahasiswa,
-    { data: updateDataImage, isSuccessUpdateImage, isErrorUpdateImage, error: errUpdateImage },
+    {
+      data: updateDataImage,
+      isSuccess: isSuccessUpdateImage,
+      isError: isErrorUpdateImage,
+      error: errUpdateImage,
+    },
   ] = useUpdateProfileImageMahasiswaMutation();
 
   const { handleSubmit, control, setValue } = useForm();
@@ -44,10 +54,13 @@ const Setting = () => {
   const navigate = useNavigate();
 
   setTimeout(() => {
-    if(localStorage.getItem("_loginstatus").toString()==="false" || !localStorage.getItem("_loginstatus")){
+    if (
+      localStorage.getItem("_loginstatus").toString() === "false" ||
+      !localStorage.getItem("_loginstatus")
+    ) {
       navigate("/login");
     }
-  },100)
+  }, 100);
 
   const goToHomePage = useCallback(() => {
     navigate("/");
@@ -64,18 +77,14 @@ const Setting = () => {
 
     const mahasiswaId = getMahasiswaId();
 
-    console.log(acceptedFile)
-    if (acceptedFile!==null){
+    if (acceptedFile !== null) {
       let formData = new FormData();
-      formData.append('image', acceptedFile);
-      formData.append('mahasiswaId', mahasiswaId);
+      formData.append("image", acceptedFile);
+      formData.append("mahasiswaId", mahasiswaId);
 
-      console.log(formData)
-
-      await updateProfileImageMahasiswa (formData);
+      await updateProfileImageMahasiswa(formData);
     }
     await updateProfileMahasiswa({ id: mahasiswaId, payload });
-
   };
 
   useEffect(() => {
@@ -85,24 +94,34 @@ const Setting = () => {
       setResponseMessage("Failed Get Detail Mahasiswa");
     }
 
-    if(isSuccessUpdateImage) {
+    if (isSuccessUpdateImage) {
       setResponseMessage(updateDataImage?.message);
-    } else if(isErrorUpdateImage) {
+    } else if (isErrorUpdateImage) {
       setResponseMessage(errUpdateImage?.data?.message || "Error");
     }
 
     if (isSuccessUpdate) {
       setResponseMessage(updateData?.message);
-      console.error()
       goToHomePage();
     } else if (isErrorUpdate) {
       setResponseMessage(errUpdate?.data?.message || "Error");
     }
-    
+
     console.log(responseMessage);
-  }, [errUpdate?.data?.message, errUpdateImage?.data?.message, goToHomePage, 
-      isError, isErrorUpdate, isErrorUpdateImage, isSuccess, isSuccessUpdate, 
-      isSuccessUpdateImage, responseMessage, updateData?.message, updateDataImage?.message]);
+  }, [
+    errUpdate?.data?.message,
+    errUpdateImage?.data?.message,
+    goToHomePage,
+    isError,
+    isErrorUpdate,
+    isErrorUpdateImage,
+    isSuccess,
+    isSuccessUpdate,
+    isSuccessUpdateImage,
+    responseMessage,
+    updateData?.message,
+    updateDataImage?.message,
+  ]);
 
   useEffect(() => {
     // TODO : get image
@@ -112,18 +131,20 @@ const Setting = () => {
     setValue("religion", data?.religion);
     setValue("phoneNo", data?.phoneNo);
     setValue("gender", data?.gender);
-    
-    if(data?.image != null){
-      // setAcceptedFile(data?.image)
-      let blob = new Blob(data?.image.data.data, {type: data?.image.contentType})
-      // console.log(blob)
-      let reader = new FileReader()
-      reader.readAsDataURL(blob)
 
-      reader.onload = (e)=>{
-          setFile(e.target.result)
-          console.log(e.target.result)
-      }
+    if (data?.image != null) {
+      // setAcceptedFile(data?.image)
+      let blob = new Blob(data?.image.data.data, {
+        type: data?.image.contentType,
+      });
+      // console.log(blob)
+      let reader = new FileReader();
+      reader.readAsDataURL(blob);
+
+      reader.onload = (e) => {
+        setFile(e.target.result);
+        console.log(e.target.result);
+      };
     }
   }, [data, setValue]);
 
@@ -194,7 +215,12 @@ const Setting = () => {
                 />
               </div>
             </div>
-            <FileInput label="Profile Picture" file={file} setFile={setFile} setAcceptedFile={setAcceptedFile}/>
+            <FileInput
+              label="Profile Picture"
+              file={file}
+              setFile={setFile}
+              setAcceptedFile={setAcceptedFile}
+            />
             <div className="d-flex ms-auto mt-4">
               <button
                 className="btn btn-light px-5 py-2 mx-4"

@@ -1,5 +1,10 @@
-import { EventBar } from "../atoms";
+import { useEffect, useState } from "react";
+import moment from "moment/moment";
 import { useNavigate } from "react-router-dom";
+
+import { EventBar, Loading } from "../atoms";
+import { getToken } from "../../utils/storage";
+import { useGetEnrolledEventQuery } from "../../api/eventApi";
 
 const styles = {
   container: {
@@ -16,13 +21,34 @@ const styles = {
 };
 
 const EventHistory = () => {
+  const [responseMessage, setResponseMessage] = useState("");
+
   const navigate = useNavigate();
 
   setTimeout(() => {
-    if(localStorage.getItem("_loginstatus").toString()==="false" || !localStorage.getItem("_loginstatus")){
+    if (
+      localStorage.getItem("_loginstatus").toString() === "false" ||
+      !localStorage.getItem("_loginstatus")
+    ) {
       navigate("/login");
     }
-  },100)
+  }, 100);
+
+  const {
+    data: enrolledEventList,
+    isSuccess,
+    isError,
+  } = useGetEnrolledEventQuery(getToken());
+
+  useEffect(() => {
+    if (isSuccess) {
+      setResponseMessage("Success Get Enrolled Event List");
+    } else if (isError) {
+      setResponseMessage("Failed Get Enrolled Event List");
+    }
+
+    console.log(responseMessage);
+  }, [isError, isSuccess, responseMessage]);
 
   return (
     <div
@@ -34,7 +60,7 @@ const EventHistory = () => {
           Event
         </div>
         <div className="col-2" style={styles.header}>
-          Date
+          Start Date
         </div>
         <div className="col-2" style={styles.header}>
           Location
@@ -53,9 +79,41 @@ const EventHistory = () => {
       </div>
 
       <div className="w-100 ms-3">
-        <EventBar type="history" />
-        <EventBar type="history" />
-        <EventBar type="history" />
+        {enrolledEventList ? (
+          enrolledEventList[0].eventEnrolled.map((data) => {
+            const currDate = moment(new Date()).format("LL");
+            const startDate = moment(data.startDate).format("LL");
+            const endDate = moment(data.endDate).format("LL");
+
+            let status = "";
+
+            if (currDate < startDate) {
+              status = "Upcoming";
+            } else if (startDate < currDate && currDate < endDate) {
+              status = "Ongoing";
+            } else {
+              status = "Completed";
+            }
+
+            return (
+              <EventBar
+                type="history"
+                key={data._id}
+                eventId={data._id}
+                title={data.title}
+                eventType={data.eventType}
+                date={startDate}
+                location={data.location}
+                status={status}
+                // TODO: totalQuota atau jumlah yang udah ikut ?
+                participant={data.totalQuota}
+                price={data.price}
+              />
+            );
+          })
+        ) : (
+          <Loading />
+        )}
       </div>
     </div>
   );

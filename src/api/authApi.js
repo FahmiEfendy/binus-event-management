@@ -37,8 +37,8 @@ export const authApi = api.injectEndpoints({
     }),
 
     mahasiswaNewPassword: builder.mutation({
-      query: (payload) => ({
-        url: `${STUDENT_AUTH_URL}/new-password`,
+      query: ({ payload, token }) => ({
+        url: `${STUDENT_AUTH_URL}/new-password/${token}`,
         method: "POST",
         body: payload,
       }),
@@ -69,5 +69,5 @@ export const {
   useMahasiswaResetPasswordMutation,
   useMahasiswaNewPasswordMutation,
   useUpdateProfileMahasiswaMutation,
-  useUpdateProfileImageMahasiswaMutation
+  useUpdateProfileImageMahasiswaMutation,
 } = authApi;

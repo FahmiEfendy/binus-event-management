@@ -51,7 +51,7 @@ const EventList = ({ data, searchValue, setEditId, setIsOpen }) => {
           Event
         </div>
         <div className="col-2 my-auto" style={styles.header}>
-          Date
+          Start Date
         </div>
         <div className="col-2 my-auto" style={styles.header}>
           Location
