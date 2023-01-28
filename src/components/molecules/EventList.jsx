@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Funnel } from "react-bootstrap-icons";
 import Dropdown from "react-bootstrap/Dropdown";
 
-import { EventBar, Loading } from "../atoms";
+import { EventBar, EventNotFound, Loading } from "../atoms";
 
 const styles = {
   container: {
@@ -19,27 +19,48 @@ const styles = {
   },
 };
 
-const EventList = ({ data, searchValue, setEditId, setIsOpen }) => {
+const EventList = ({ data, type, searchValue, setEditId, setIsOpen }) => {
   const [filterType, setFilterType] = useState("");
-  const [filteredData, setFilteredData] = useState([]);
+  const [filteredData, setFilteredData] = useState();
 
   useEffect(() => {
-    if (filterType !== "") {
-      setFilteredData(
-        data?.eventList.filter((data) => data.eventType === filterType)
-      );
-    } else {
-      setFilteredData(data?.eventList);
-    }
+    if (type !== "history") {
+      if (filterType !== "") {
+        setFilteredData(
+          data?.eventList.filter((data) => data.eventType === filterType)
+        );
+      } else {
+        setFilteredData(data?.eventList);
+      }
 
-    if (searchValue.length > 0) {
-      setFilteredData(
-        data?.eventList.filter((data) =>
-          data?.title.includes(searchValue.toLowerCase())
-        )
-      );
+      if (searchValue.length > 0) {
+        setFilteredData(
+          data?.eventList.filter((data) =>
+            data?.title.includes(searchValue.toLowerCase())
+          )
+        );
+      }
+    } else if (type === "history") {
+      if (filterType !== "") {
+        data &&
+          setFilteredData(
+            data[0].eventEnrolled.filter(
+              (data) => data.eventType === filterType
+            )
+          );
+      } else {
+        data && setFilteredData(data[0].eventEnrolled);
+      }
+
+      if (searchValue.length > 0) {
+        setFilteredData(
+          data[0].eventEnrolled.filter((data) =>
+            data?.title.includes(searchValue.toLowerCase())
+          )
+        );
+      }
     }
-  }, [data, filterType, searchValue]);
+  }, [data, filterType, searchValue, type]);
 
   return (
     <div
@@ -79,10 +100,7 @@ const EventList = ({ data, searchValue, setEditId, setIsOpen }) => {
                 &nbsp; &nbsp; Jam Sosial
               </Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item
-                onClick={() => setFilterType("SAT")}
-                className=""
-              >
+              <Dropdown.Item onClick={() => setFilterType("SAT")} className="">
                 &nbsp; &nbsp; SAT
               </Dropdown.Item>
             </Dropdown.Menu>
@@ -91,23 +109,42 @@ const EventList = ({ data, searchValue, setEditId, setIsOpen }) => {
       </div>
       <div className="w-100 ms-3">
         {filteredData ? (
-          filteredData?.map((data) => {
-            return (
-              <EventBar
-                key={data._id}
-                eventId={data._id}
-                title={data.title}
-                eventType={data.eventType}
-                date={moment(data.startDate).format("LL")}
-                location={data.location}
-                // TODO: totalQuota atau jumlah yang udah ikut ?
-                participant={data.totalQuota}
-                price={data.price}
-                setEditId={setEditId}
-                setIsOpen={setIsOpen}
-              />
-            );
-          })
+          filteredData?.length !== 0 ? (
+            filteredData?.map((data) => {
+              const currDate = moment(new Date()).format("LL");
+              const startDate = moment(data.startDate).format("LL");
+              const endDate = moment(data.endDate).format("LL");
+
+              let status = "";
+
+              if (currDate < startDate) {
+                status = "Upcoming";
+              } else if (startDate < currDate && currDate < endDate) {
+                status = "Ongoing";
+              } else {
+                status = "Completed";
+              }
+
+              return (
+                <EventBar
+                  key={data._id}
+                  eventId={data._id}
+                  title={data.title}
+                  eventType={data.eventType}
+                  date={startDate}
+                  location={data.location}
+                  status={status}
+                  // TODO: totalQuota atau jumlah yang udah ikut ?
+                  participant={data.totalQuota}
+                  price={data.price}
+                  setEditId={setEditId}
+                  setIsOpen={setIsOpen}
+                />
+              );
+            })
+          ) : (
+            <EventNotFound />
+          )
         ) : (
           <Loading />
         )}

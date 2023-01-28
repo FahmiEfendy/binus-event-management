@@ -69,7 +69,7 @@ function App() {
           path="/event-history"
           element={
             <PrivateRoutes>
-              <EventHistory />
+              <EventHistory searchValue={searchValue} />
             </PrivateRoutes>
           }
         />
