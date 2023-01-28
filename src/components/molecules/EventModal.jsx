@@ -18,6 +18,7 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
 
   const { data, isSuccess, isError } = useGetEventDetailQuery(editId, {
     refetchOnMountOrArgChange: true,
+    skip: !editId,
   });
 
   const [

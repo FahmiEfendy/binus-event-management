@@ -19,10 +19,10 @@ const styles = {
   },
 };
 
-const ProfileDropdown = ({setIsLogin}) => {
-  const [responseMessage, setResponseMessage] = useState(null)
+const ProfileDropdown = ({ setIsLogin }) => {
+  const [username, setUsername] = useState("User");
+  const [responseMessage, setResponseMessage] = useState(null);
 
-  const [username, setUsername] = useState("user")
   const navigate = useNavigate();
 
   const goToSettingPage = () => {
@@ -45,7 +45,8 @@ const ProfileDropdown = ({setIsLogin}) => {
   };
 
   const { data, isSuccess, isError } = useGetMahasiswaDetailQuery(
-    getMahasiswaId()
+    getMahasiswaId(),
+    { skip: !getMahasiswaId() }
   );
 
   useEffect(() => {
@@ -54,8 +55,8 @@ const ProfileDropdown = ({setIsLogin}) => {
     } else if (isError) {
       setResponseMessage("Failed get Mahasiswa Profile Data");
     }
-    console.log(data)
-    setUsername(data?.['name'])
+    console.log(responseMessage);
+    setUsername(data?.name);
   }, [data, isError, isSuccess, responseMessage]);
 
   return (
