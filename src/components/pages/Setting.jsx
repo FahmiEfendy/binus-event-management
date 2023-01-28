@@ -6,6 +6,7 @@ import { getMahasiswaId } from "../../utils/storage";
 import { FileInput, SelectForm, TextForm } from "../forms";
 import {
   useGetMahasiswaDetailQuery,
+  useUpdateProfileImageMahasiswaMutation,
   useUpdateProfileMahasiswaMutation,
 } from "../../api/authApi";
 import { genderOptions, religionOptions } from "../../constants/option";
@@ -21,6 +22,7 @@ const styles = {
 
 const Setting = () => {
   const [file, setFile] = useState(null);
+  const [acceptedFile, setAcceptedFile] = useState(null);
   const [responseMessage, setResponseMessage] = useState("");
 
   const { data, isSuccess, isError } = useGetMahasiswaDetailQuery(
@@ -31,6 +33,11 @@ const Setting = () => {
     updateProfileMahasiswa,
     { data: updateData, isSuccessUpdate, isErrorUpdate, error: errUpdate },
   ] = useUpdateProfileMahasiswaMutation();
+
+  const [
+    updateProfileImageMahasiswa,
+    { data: updateDataImage, isSuccessUpdateImage, isErrorUpdateImage, error: errUpdateImage },
+  ] = useUpdateProfileImageMahasiswaMutation();
 
   const { handleSubmit, control, setValue } = useForm();
 
@@ -51,7 +58,20 @@ const Setting = () => {
 
     const mahasiswaId = getMahasiswaId();
 
-    await updateProfileMahasiswa({ id: mahasiswaId, payload });
+    console.log(acceptedFile)
+    if (typeof acceptedFile!='undefined' || acceptedFile!=null){
+      let formData = new FormData();
+      formData.append('image', acceptedFile);
+      formData.append('mahasiswaId', mahasiswaId);
+
+      console.log(formData)
+
+      await updateProfileImageMahasiswa (formData);
+      await updateProfileMahasiswa({ id: mahasiswaId, payload });
+    } else {
+      await updateProfileMahasiswa({ id: mahasiswaId, payload });
+    }
+
   };
 
   useEffect(() => {
@@ -61,23 +81,23 @@ const Setting = () => {
       setResponseMessage("Failed Get Detail Mahasiswa");
     }
 
+    if(isSuccessUpdateImage) {
+      setResponseMessage(updateDataImage?.message);
+    } else if(isErrorUpdateImage) {
+      setResponseMessage(errUpdateImage?.data?.message || "Error");
+    }
+
     if (isSuccessUpdate) {
       setResponseMessage(updateData?.message);
       goToHomePage();
     } else if (isErrorUpdate) {
       setResponseMessage(errUpdate?.data?.message || "Error");
     }
+    
     console.log(responseMessage);
-  }, [
-    errUpdate?.data?.message,
-    goToHomePage,
-    isError,
-    isErrorUpdate,
-    isSuccess,
-    isSuccessUpdate,
-    responseMessage,
-    updateData?.message,
-  ]);
+  }, [errUpdate?.data?.message, errUpdateImage?.data?.message, goToHomePage, 
+      isError, isErrorUpdate, isErrorUpdateImage, isSuccess, isSuccessUpdate, 
+      isSuccessUpdateImage, responseMessage, updateData?.message, updateDataImage?.message]);
 
   useEffect(() => {
     // TODO : get image
@@ -156,7 +176,7 @@ const Setting = () => {
                 />
               </div>
             </div>
-            <FileInput label="Profile Picture" file={file} setFile={setFile} />
+            <FileInput label="Profile Picture" file={file} setFile={setFile} setAcceptedFile={setAcceptedFile}/>
             <div className="d-flex ms-auto mt-4">
               <button
                 className="btn btn-light px-5 py-2 mx-4"

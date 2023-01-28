@@ -91,7 +91,7 @@ const EventBar = ({
           <>
             <Button
               variant="light"
-              className="ms-auto"
+              className="ms-auto me-1"
               onClick={updateEventHandler}
             >
               <Pencil />

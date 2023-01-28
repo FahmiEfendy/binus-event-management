@@ -51,6 +51,14 @@ export const authApi = api.injectEndpoints({
         body: payload,
       }),
     }),
+
+    updateProfileImageMahasiswa: builder.mutation({
+      query: (payload) => ({
+        url: `${STUDENT_AUTH_URL}/upload-profile`,
+        method: "POST",
+        body: payload,
+      }),
+    }),
   }),
 });
 
@@ -61,4 +69,5 @@ export const {
   useMahasiswaResetPasswordMutation,
   useMahasiswaNewPasswordMutation,
   useUpdateProfileMahasiswaMutation,
+  useUpdateProfileImageMahasiswaMutation
 } = authApi;

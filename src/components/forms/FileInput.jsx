@@ -18,7 +18,7 @@ const styles = {
   },
 };
 
-const InputImage = ({ label, file, setFile }) => {
+const InputImage = ({ label, file, setFile, setAcceptedFile }) => {
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
 
   useEffect(() => {
@@ -29,7 +29,9 @@ const InputImage = ({ label, file, setFile }) => {
       };
       reader.readAsDataURL(acceptedFiles[0]);
     }
-  }, [acceptedFiles, setFile]);
+    console.log(acceptedFiles[0])
+    setAcceptedFile(acceptedFiles[0])
+  }, [acceptedFiles, setFile, setAcceptedFile]);
 
   return (
     <div style={styles.container}>

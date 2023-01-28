@@ -8,7 +8,7 @@ import { useMahasiswaRegistrationMutation } from "../../api/authApi";
 
 const styles = {
   container: {
-    height: "fit-content",
+    height: "100vh",
     backgroundColor: "black",
     padding: "3rem"
   },
