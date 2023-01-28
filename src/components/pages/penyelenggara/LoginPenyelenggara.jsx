@@ -26,16 +26,6 @@ const LoginPenyelenggara = ({ setIsLogin }) => {
 
   const navigate = useNavigate();
 
-  setTimeout(() => {
-    if (
-      localStorage.getItem("_loginstatus").toString() === "true" &&
-      localStorage.getItem("_loginstatus") &&
-      localStorage.getItem("PENYELENGGARA_ID").toString() !== "null"
-    ) {
-      navigate("/penyelenggara/");
-    }
-  }, 100);
-
   const onSubmit = async (data) => {
     const payload = {
       ...data,

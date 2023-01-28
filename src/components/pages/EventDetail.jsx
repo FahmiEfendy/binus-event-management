@@ -11,7 +11,6 @@ import {
   RegisterConfirmationModal,
   RegistrationSuccessModal,
 } from "../atoms";
-import { useNavigate } from "react-router-dom";
 
 const styles = {
   container: {
@@ -40,17 +39,6 @@ const EventDetail = ({ type }) => {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isRegistrationSuccessModalOpen, setIsRegistrationSuccessModalOpen] =
     useState(false);
-
-  setTimeout(() => {
-    if (
-      localStorage.getItem("_loginstatus").toString() === "false" ||
-      !localStorage.getItem("_loginstatus")
-    ) {
-      navigate("/login");
-    }
-  }, 100);
-
-  const navigate = useNavigate();
 
   const { eventId } = useParams();
 

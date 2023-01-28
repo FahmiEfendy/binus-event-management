@@ -2,7 +2,11 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 
-import { genderOptions, religionOptions, preferenceListOptions } from "../../constants/option";
+import {
+  genderOptions,
+  religionOptions,
+  preferenceListOptions,
+} from "../../constants/option";
 import { SelectForm, TextForm, CheckForm } from "../forms";
 import { useMahasiswaRegistrationMutation } from "../../api/authApi";
 
@@ -10,7 +14,7 @@ const styles = {
   container: {
     height: "100vh",
     backgroundColor: "black",
-    padding: "3rem"
+    padding: "3rem",
   },
   registerFormContainer: {
     width: "95vw",
@@ -36,32 +40,26 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  setTimeout(() => {
-    if(localStorage.getItem("_loginstatus").toString()==="true" && localStorage.getItem("_loginstatus") && localStorage.getItem("MAHASISWA_ID").toString()!=='null'){
-      navigate("/");
-    }
-  },100)
-
   const goToLoginPage = useCallback(() => {
     navigate("/login");
   }, [navigate]);
 
   const onSubmit = async (data) => {
-    let preferenceListSubmit = []
-    for (var arr in preferenceListOptions){
-      if(preferenceListOptions[arr].status){
-        preferenceListSubmit.push(preferenceListOptions[arr].value)
+    let preferenceListSubmit = [];
+    for (var arr in preferenceListOptions) {
+      if (preferenceListOptions[arr].status) {
+        preferenceListSubmit.push(preferenceListOptions[arr].value);
       }
     }
     const payload = {
-      email:data.email,
-      gender:data.gender,
-      name:data.name,
-      nim:data.nim,
-      password:data.password,
-      phoneNo:data.phoneNo,
-      religion:data.religion,
-      preferenceList:preferenceListSubmit
+      email: data.email,
+      gender: data.gender,
+      name: data.name,
+      nim: data.nim,
+      password: data.password,
+      phoneNo: data.phoneNo,
+      religion: data.religion,
+      preferenceList: preferenceListSubmit,
     };
     await mahasiswaRegistration(payload);
   };

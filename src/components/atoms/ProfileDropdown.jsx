@@ -40,7 +40,7 @@ const ProfileDropdown = ({ setIsLogin }) => {
     } else if (getPenyelenggaraId() !== null) {
       navigate("/penyelenggara/login");
     }
-
+    setIsLogin(false);
     clearStorage();
   };
 

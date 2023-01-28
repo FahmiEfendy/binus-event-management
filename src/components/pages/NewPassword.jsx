@@ -34,16 +34,6 @@ const NewPassword = () => {
 
   const navigate = useNavigate();
 
-  setTimeout(() => {
-    if (
-      localStorage.getItem("_loginstatus").toString() === "true" &&
-      localStorage.getItem("_loginstatus") &&
-      localStorage.getItem("MAHASISWA_ID").toString() !== "null"
-    ) {
-      navigate("/");
-    }
-  }, 100);
-
   const goToLoginPage = () => {
     navigate("/login");
   };

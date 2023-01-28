@@ -53,15 +53,6 @@ const Setting = () => {
 
   const navigate = useNavigate();
 
-  setTimeout(() => {
-    if (
-      localStorage.getItem("_loginstatus").toString() === "false" ||
-      !localStorage.getItem("_loginstatus")
-    ) {
-      navigate("/login");
-    }
-  }, 100);
-
   const goToHomePage = useCallback(() => {
     navigate("/");
   }, [navigate]);

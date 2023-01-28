@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { PrivateRoutes } from "./routes";
+import { getToken } from "./utils/storage";
 import { Header } from "./components/molecules";
 import {
   HomePenyelenggara,
@@ -23,12 +24,7 @@ import {
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
-  const [isLogin, setIsLogin] = useState(
-    localStorage.getItem("_loginstatus") &&
-      localStorage.getItem("_loginstatus").toString() === "true"
-  );
-
-  localStorage.setItem("_loginstatus", isLogin);
+  const [isLogin, setIsLogin] = useState(getToken());
 
   return (
     <>

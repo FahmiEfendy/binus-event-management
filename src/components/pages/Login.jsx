@@ -14,7 +14,7 @@ const styles = {
   },
 };
 
-const Login = ({setIsLogin}) => {
+const Login = ({ setIsLogin }) => {
   const [responseMessage, setResponseMessage] = useState("");
 
   const [
@@ -30,12 +30,6 @@ const Login = ({setIsLogin}) => {
   const { handleSubmit, control } = useForm();
 
   const navigate = useNavigate();
-
-  setTimeout(() => {
-    if(localStorage.getItem("_loginstatus").toString()==="true" && localStorage.getItem("_loginstatus") && localStorage.getItem("MAHASISWA_ID").toString()!=='null'){
-      navigate("/");
-    }
-  },100)
 
   const goToRegisterPage = () => {
     navigate("/register");
@@ -79,7 +73,7 @@ const Login = ({setIsLogin}) => {
     isSuccessMahasiswaLogin,
     navigate,
     responseMessage,
-    setIsLogin
+    setIsLogin,
   ]);
 
   return (

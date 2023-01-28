@@ -23,17 +23,6 @@ const styles = {
 const EventHistory = () => {
   const [responseMessage, setResponseMessage] = useState("");
 
-  const navigate = useNavigate();
-
-  setTimeout(() => {
-    if (
-      localStorage.getItem("_loginstatus").toString() === "false" ||
-      !localStorage.getItem("_loginstatus")
-    ) {
-      navigate("/login");
-    }
-  }, 100);
-
   const {
     data: enrolledEventList,
     isSuccess,
