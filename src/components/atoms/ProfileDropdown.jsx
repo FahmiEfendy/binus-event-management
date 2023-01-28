@@ -11,8 +11,9 @@ import { useGetPenyelenggaraDetailQuery } from "../../api/authPenyelenggaraApi";
 
 const styles = {
   profilePicture: {
-    height: "50px",
-    width: "50px",
+    height: "50px !important",
+    width: "50px !important",
+    border: "1px solid black"
   },
   dropdownMenu: {
     minWidth: "13rem",
