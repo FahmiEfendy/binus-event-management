@@ -50,3 +50,18 @@ export const eventOptions = [
     value: "JamSos",
   },
 ];
+
+export const organizationTypeOptions = [
+  {
+    label: "Himpunan",
+    value: "Himpunan",
+  },
+  {
+    label: "UKM",
+    value: "UKM",
+  },
+  {
+    label: "Binus",
+    value: "Binus",
+  },
+];

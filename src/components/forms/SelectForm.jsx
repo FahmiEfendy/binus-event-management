@@ -15,14 +15,12 @@ const SelectForm = (props) => {
           <div className="form-group" style={{ width: "100%", ...style }}>
             <label htmlFor={name} className="mb-2 ms-2">
               {label}
-              { isRequired && 
-                (<span style={{color:"red"}}> *</span>)
-              }
+              {isRequired && <span style={{ color: "red" }}> *</span>}
             </label>
             <select
               {...field}
-              className="form-control custom-select disable-input-focusable-shadow"
-              style={{ height: "3rem", cursor:"pointer" }}
+              className="form-control custom-select disable-input-focusable-shadow mb-4"
+              style={{ height: "3rem", cursor: "pointer" }}
             >
               <option value="">{placeholder}</option>
               {options.map((data) => {

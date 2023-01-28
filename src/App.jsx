@@ -1,3 +1,4 @@
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { PrivateRoutes } from "./routes";
@@ -5,7 +6,7 @@ import { Header } from "./components/molecules";
 import {
   HomePenyelenggara,
   LoginPenyelenggara,
-  // SettingPenyelenggara,
+  SettingPenyelenggara,
 } from "./components/pages/penyelenggara";
 import {
   EventDetail,
@@ -109,14 +110,14 @@ function App() {
             </PrivateRoutes>
           }
         />
-        {/* <Route
-          path="/penyelenggara/update-profile/:mahasiswaId"
+        <Route
+          path="/penyelenggara/update-profile/:penyelenggaraId"
           element={
             <PrivateRoutes>
               <SettingPenyelenggara />
             </PrivateRoutes>
           }
-        /> */}
+        />
       </Routes>
     </>
   );
