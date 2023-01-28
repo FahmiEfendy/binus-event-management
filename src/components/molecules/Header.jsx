@@ -23,7 +23,7 @@ const styles = {
   },
 };
 
-const Header = ({ setSearchValue }) => {
+const Header = ({ setIsLogin, setSearchValue }) => {
   return (
     <div
       style={styles.container}
@@ -62,7 +62,7 @@ const Header = ({ setSearchValue }) => {
           Home
         </NavLink>
       </p>
-      <p className="h6 my-auto mx-4">
+      {/* <p className="h6 my-auto mx-4">
         <NavLink
           to="/organization-list"
           exact="true"
@@ -72,8 +72,8 @@ const Header = ({ setSearchValue }) => {
         >
           Organization List
         </NavLink>
-      </p>
-      <p className="h6 my-auto">
+      </p> */}
+      <p className="h6 my-auto ms-4">
         <NavLink
           to="/event-history"
           exact="true"
@@ -85,7 +85,7 @@ const Header = ({ setSearchValue }) => {
         </NavLink>
       </p>
       <div className="ms-auto" style={{ cursor: "pointer" }}>
-        <ProfileDropdown />
+        <ProfileDropdown setIsLogin={setIsLogin} />
       </div>
     </div>
   );

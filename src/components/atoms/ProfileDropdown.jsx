@@ -19,7 +19,7 @@ const styles = {
   },
 };
 
-const ProfileDropdown = () => {
+const ProfileDropdown = ({setIsLogin}) => {
   const [responseMessage, setResponseMessage] = useState(null)
 
   const [username, setUsername] = useState("user")
@@ -34,6 +34,7 @@ const ProfileDropdown = () => {
   };
 
   const logoutHandler = () => {
+    setIsLogin(false);
     if (getMahasiswaId() !== null) {
       navigate("/login");
     } else if (getPenyelenggaraId() !== null) {

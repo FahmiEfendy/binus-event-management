@@ -20,14 +20,21 @@ import {
   ResetPassword,
   Setting,
 } from "./components/pages";
-import { getToken } from "./utils/storage";
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
+  const [isLogin, setIsLogin] = useState(
+    localStorage.getItem("_loginstatus") &&
+      localStorage.getItem("_loginstatus").toString() === "true"
+  );
+
+  localStorage.setItem("_loginstatus", isLogin);
 
   return (
     <>
-      {getToken() !== "" && <Header setSearchValue={setSearchValue} />}
+      {isLogin && (
+        <Header setIsLogin={setIsLogin} setSearchValue={setSearchValue} />
+      )}
       <Routes>
         <Route
           path="/"
@@ -88,7 +95,7 @@ function App() {
           }
         />
 
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setIsLogin={setIsLogin} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/new-password" element={<NewPassword />} />
@@ -103,7 +110,10 @@ function App() {
         />
 
         {/* Penyelenggara */}
-        <Route path="/penyelenggara/login" element={<LoginPenyelenggara />} />
+        <Route
+          path="/penyelenggara/login"
+          element={<LoginPenyelenggara setIsLogin={setIsLogin} />}
+        />
         <Route
           path="/penyelenggara/"
           element={

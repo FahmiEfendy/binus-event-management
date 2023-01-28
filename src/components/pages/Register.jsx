@@ -2,8 +2,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 
-import { genderOptions, religionOptions } from "../../constants/option";
-import { SelectForm, TextForm } from "../forms";
+import { genderOptions, religionOptions, preferenceListOptions } from "../../constants/option";
+import { SelectForm, TextForm, CheckForm } from "../forms";
 import { useMahasiswaRegistrationMutation } from "../../api/authApi";
 
 const styles = {
@@ -36,15 +36,33 @@ const Register = () => {
 
   const navigate = useNavigate();
 
+  setTimeout(() => {
+    if(localStorage.getItem("_loginstatus").toString()==="true" && localStorage.getItem("_loginstatus") && localStorage.getItem("MAHASISWA_ID").toString()!=='null'){
+      navigate("/");
+    }
+  },100)
+
   const goToLoginPage = useCallback(() => {
     navigate("/login");
   }, [navigate]);
 
   const onSubmit = async (data) => {
+    let preferenceListSubmit = []
+    for (var arr in preferenceListOptions){
+      if(preferenceListOptions[arr].status){
+        preferenceListSubmit.push(preferenceListOptions[arr].value)
+      }
+    }
     const payload = {
-      ...data,
+      email:data.email,
+      gender:data.gender,
+      name:data.name,
+      nim:data.nim,
+      password:data.password,
+      phoneNo:data.phoneNo,
+      religion:data.religion,
+      preferenceList:preferenceListSubmit
     };
-
     await mahasiswaRegistration(payload);
   };
 
@@ -146,12 +164,12 @@ const Register = () => {
             options={genderOptions}
             style={{ width: "48%" }}
           />
-          {/* <CheckForm
+          <CheckForm
             control={control}
-            name="emailNotification"
-            label="Notification Preference"
-            options={notificationOptions}
-          /> */}
+            name="preferenceListOptions"
+            label="Preference"
+            options={preferenceListOptions}
+          />
         </div>
         <div className="d-flex ms-auto mt-4">
           <button

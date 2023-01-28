@@ -1,5 +1,5 @@
 import { Controller } from "react-hook-form";
-
+import { preferenceListOptions } from "../../constants/option";
 const CheckForm = (props) => {
   const { control, name, label, options, style } = props;
 
@@ -14,16 +14,19 @@ const CheckForm = (props) => {
             <label htmlFor={name} className="mb-2 ms-2">
               {label}
             </label>
-            <div className="d-flex">
+            <div className="row ms-1">
               {options.map((data) => {
                 return (
-                  <div className="form-check pt-2 mx-3" key={data.value}>
+                  <div className="form-check pt-2 col-4" key={data.value}>
                     <input
                       {...field}
                       className="form-check-input"
                       type="checkbox"
                       value={data.value}
-                      id={data.value}
+                      id={data.id}
+                      onChange={(e) => {
+                        preferenceListOptions[data.id].status = e.target.checked
+                      }}
                     />
                     <label className="form-check-label" htmlFor={data.value}>
                       {data.label}

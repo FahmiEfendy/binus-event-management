@@ -65,3 +65,47 @@ export const organizationTypeOptions = [
     value: "Binus",
   },
 ];
+export const preferenceListOptions = [
+  {
+    id: 0,
+    label: "AI",
+    value: "AI",
+    status: false,
+  },
+  {
+    id: 1,
+    label: "3D modelling",
+    value: "3D modelling",
+    status: false,
+  },
+  {
+    id: 2,
+    label: "UI/UX",
+    value: "UI/UX",
+    status: false,
+  },
+  {
+    id: 3,
+    label: "Game Development",
+    value: "Game Development",
+    status: false,
+  },
+  {
+    id: 4,
+    label: "Digital Marketing",
+    value: "Digital Marketing",
+    status: false,
+  },
+  {
+    id: 5,
+    label: "Animation",
+    value: "Animation",
+    status: false,
+  },
+  {
+    id: 6,
+    label: "Other",
+    value: "Other",
+    status: false,
+  },
+];
