@@ -13,6 +13,7 @@ import {
 
 const EventModal = ({ editId, isOpen, setIsOpen }) => {
   const [file, setFile] = useState(null);
+  const [acceptedFile, setAcceptedFile] = useState(null);
   const [responseMessage, setResponseMessage] = useState("");
 
   const { data, isSuccess, isError } = useGetEventDetailQuery(editId, {
@@ -51,6 +52,7 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
       ...data,
       organizer: "Example Organizer 1",
     };
+    console.log(acceptedFile);
 
     if (editId === null) {
       await createEvent(payload);
@@ -156,6 +158,7 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
                       label="Event Image"
                       file={file}
                       setFile={setFile}
+                      setAcceptedFile={setAcceptedFile}
                     />
                   </div>
                 </div>
