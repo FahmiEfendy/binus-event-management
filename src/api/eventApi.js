@@ -13,6 +13,16 @@ export const eventApi = api.injectEndpoints({
       },
     }),
 
+    // getEnrolledEvent: builder.query({
+    //   query: (payload) => {
+    //     return {
+    //       url: `${STUDENT_EVENT_URL}-enrolled/`,
+    //       method: "GET",
+    //       body: payload,
+    //     };
+    //   },
+    // }),
+
     getEventDetail: builder.query({
       query: (id) => {
         return {
@@ -53,13 +63,25 @@ export const eventApi = api.injectEndpoints({
         };
       },
     }),
+
+    registerEvent: builder.mutation({
+      query: (payload) => {
+        return {
+          url: `${STUDENT_EVENT_URL}-enrolled/regis-event`,
+          method: "POST",
+          body: payload,
+        };
+      },
+    }),
   }),
 });
 
 export const {
   useGetEventListQuery,
+  // useGetEnrolledEventQuery,
   useGetEventDetailQuery,
   useCreateEventMutation,
   useDeleteEventMutation,
   useUpdateEventMutation,
+  useRegisterEventMutation,
 } = eventApi;

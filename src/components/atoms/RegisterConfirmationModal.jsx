@@ -1,19 +1,36 @@
+import { useEffect, useState } from "react";
+
+import { getToken } from "../../utils/storage";
+import { useRegisterEventMutation } from "../../api/eventApi";
+
 const styles = {
   eventPoster: {
     width: "250px",
-    height: "220px"
+    height: "220px",
   },
   buttonClose: {
     border: "none",
-    backgroundColor: "transparent"
-  }
+    backgroundColor: "transparent",
+  },
 };
 
-const RegisterConfirmationModal = (props) => {
-  const { setIsRegisterModalOpen, setIsRegistrationSuccessModalOpen } = props;
+const RegisterConfirmationModal = ({
+  eventId,
+  setIsRegisterModalOpen,
+  setIsRegistrationSuccessModalOpen,
+}) => {
+  const [responseMessage, setResponseMessage] = useState("");
 
-  const registerHandler = () => {
-    console.log("Register Success!");
+  const [registEvent, { data, isSuccess, isError, error }] =
+    useRegisterEventMutation();
+
+  const registerHandler = async () => {
+    const payload = {
+      token: getToken(),
+      eventId,
+    };
+    await registEvent(payload);
+
     setIsRegistrationSuccessModalOpen(true);
     setIsRegisterModalOpen(false);
   };
@@ -21,6 +38,21 @@ const RegisterConfirmationModal = (props) => {
   const closeModalHandler = () => {
     setIsRegisterModalOpen(false);
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      setResponseMessage(data?.message);
+    } else if (isError) {
+      setResponseMessage(error?.data?.message);
+    }
+    console.log(responseMessage);
+  }, [
+    data?.message,
+    error?.data?.message,
+    isError,
+    isSuccess,
+    responseMessage,
+  ]);
 
   return (
     <div
@@ -33,7 +65,7 @@ const RegisterConfirmationModal = (props) => {
     >
       <div
         className="modal-dialog modal-dialog-centered modal-lg"
-        style={{maxWidth:"650px"}}
+        style={{ maxWidth: "650px" }}
         role="document"
       >
         <div className="modal-content">
@@ -62,9 +94,7 @@ const RegisterConfirmationModal = (props) => {
             <div className="w-75 d-flex flex-column mt-2">
               <p className="h3">Example Event Title</p>
               <p className="h4 mt-2">Example Event Organizer</p>
-              <p className=" h5 mt-auto">
-                Are you sure want to register?
-              </p>
+              <p className=" h5 mt-auto">Are you sure want to register?</p>
               <div className="d-flex mt-3">
                 <button
                   type="button"
