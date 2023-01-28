@@ -10,7 +10,7 @@ const styles = {
   image: {
     objectFit: "cover",
     width: "100%",
-    height: "735px",
+    height: "100vh",
   },
 };
 
@@ -81,35 +81,11 @@ const ResetPassword = () => {
               isRequired
               placeholder="Enter your email..."
             />
-            <TextForm
-              control={control}
-              name="password"
-              label="Password"
-              isRequired
-              placeholder="Enter your password..."
-              type="password"
-            />
-            <TextForm
-              control={control}
-              name="newPassword"
-              label="New Password"
-              isRequired
-              placeholder="Enter your new password..."
-              type="password"
-            />
-            <TextForm
-              control={control}
-              name="confirmNewpassword"
-              label="Confirm New Password"
-              isRequired
-              placeholder="Enter your confirmation new password..."
-              type="password"
-            />
             <button
               type="submit"
               className="btn btn-lg btn-primary w-100 py-2 mt-3"
             >
-              Save Changes
+              Reset
             </button>
             <div className="d-flex flex-column mt-4 mb-5">
               <button className="btn btn-lg grey-color">
