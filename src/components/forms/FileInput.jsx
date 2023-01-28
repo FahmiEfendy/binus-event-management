@@ -26,11 +26,12 @@ const InputImage = ({ label, file, setFile, setAcceptedFile }) => {
       const reader = new FileReader();
       reader.onload = (event) => {
         setFile(event.target.result);
+        console.log(event.target.result)
       };
       reader.readAsDataURL(acceptedFiles[0]);
+      setAcceptedFile(acceptedFiles[0])
     }
-    console.log(acceptedFiles[0])
-    setAcceptedFile(acceptedFiles[0])
+    // console.log(acceptedFiles[0])
   }, [acceptedFiles, setFile, setAcceptedFile]);
 
   return (

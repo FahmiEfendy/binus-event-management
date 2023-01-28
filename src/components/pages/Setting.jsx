@@ -65,7 +65,7 @@ const Setting = () => {
     const mahasiswaId = getMahasiswaId();
 
     console.log(acceptedFile)
-    if (typeof acceptedFile!='undefined' || acceptedFile!=null){
+    if (acceptedFile!==null){
       let formData = new FormData();
       formData.append('image', acceptedFile);
       formData.append('mahasiswaId', mahasiswaId);
@@ -73,10 +73,8 @@ const Setting = () => {
       console.log(formData)
 
       await updateProfileImageMahasiswa (formData);
-      await updateProfileMahasiswa({ id: mahasiswaId, payload });
-    } else {
-      await updateProfileMahasiswa({ id: mahasiswaId, payload });
     }
+    await updateProfileMahasiswa({ id: mahasiswaId, payload });
 
   };
 
@@ -95,6 +93,7 @@ const Setting = () => {
 
     if (isSuccessUpdate) {
       setResponseMessage(updateData?.message);
+      console.error()
       goToHomePage();
     } else if (isErrorUpdate) {
       setResponseMessage(errUpdate?.data?.message || "Error");
@@ -113,6 +112,19 @@ const Setting = () => {
     setValue("religion", data?.religion);
     setValue("phoneNo", data?.phoneNo);
     setValue("gender", data?.gender);
+    
+    if(data?.image != null){
+      // setAcceptedFile(data?.image)
+      let blob = new Blob(data?.image.data.data, {type: data?.image.contentType})
+      // console.log(blob)
+      let reader = new FileReader()
+      reader.readAsDataURL(blob)
+
+      reader.onload = (e)=>{
+          setFile(e.target.result)
+          console.log(e.target.result)
+      }
+    }
   }, [data, setValue]);
 
   return (
