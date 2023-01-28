@@ -23,7 +23,7 @@ const styles = {
   },
 };
 
-const Header = () => {
+const Header = ({ setSearchValue }) => {
   return (
     <div
       style={styles.container}
@@ -41,7 +41,8 @@ const Header = () => {
         <input
           type="text"
           className="form-control disable-input-focusable-shadow"
-          placeholder="Search something..."
+          placeholder="Search event..."
+          onChange={(e) => setSearchValue(e.target.value)}
         />
         <span
           className="input-group-text"

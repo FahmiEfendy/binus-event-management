@@ -126,6 +126,7 @@ const EventDetail = ({ type }) => {
       </div>
       {isRegisterModalOpen && (
         <RegisterConfirmationModal
+          eventId={eventId}
           setIsRegisterModalOpen={setIsRegisterModalOpen}
           setIsRegistrationSuccessModalOpen={setIsRegistrationSuccessModalOpen}
         />

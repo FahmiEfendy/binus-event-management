@@ -1,4 +1,7 @@
 import moment from "moment";
+import { useEffect, useState } from "react";
+import { Funnel } from "react-bootstrap-icons";
+import Dropdown from "react-bootstrap/Dropdown";
 
 import { EventBar } from "../atoms";
 
@@ -16,7 +19,28 @@ const styles = {
   },
 };
 
-const EventList = ({ data, setEditId, setIsOpen }) => {
+const EventList = ({ data, searchValue, setEditId, setIsOpen }) => {
+  const [filterType, setFilterType] = useState("");
+  const [filteredData, setFilteredData] = useState(data);
+
+  useEffect(() => {
+    if (filterType !== "") {
+      setFilteredData(
+        data?.eventList.filter((data) => data.eventType === filterType)
+      );
+    } else {
+      setFilteredData(data?.eventList);
+    }
+
+    if (searchValue.length > 0) {
+      setFilteredData(
+        data?.eventList.filter((data) =>
+          data?.title.includes(searchValue.toLowerCase())
+        )
+      );
+    }
+  }, [data?.eventList, filterType, searchValue]);
+
   return (
     <div
       style={styles.container}
@@ -38,20 +62,41 @@ const EventList = ({ data, setEditId, setIsOpen }) => {
         <div className="col-2 my-auto" style={styles.header}>
           Price
         </div>
-        <div className="col-1 d-flex" style={styles.header}>
-          <button type="button" className="btn btn-light px-3 d-flex">
-            <i className="bi bi-funnel px-1" aria-hidden="true"></i>Filter
-          </button>
+        <div className="col-1" style={styles.header}>
+          <Dropdown>
+            <Dropdown.Toggle id="dropdown-basic">
+              <Funnel /> Filter{" "}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => setFilterType("")} className="m-2">
+                All Types
+              </Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item
+                onClick={() => setFilterType("JamSos")}
+                className="m-2"
+              >
+                Jam Sosial
+              </Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item
+                onClick={() => setFilterType("SAT")}
+                className="m-2"
+              >
+                SAT
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
       </div>
       <div className="w-100 ms-3">
-        {data?.eventList?.map((data) => {
+        {filteredData?.map((data) => {
           return (
             <EventBar
               key={data._id}
               eventId={data._id}
               title={data.title}
-              organizer={data.organizer}
+              eventType={data.eventType}
               date={moment(data.startDate).format("LL")}
               location={data.location}
               // TODO: totalQuota atau jumlah yang udah ikut ?

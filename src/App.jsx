@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { PrivateRoutes } from "./routes";
@@ -23,15 +23,17 @@ import {
 import { getToken } from "./utils/storage";
 
 function App() {
+  const [searchValue, setSearchValue] = useState("");
+
   return (
     <>
-      {getToken() !== "" && <Header />}
+      {getToken() !== "" && <Header setSearchValue={setSearchValue} />}
       <Routes>
         <Route
           path="/"
           element={
             <PrivateRoutes>
-              <Home />
+              <Home searchValue={searchValue} />
             </PrivateRoutes>
           }
         />

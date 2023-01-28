@@ -18,7 +18,7 @@ const EventBar = ({
   type,
   eventId,
   title,
-  organizer,
+  eventType,
   date,
   location,
   participant,
@@ -77,7 +77,7 @@ const EventBar = ({
         />
         <div className="mx-3">
           <p className="my-1">{title}</p>
-          <p className="my-1">{organizer}</p>
+          <p className="my-1">{eventType} Provided</p>
         </div>
       </div>
       <div className="col-2">{date}</div>

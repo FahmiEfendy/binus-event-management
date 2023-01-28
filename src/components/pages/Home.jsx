@@ -14,7 +14,7 @@ const styles = {
   },
 };
 
-const Home = () => {
+const Home = ({ searchValue }) => {
   const [responseMessage, setResponseMessage] = useState("");
 
   const { data: eventList, error, isError, isSuccess } = useGetEventListQuery();
@@ -38,7 +38,7 @@ const Home = () => {
           Recommendation for You
         </p>
         <CarouselComponent />
-        <EventList data={eventList} />
+        <EventList data={eventList} searchValue={searchValue} />
       </div>
     </div>
   );
