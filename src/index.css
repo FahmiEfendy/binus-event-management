@@ -31,7 +31,7 @@ code {
 }
 
 .btn-primary {
-  background-color: #6643b5;
+  background-color: #6643b5 !important;
   color: white !important;
   border: none
 }
@@ -42,7 +42,7 @@ code {
   box-shadow: 1px 1px 8px rgba(102, 67, 181, 0.6);
 }
 
-.btn-primary:active, .btn-primary:target {
+.btn-primary:active, .btn-primary:target, btn-primary:focus {
   background-color: #6643b5 !important;
   box-shadow: none;
 }
