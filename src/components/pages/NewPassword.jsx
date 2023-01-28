@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { TextForm } from "../forms";
 import { SuccessModal } from "../atoms";
@@ -18,6 +18,8 @@ const NewPassword = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
 
+  const { token } = useParams();
+
   const [
     mahasiswaNewPassword,
     {
@@ -33,10 +35,14 @@ const NewPassword = () => {
   const navigate = useNavigate();
 
   setTimeout(() => {
-    if(localStorage.getItem("_loginstatus").toString()==="true" && localStorage.getItem("_loginstatus") && localStorage.getItem("MAHASISWA_ID").toString()!=='null'){
+    if (
+      localStorage.getItem("_loginstatus").toString() === "true" &&
+      localStorage.getItem("_loginstatus") &&
+      localStorage.getItem("MAHASISWA_ID").toString() !== "null"
+    ) {
       navigate("/");
     }
-  },100)
+  }, 100);
 
   const goToLoginPage = () => {
     navigate("/login");
@@ -46,9 +52,11 @@ const NewPassword = () => {
     //TODO: add token to payload
     const payload = {
       ...data,
+      token,
     };
 
-    await mahasiswaNewPassword(payload);
+    // TODO : fix get token
+    await mahasiswaNewPassword({ payload, token });
   };
 
   useEffect(() => {
@@ -99,13 +107,21 @@ const NewPassword = () => {
               isRequired
               placeholder="Enter your confirmation password..."
             />
-            <button type="submit" className="btn btn-lg btn-primary w-100 py-2 mt-3">
+            <button
+              type="submit"
+              className="btn btn-lg btn-primary w-100 py-2 mt-3"
+            >
               Save Changes
             </button>
             <div className="d-flex flex-column mt-3">
               <button className="btn btn-lg grey-color">
-                  <span style={{cursor:"pointer"}} className="link-click" 
-                    onClick={goToLoginPage}>Cancel</span>
+                <span
+                  style={{ cursor: "pointer" }}
+                  className="link-click"
+                  onClick={goToLoginPage}
+                >
+                  Cancel
+                </span>
               </button>
             </div>
           </div>

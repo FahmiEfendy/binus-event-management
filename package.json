@@ -1,7 +1,7 @@
 {
   "name": "binus-event-management",
   "version": "0.1.0",
-  "homepage": "https://fahmiefendy.github.io/binus-event-management",
+  "homepage": "http://binus-event.com",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
