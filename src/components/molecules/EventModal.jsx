@@ -15,7 +15,9 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
   const [file, setFile] = useState(null);
   const [responseMessage, setResponseMessage] = useState("");
 
-  const { data, isSuccess, isError } = useGetEventDetailQuery(editId);
+  const { data, isSuccess, isError } = useGetEventDetailQuery(editId, {
+    refetchOnMountOrArgChange: true,
+  });
 
   const [
     createEvent,
