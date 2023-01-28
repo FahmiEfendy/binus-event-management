@@ -74,8 +74,8 @@ export const preferenceListOptions = [
   },
   {
     id: 1,
-    label: "3D modelling",
-    value: "3D modelling",
+    label: "3D Modelling",
+    value: "3D Modelling",
     status: false,
   },
   {
