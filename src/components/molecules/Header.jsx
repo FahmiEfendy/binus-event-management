@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 
 import { ProfileDropdown } from "../atoms";
+import { getMahasiswaId } from "../../utils/storage";
 
 const styles = {
   container: {
@@ -29,7 +30,7 @@ const Header = ({ setIsLogin, setSearchValue }) => {
       style={styles.container}
       className="container-fluid d-flex align-items-center px-3 general-style"
     >
-      <Link to="/">
+      <Link to={getMahasiswaId() !== null ? "/" : "/penyelenggara"}>
         <img
           style={styles.logo}
           className="ms-1 py-2"
@@ -53,7 +54,7 @@ const Header = ({ setIsLogin, setSearchValue }) => {
       </div>
       <p className="h6 my-auto">
         <NavLink
-          to="/"
+          to={getMahasiswaId() !== null ? "/" : "/penyelenggara"}
           exact="true"
           style={({ isActive }) =>
             isActive ? styles.activeLink : styles.inactiveLink
@@ -73,17 +74,19 @@ const Header = ({ setIsLogin, setSearchValue }) => {
           Organization List
         </NavLink>
       </p> */}
-      <p className="h6 my-auto ms-4">
-        <NavLink
-          to="/event-history"
-          exact="true"
-          style={({ isActive }) =>
-            isActive ? styles.activeLink : styles.inactiveLink
-          }
-        >
-          Event Enrolled
-        </NavLink>
-      </p>
+      {getMahasiswaId() !== null && (
+        <p className="h6 my-auto ms-4">
+          <NavLink
+            to="/event-history"
+            exact="true"
+            style={({ isActive }) =>
+              isActive ? styles.activeLink : styles.inactiveLink
+            }
+          >
+            Event Enrolled
+          </NavLink>
+        </p>
+      )}
       <div className="ms-auto" style={{ cursor: "pointer" }}>
         <ProfileDropdown setIsLogin={setIsLogin} />
       </div>

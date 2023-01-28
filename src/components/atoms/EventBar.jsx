@@ -77,7 +77,9 @@ const EventBar = ({
           alt="Example Event Organizer Logo"
         />
         <div className="mx-3">
-          <p className="my-1" style={{fontWeight:"semibold"}}>{title}</p>
+          <p className="my-1" style={{ fontWeight: "semibold" }}>
+            {title}
+          </p>
           <p className="my-1">{eventType} Provided</p>
         </div>
       </div>
@@ -88,7 +90,7 @@ const EventBar = ({
         type === "history" ? status : `${price}`
       }`}</div>
       <div className="col-2 d-flex">
-        {getPenyelenggaraId() !== null && (
+        {getPenyelenggaraId() !== null ? (
           <>
             <Button
               variant="light"
@@ -105,16 +107,19 @@ const EventBar = ({
               <Trash />
             </Button>
           </>
+        ) : (
+          <button
+            type="button"
+            className="btn btn-primary px-4 ms-auto"
+            onClick={
+              type === "history"
+                ? eventHistoryDetailHandler
+                : eventDetailHandler
+            }
+          >
+            Detail
+          </button>
         )}
-        <button
-          type="button"
-          className="btn btn-primary px-4 ms-auto"
-          onClick={
-            type === "history" ? eventHistoryDetailHandler : eventDetailHandler
-          }
-        >
-          Detail
-        </button>
       </div>
     </div>
   );

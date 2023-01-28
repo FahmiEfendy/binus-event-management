@@ -7,6 +7,7 @@ import {
   getMahasiswaId,
   getPenyelenggaraId,
 } from "../../utils/storage";
+import { useGetPenyelenggaraDetailQuery } from "../../api/authPenyelenggaraApi";
 
 const styles = {
   profilePicture: {
@@ -20,7 +21,7 @@ const styles = {
 };
 
 const ProfileDropdown = ({ setIsLogin }) => {
-  const [username, setUsername] = useState("User");
+  const [username, setUsername] = useState("");
   const [responseMessage, setResponseMessage] = useState(null);
 
   const navigate = useNavigate();
@@ -34,7 +35,6 @@ const ProfileDropdown = ({ setIsLogin }) => {
   };
 
   const logoutHandler = () => {
-    setIsLogin(false);
     if (getMahasiswaId() !== null) {
       navigate("/login");
     } else if (getPenyelenggaraId() !== null) {
@@ -49,15 +49,39 @@ const ProfileDropdown = ({ setIsLogin }) => {
     { skip: !getMahasiswaId() }
   );
 
+  const {
+    data: penyelenggaraDetail,
+    isSuccess: isSuccessGetPenyelenggara,
+    isError: isErrorGetPenyelenggara,
+  } = useGetPenyelenggaraDetailQuery(getPenyelenggaraId(), {
+    skip: !getPenyelenggaraId(),
+  });
+
   useEffect(() => {
     if (isSuccess) {
       setResponseMessage("Success get Mahasiswa Profile Data");
+      setUsername(data?.name);
     } else if (isError) {
       setResponseMessage("Failed get Mahasiswa Profile Data");
     }
+
+    if (isSuccessGetPenyelenggara) {
+      setResponseMessage("Success get Penyelenggara Profile Data");
+      setUsername(penyelenggaraDetail?.name);
+    } else if (isErrorGetPenyelenggara) {
+      setResponseMessage("Failed get Penyelenggara Profile Data");
+    }
+
     console.log(responseMessage);
-    setUsername(data?.name);
-  }, [data, isError, isSuccess, responseMessage]);
+  }, [
+    data?.name,
+    isError,
+    isErrorGetPenyelenggara,
+    isSuccess,
+    isSuccessGetPenyelenggara,
+    penyelenggaraDetail?.name,
+    responseMessage,
+  ]);
 
   return (
     <div className="dropdown">
@@ -71,7 +95,8 @@ const ProfileDropdown = ({ setIsLogin }) => {
         />
       </div>
       <div
-        className="dropdown-menu me-5 mt-2" style={{transform: "translate3d(0,0,0) !important"}}
+        className="dropdown-menu me-5 mt-2"
+        style={{ transform: "translate3d(0,0,0) !important" }}
         aria-labelledby="dropdownMenuButton"
       >
         <button
