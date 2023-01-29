@@ -181,6 +181,7 @@ const EventDetail = ({ type }) => {
       )}
       {isRegistrationSuccessModalOpen && (
         <RegistrationSuccessModal
+          eventId={eventId}
           setIsRegistrationSuccessModalOpen={setIsRegistrationSuccessModalOpen}
         />
       )}
