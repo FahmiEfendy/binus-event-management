@@ -6,7 +6,7 @@ const EventNotFound = () => {
       <h1 className="text-danger mb-3">
         <CalendarX />
       </h1>
-      <h1 className="text-danger">Event Not Found</h1>
+      <h4 className="text-danger">Event Not Found</h4>
     </div>
   );
 };
