@@ -48,7 +48,7 @@ const Register = () => {
     let preferenceListSubmit = [];
     for (var arr in preferenceListOptions) {
       if (preferenceListOptions[arr].status) {
-        preferenceListSubmit.push({description:preferenceListOptions[arr].value});
+        preferenceListSubmit.push(preferenceListOptions[arr].value);
       }
     }
     const payload = {
