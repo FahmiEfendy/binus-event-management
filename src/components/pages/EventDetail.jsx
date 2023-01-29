@@ -58,7 +58,6 @@ const EventDetail = ({ type }) => {
 
   const registerHandler = () => {
     setIsRegisterModalOpen(true);
-    console.log(isRegisterModalOpen);
   };
 
   useEffect(() => {
@@ -66,20 +65,17 @@ const EventDetail = ({ type }) => {
       setResponseMessage("Success get event detail");
     } else if (isError) {
       setResponseMessage("Failed get event detail");
-    }
-    console.log(responseMessage);
-  }, [eventDetail, isError, isSuccess, responseMessage]);
-
-  useEffect(() => {
-    if (isSuccessGetEnrolledDetail) {
+    } else if (isSuccessGetEnrolledDetail) {
       setResponseMessage("Success get enrolled event detail");
     } else if (isErrorGetEnrolledDetail) {
       setResponseMessage("Failed get enrolled event detail");
     }
-    console.log(responseMessage);
+
+    responseMessage !== "" && console.log(responseMessage);
   }, [
-    eventEnrolledDetail,
+    isError,
     isErrorGetEnrolledDetail,
+    isSuccess,
     isSuccessGetEnrolledDetail,
     responseMessage,
   ]);

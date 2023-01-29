@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDropzone } from "react-dropzone";
-import AddImageBackground from '../../assets/add-image.png'
+import AddImageBackground from "../../assets/add-image.png";
 
 const styles = {
   input: {
@@ -9,12 +9,12 @@ const styles = {
     borderRadius: "5px",
     cursor: "pointer",
     backgroundImage: `url(${AddImageBackground})`,
-    backgroundSize: "cover"
+    backgroundSize: "cover",
   },
   profilePicture: {
     width: "200px",
     height: "200px",
-    borderRadius: "5px"
+    borderRadius: "5px",
   },
 };
 
@@ -26,12 +26,10 @@ const InputImage = ({ label, file, setFile, setAcceptedFile }) => {
       const reader = new FileReader();
       reader.onload = (event) => {
         setFile(event.target.result);
-        console.log(event.target.result)
       };
       reader.readAsDataURL(acceptedFiles[0]);
-      setAcceptedFile(acceptedFiles[0])
+      setAcceptedFile(acceptedFiles[0]);
     }
-    // console.log(acceptedFiles[0])
   }, [acceptedFiles, setFile, setAcceptedFile]);
 
   return (
@@ -39,7 +37,7 @@ const InputImage = ({ label, file, setFile, setAcceptedFile }) => {
       <label className="mb-2 ms-2">{label}</label>
       <div {...getRootProps({ className: "dropzone" })}>
         <div style={styles.input} className="border">
-          {acceptedFiles.length === 0 ? (
+          {acceptedFiles.length === 0 && !file ? (
             <input {...getInputProps()} />
           ) : (
             <img style={styles.profilePicture} src={file} alt="Profile" />

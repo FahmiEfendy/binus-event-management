@@ -39,22 +39,18 @@ const NewPassword = () => {
   };
 
   const onSubmit = async (data) => {
-    //TODO: add token to payload
     const payload = {
       ...data,
       token,
     };
 
-    // TODO : fix get token
     await mahasiswaNewPassword({ payload, token });
   };
 
   useEffect(() => {
     if (isSuccessMahasiswaNewPassword) {
-      // TODO: fix setResponseMessage
-      // setResponseMessage(dataMahasiswaNewPassword?.message);
       setIsModalOpen(true);
-      console.log(dataMahasiswaNewPassword);
+      setResponseMessage(dataMahasiswaNewPassword?.message);
     } else if (isErrorMahasiswaNewPassword) {
       setResponseMessage(errorMahasiswaNewPassword?.data?.error || "Error");
     }

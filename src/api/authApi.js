@@ -22,6 +22,7 @@ export const authApi = api.injectEndpoints({
     }),
 
     getMahasiswaDetail: builder.query({
+      providesTags: ["auth"],
       query: (id) => ({
         url: `${STUDENT_AUTH_URL}/${id}`,
         method: "GET",
@@ -45,6 +46,7 @@ export const authApi = api.injectEndpoints({
     }),
 
     updateProfileMahasiswa: builder.mutation({
+      invalidatesTags: ["auth"],
       query: ({ id, payload }) => ({
         url: `${STUDENT_AUTH_URL}/update-profile/${id}`,
         method: "PUT",
@@ -53,6 +55,7 @@ export const authApi = api.injectEndpoints({
     }),
 
     updateProfileImageMahasiswa: builder.mutation({
+      invalidatesTags: ["auth"],
       query: (payload) => ({
         url: `${STUDENT_AUTH_URL}/upload-profile`,
         method: "POST",

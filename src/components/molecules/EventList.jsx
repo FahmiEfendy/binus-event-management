@@ -53,11 +53,12 @@ const EventList = ({ data, type, searchValue, setEditId, setIsOpen }) => {
       }
 
       if (searchValue.length > 0) {
-        setFilteredData(
-          data[0].eventEnrolled.filter((data) =>
-            data?.title.includes(searchValue.toLowerCase())
-          )
-        );
+        data &&
+          setFilteredData(
+            data[0].eventEnrolled.filter((data) =>
+              data?.title.includes(searchValue.toLowerCase())
+            )
+          );
       }
     }
   }, [data, filterType, searchValue, type]);

@@ -1,3 +1,4 @@
+import { Buffer } from "buffer";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
@@ -124,18 +125,9 @@ const Setting = () => {
     setValue("gender", data?.gender);
 
     if (data?.image != null) {
-      // setAcceptedFile(data?.image)
-      let blob = new Blob(data?.image.data.data, {
-        type: data?.image.contentType,
-      });
-      // console.log(blob)
-      let reader = new FileReader();
-      reader.readAsDataURL(blob);
-
-      reader.onload = (e) => {
-        setFile(e.target.result);
-        console.log(e.target.result);
-      };
+      const buffertoB64 = Buffer.from(data?.image.data.data).toString("base64");
+      const formattedB64 = `data:image/png;base64,${buffertoB64}`;
+      setFile(formattedB64);
     }
   }, [data, setValue]);
 
