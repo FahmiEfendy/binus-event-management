@@ -4,7 +4,9 @@ import Modal from "react-bootstrap/Modal";
 import React, { useEffect, useState } from "react";
 
 import { eventOptions } from "../../constants/option";
+import { getPenyelenggaraId } from "../../utils/storage";
 import { DateForm, FileInput, SelectForm, TextForm } from "../forms";
+import { useGetPenyelenggaraDetailQuery } from "../../api/authPenyelenggaraApi";
 import {
   useGetEventDetailQuery,
   useCreateEventMutation,
@@ -25,6 +27,12 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
     refetchOnMountOrArgChange: true,
     skip: !editId,
   });
+
+  const {
+    data: penyelenggaraData,
+    isSuccess: isSuccessGetPenyelenggara,
+    isError: isErrorGetPenyelenggara,
+  } = useGetPenyelenggaraDetailQuery(getPenyelenggaraId());
 
   const [
     createEvent,
@@ -64,10 +72,9 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
   };
 
   const onSubmit = async (data) => {
-    // TODO : get organizer from penyelenggara profile name
     const payload = {
       ...data,
-      organizer: "Example Organizer 1",
+      organizer: penyelenggaraData?.name,
     };
 
     if (editId === null) {
@@ -92,6 +99,12 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
       setResponseMessage("Success Get Event Detail");
     } else if (isError) {
       setResponseMessage("Failed get event detail");
+    }
+
+    if (isSuccessGetPenyelenggara) {
+      setResponseMessage("Success Get Penyelenggara Detail");
+    } else if (isErrorGetPenyelenggara) {
+      setResponseMessage("Failed Get Penyelenggara Detail");
     }
 
     if (isSuccessCreate) {
@@ -124,10 +137,12 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
     errUpdateImg?.data?.message,
     isError,
     isErrorCreate,
+    isErrorGetPenyelenggara,
     isErrorUpdate,
     isErrorUpdateImg,
     isSuccess,
     isSuccessCreate,
+    isSuccessGetPenyelenggara,
     isSuccessUpdate,
     isSuccessUpdateImg,
     reset,

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useGetMahasiswaDetailQuery } from "../../api/authApi";
 import { Buffer } from "buffer";
 
+import Loading from "./Loading";
 import {
   clearStorage,
   getMahasiswaId,
@@ -47,7 +48,7 @@ const ProfileDropdown = ({ setIsLogin }) => {
     clearStorage();
   };
 
-  const { data, isSuccess, isError } = useGetMahasiswaDetailQuery(
+  const { data, isSuccess, isLoading, isError } = useGetMahasiswaDetailQuery(
     getMahasiswaId(),
     { skip: !getMahasiswaId() }
   );
@@ -55,6 +56,7 @@ const ProfileDropdown = ({ setIsLogin }) => {
   const {
     data: penyelenggaraDetail,
     isSuccess: isSuccessGetPenyelenggara,
+    isLoading: isLoadingGetPenyelenggara,
     isError: isErrorGetPenyelenggara,
   } = useGetPenyelenggaraDetailQuery(getPenyelenggaraId(), {
     skip: !getPenyelenggaraId(),
@@ -92,43 +94,41 @@ const ProfileDropdown = ({ setIsLogin }) => {
       const formattedB64 = `data:image/png;base64,${buffertoB64}`;
       setFile(formattedB64);
     }
-  }, [data?.image])
+  }, [data?.image]);
 
-  
   useEffect(() => {
     if (penyelenggaraDetail?.logo != null) {
-      const buffertoB64 = Buffer.from(penyelenggaraDetail?.logo.data.data).toString("base64");
+      const buffertoB64 = Buffer.from(
+        penyelenggaraDetail?.logo.data.data
+      ).toString("base64");
       const formattedB64 = `data:image/png;base64,${buffertoB64}`;
       setFile(formattedB64);
     }
-  }, [penyelenggaraDetail?.logo])
+  }, [penyelenggaraDetail?.logo]);
 
   return (
     <div className="dropdown">
       <div className="d-flex" data-toggle="dropdown" id="dropdownMenuButton">
         <p className="h6 my-auto mx-4">{username}</p>
-        { ((data?.image===null || typeof data?.image==="undefined") &&
-          (penyelenggaraDetail?.logo===null || typeof penyelenggaraDetail?.logo==="undefined")) && 
+        {isLoading || isLoadingGetPenyelenggara ? (
+          <Loading />
+        ) : data?.image === null && penyelenggaraDetail?.logo === null ? (
           <img
-          style={styles.profilePicture}
-          src={require("../../assets/user-profile-picture.jpg")}
-          alt="User Profile"
-          className="rounded-circle me-4"
-        /> }
-        { (data?.image!==null && typeof data?.image!=="undefined" )&& 
-          <img
-          style={styles.profilePicture}
-          src={file}
-          alt="User Profile"
-          className="rounded-circle me-4"/>
-        }
-        { (penyelenggaraDetail?.logo!==null && typeof penyelenggaraDetail?.logo!=="undefined" )&& 
-          <img
-          style={styles.profilePicture}
-          src={file}
-          alt="Penyelenggara Profile"
-          className="rounded-circle me-4"/>
-        }
+            style={styles.profilePicture}
+            src={require("../../assets/user-profile-picture.jpg")}
+            alt="User Profile"
+            className="rounded-circle me-4"
+          />
+        ) : (
+          (data?.image !== null || penyelenggaraDetail?.logo !== null) && (
+            <img
+              style={styles.profilePicture}
+              src={file}
+              alt="User Profile"
+              className="rounded-circle me-4"
+            />
+          )
+        )}
       </div>
       <div
         className="dropdown-menu me-5 mt-2"

@@ -12,6 +12,7 @@ export const authPenyelenggaraApi = api.injectEndpoints({
     }),
 
     getPenyelenggaraDetail: builder.query({
+      providesTags: ["auth"],
       query: (id) => ({
         url: `${PENYELENGGARRA_AUTH_URL}/${id}`,
         method: "GET",
@@ -19,6 +20,7 @@ export const authPenyelenggaraApi = api.injectEndpoints({
     }),
 
     updatePenyelenggara: builder.mutation({
+      invalidatesTags: ["auth"],
       query: ({ id, payload }) => ({
         url: `${PENYELENGGARRA_AUTH_URL}/update-profile/${id}`,
         method: "PUT",
@@ -41,5 +43,5 @@ export const {
   usePenyelenggaraLoginMutation,
   useGetPenyelenggaraDetailQuery,
   useUpdatePenyelenggaraMutation,
-  useUpdateProfilePenyelenggaraImageMutation
+  useUpdateProfilePenyelenggaraImageMutation,
 } = authPenyelenggaraApi;
