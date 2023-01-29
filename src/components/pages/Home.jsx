@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
 import { EventList } from "../molecules";
-import { CarouselComponent } from "../atoms";
+import { getToken } from "../../utils/storage";
+import { CarouselComponent, Loading } from "../atoms";
 import { useGetEventListQuery } from "../../api/eventApi";
 
 const styles = {
@@ -17,16 +18,38 @@ const styles = {
 const Home = ({ searchValue }) => {
   const [responseMessage, setResponseMessage] = useState("");
 
-  const { data: eventList, error, isError, isSuccess } = useGetEventListQuery();
+  const { data: eventList, isError, isSuccess } = useGetEventListQuery();
+
+  const {
+    data: recEventData,
+    isSuccess: isSucessGetRecEvent,
+    isLoading: isLoadingGetRecEvent,
+    isError: isErrorGetRecEvent,
+  } = useGetEventListQuery(getToken());
 
   useEffect(() => {
     if (isSuccess) {
       setResponseMessage("Success get Event List");
     } else if (isError) {
-      setResponseMessage(error);
+      setResponseMessage("Failed get Event List");
     }
+
+    if (isSucessGetRecEvent) {
+      setResponseMessage("Success get event recommendation");
+      console.log(recEventData);
+    } else if (isErrorGetRecEvent) {
+      setResponseMessage("Failed get event recommendation");
+    }
+
     console.log(responseMessage);
-  }, [error, isError, isSuccess, responseMessage]);
+  }, [
+    isError,
+    isErrorGetRecEvent,
+    isSuccess,
+    isSucessGetRecEvent,
+    recEventData,
+    responseMessage,
+  ]);
 
   return (
     <div>
@@ -35,9 +58,13 @@ const Home = ({ searchValue }) => {
         className="container d-flex flex-column mx-auto px-4 rounded"
       >
         <p className="h3 mx-auto mb-4" style={{ color: "#6643b5" }}>
-          Recommendation for You
+          Event Recommendation for You
         </p>
-        <CarouselComponent />
+        {!isLoadingGetRecEvent ? (
+          <CarouselComponent data={recEventData} />
+        ) : (
+          <Loading />
+        )}
         <EventList data={eventList} searchValue={searchValue} />
       </div>
     </div>

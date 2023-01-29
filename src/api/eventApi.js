@@ -23,6 +23,15 @@ export const eventApi = api.injectEndpoints({
       },
     }),
 
+    getEventRecommendation: builder.query({
+      query: (token) => {
+        return {
+          url: `http://binus-event.com:3002/binus-event-api/preference-mahasiswa/recommendation/${token}`,
+          method: "GET",
+        };
+      },
+    }),
+
     getEventDetail: builder.query({
       providesTags: ["event"],
       query: (id) => {
@@ -99,6 +108,7 @@ export const eventApi = api.injectEndpoints({
 export const {
   useGetEventListQuery,
   useGetEnrolledEventQuery,
+  useGetEventRecommendationQuery,
   useGetEventDetailQuery,
   useGetEnrolledEventDetailQuery,
   useCreateEventMutation,
