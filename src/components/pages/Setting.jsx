@@ -64,7 +64,6 @@ const Setting = () => {
       phoneNo: data.phoneNo,
       religion: data.religion,
       gender: data.gender,
-      // TODO : profilePicture: file,
     };
 
     const mahasiswaId = getMahasiswaId();
@@ -116,14 +115,21 @@ const Setting = () => {
   ]);
 
   useEffect(() => {
-    // TODO : get image
     setValue("name", data?.name);
     setValue("nim", data?.nim);
     setValue("email", data?.email);
     setValue("religion", data?.religion);
     setValue("phoneNo", data?.phoneNo);
     setValue("gender", data?.gender);
-  }, [data?.email, data?.gender, data?.name, data?.nim, data?.phoneNo, data?.religion, setValue]);
+  }, [
+    data?.email,
+    data?.gender,
+    data?.name,
+    data?.nim,
+    data?.phoneNo,
+    data?.religion,
+    setValue,
+  ]);
 
   useEffect(() => {
     if (data?.image != null) {
@@ -131,7 +137,7 @@ const Setting = () => {
       const formattedB64 = `data:image/png;base64,${buffertoB64}`;
       setFile(formattedB64);
     }
-  }, [data?.image])
+  }, [data?.image]);
 
   return (
     <>

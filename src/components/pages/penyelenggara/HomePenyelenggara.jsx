@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import { useEffect, useState } from "react";
 
 import { EventList, EventModal } from "../../molecules";
 import { useGetEventListQuery } from "../../../api/eventApi";
@@ -23,7 +23,7 @@ const HomePenyelenggara = ({ searchValue }) => {
   const { data: eventList, error, isError, isSuccess } = useGetEventListQuery();
 
   const openModalHandler = () => {
-    setEditId(null)
+    setEditId(null);
     setIsModalOpen(true);
   };
 

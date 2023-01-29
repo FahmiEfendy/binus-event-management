@@ -14,6 +14,7 @@ export const eventApi = api.injectEndpoints({
     }),
 
     getEnrolledEvent: builder.query({
+      providesTags: ["event"],
       query: (id) => {
         return {
           url: `${STUDENT_EVENT_URL}-enrolled/list-enrolled/${id}`,
@@ -23,6 +24,7 @@ export const eventApi = api.injectEndpoints({
     }),
 
     getEventDetail: builder.query({
+      providesTags: ["event"],
       query: (id) => {
         return {
           url: `${STUDENT_EVENT_URL}/detail/${id}`,
@@ -32,6 +34,7 @@ export const eventApi = api.injectEndpoints({
     }),
 
     getEnrolledEventDetail: builder.query({
+      providesTags: ["event"],
       query: (id) => {
         return {
           url: `${STUDENT_EVENT_URL}-enrolled/view/${id}`,
@@ -81,6 +84,15 @@ export const eventApi = api.injectEndpoints({
         };
       },
     }),
+
+    updateEventImage: builder.mutation({
+      invalidatesTags: ["event"],
+      query: (payload) => ({
+        url: `${STUDENT_EVENT_URL}/upload`,
+        method: "POST",
+        body: payload,
+      }),
+    }),
   }),
 });
 
@@ -93,4 +105,5 @@ export const {
   useDeleteEventMutation,
   useUpdateEventMutation,
   useRegisterEventMutation,
+  useUpdateEventImageMutation,
 } = eventApi;

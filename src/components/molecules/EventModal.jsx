@@ -4,16 +4,18 @@ import Modal from "react-bootstrap/Modal";
 import React, { useEffect, useState } from "react";
 
 import { eventOptions } from "../../constants/option";
+import { getPenyelenggaraId } from "../../utils/storage";
 import { DateForm, FileInput, SelectForm, TextForm } from "../forms";
+import { useGetPenyelenggaraDetailQuery } from "../../api/authPenyelenggaraApi";
 import {
   useGetEventDetailQuery,
   useCreateEventMutation,
   useUpdateEventMutation,
+  useUpdateEventImageMutation,
 } from "../../api/eventApi";
 
 const EventModal = ({ editId, isOpen, setIsOpen }) => {
-
-  const [showPopUp, setShowPopUp] = useState(false)
+  const [showPopUp, setShowPopUp] = useState(false);
   const handlePopUpClose = () => setShowPopUp(false);
   const handlePopUpShow = () => setShowPopUp(true);
 
@@ -25,6 +27,12 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
     refetchOnMountOrArgChange: true,
     skip: !editId,
   });
+
+  const {
+    data: penyelenggaraData,
+    isSuccess: isSuccessGetPenyelenggara,
+    isError: isErrorGetPenyelenggara,
+  } = useGetPenyelenggaraDetailQuery(getPenyelenggaraId());
 
   const [
     createEvent,
@@ -46,6 +54,16 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
     },
   ] = useUpdateEventMutation();
 
+  const [
+    updateImageEvent,
+    {
+      data: updateImgData,
+      isSuccess: isSuccessUpdateImg,
+      isError: isErrorUpdateImg,
+      error: errUpdateImg,
+    },
+  ] = useUpdateEventImageMutation();
+
   const { handleSubmit, control, reset, setValue } = useForm();
 
   const closeModalHandler = () => {
@@ -54,18 +72,25 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
   };
 
   const onSubmit = async (data) => {
-    // TODO : get organizer from penyelenggara profile name
     const payload = {
       ...data,
-      organizer: "Example Organizer 1",
+      organizer: penyelenggaraData?.name,
     };
-    console.log(acceptedFile);
 
     if (editId === null) {
       await createEvent(payload);
     } else if (editId !== null) {
       await updateEvent({ id: editId, payload });
     }
+
+    if (acceptedFile !== null) {
+      let formData = new FormData();
+      formData.append("image", acceptedFile);
+      formData.append("eventId", editId);
+
+      await updateImageEvent(formData);
+    }
+
     setShowPopUp(false);
   };
 
@@ -76,12 +101,18 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
       setResponseMessage("Failed get event detail");
     }
 
+    if (isSuccessGetPenyelenggara) {
+      setResponseMessage("Success Get Penyelenggara Detail");
+    } else if (isErrorGetPenyelenggara) {
+      setResponseMessage("Failed Get Penyelenggara Detail");
+    }
+
     if (isSuccessCreate) {
       setResponseMessage(createData?.message);
       reset();
       setIsOpen(false);
     } else if (isErrorCreate) {
-      setResponseMessage(errCreate);
+      setResponseMessage(errCreate?.data?.message);
     }
 
     if (isSuccessUpdate) {
@@ -89,29 +120,40 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
       reset();
       setIsOpen(false);
     } else if (isErrorUpdate) {
-      setResponseMessage(errUpdate);
+      setResponseMessage(errUpdate?.data?.message);
+    }
+
+    if (isSuccessUpdateImg) {
+      setResponseMessage(updateImgData?.message);
+    } else if (isErrorUpdateImg) {
+      setResponseMessage(errUpdateImg?.data?.message);
     }
 
     console.log(responseMessage);
   }, [
     createData?.message,
-    errCreate,
-    errUpdate,
+    errCreate?.data?.message,
+    errUpdate?.data?.message,
+    errUpdateImg?.data?.message,
     isError,
     isErrorCreate,
+    isErrorGetPenyelenggara,
     isErrorUpdate,
+    isErrorUpdateImg,
     isSuccess,
     isSuccessCreate,
+    isSuccessGetPenyelenggara,
     isSuccessUpdate,
+    isSuccessUpdateImg,
     reset,
     responseMessage,
     setIsOpen,
     updateData?.message,
+    updateImgData?.message,
   ]);
 
   useEffect(() => {
     if (editId !== null) {
-      // TODO : get image
       setValue("title", data?.title);
       setValue("description", data?.description);
       setValue("eventType", data?.eventType);
@@ -123,7 +165,27 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
     } else {
       reset();
     }
-  }, [data, editId, reset, setValue]);
+  }, [
+    data?.description,
+    data?.endDate,
+    data?.eventType,
+    data?.location,
+    data?.price,
+    data?.startDate,
+    data?.title,
+    data?.totalQuota,
+    editId,
+    reset,
+    setValue,
+  ]);
+
+  useEffect(() => {
+    if (data?.image != null) {
+      const buffertoB64 = Buffer.from(data?.image.data.data).toString("base64");
+      const formattedB64 = `data:image/png;base64,${buffertoB64}`;
+      setFile(formattedB64);
+    }
+  }, [data?.image]);
 
   return (
     <>
@@ -223,33 +285,55 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
                 >
                   {editId !== null ? "Update" : "Add"} Event
                 </button>
-                { showPopUp &&
-                    <div className="shadow-bg">
-                    <div style={{ backgroundColor:"white", position:"absolute", width:"450px", height:"180px", top:"20%", left:"25%", zIndex:"10"}}
-                        className="border rounded p-3">
-                    <div className="d-flex">
-                      <h5>{editId !== null ? "Update" : "Add"} Event</h5>
+                {showPopUp && (
+                  <div className="shadow-bg">
+                    <div
+                      style={{
+                        backgroundColor: "white",
+                        position: "absolute",
+                        width: "450px",
+                        height: "180px",
+                        top: "20%",
+                        left: "25%",
+                        zIndex: "10",
+                      }}
+                      className="border rounded p-3"
+                    >
+                      <div className="d-flex">
+                        <h5>{editId !== null ? "Update" : "Add"} Event</h5>
                         <button
                           type="button"
                           className="close"
                           data-dismiss="modal"
                           aria-label="Close"
                           onClick={handlePopUpClose}
-                          style={{border: "none", backgroundColor: "transparent"}}
+                          style={{
+                            border: "none",
+                            backgroundColor: "transparent",
+                          }}
                         />
-                    </div>
-                    <p className="my-3">Are you really sure you want to  {editId !== null ? "Update" : "Add"} it?</p>
-                    <div className="text-end">
-                      <button className="btn btn-light px-3 py-2 ms-auto me-3 mt-3" onClick={handlePopUpClose}>
-                        Cancel
-                      </button>
-                      <button className="btn btn-success px-3 py-2 mt-3" type="submit">
-                        Save Changes
-                      </button>
+                      </div>
+                      <p className="my-3">
+                        Are you really sure you want to{" "}
+                        {editId !== null ? "Update" : "Add"} it?
+                      </p>
+                      <div className="text-end">
+                        <button
+                          className="btn btn-light px-3 py-2 ms-auto me-3 mt-3"
+                          onClick={handlePopUpClose}
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          className="btn btn-success px-3 py-2 mt-3"
+                          type="submit"
+                        >
+                          Save Changes
+                        </button>
+                      </div>
                     </div>
                   </div>
-                  </div>
-                  }
+                )}
               </div>
             </div>
           </form>
