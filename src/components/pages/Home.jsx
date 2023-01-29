@@ -36,7 +36,6 @@ const Home = ({ searchValue }) => {
 
     if (isSucessGetRecEvent) {
       setResponseMessage("Success get event recommendation");
-      console.log(recEventData);
     } else if (isErrorGetRecEvent) {
       setResponseMessage("Failed get event recommendation");
     }
