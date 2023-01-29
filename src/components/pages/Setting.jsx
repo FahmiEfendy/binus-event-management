@@ -123,13 +123,15 @@ const Setting = () => {
     setValue("religion", data?.religion);
     setValue("phoneNo", data?.phoneNo);
     setValue("gender", data?.gender);
+  }, [data?.email, data?.gender, data?.name, data?.nim, data?.phoneNo, data?.religion, setValue]);
 
+  useEffect(() => {
     if (data?.image != null) {
       const buffertoB64 = Buffer.from(data?.image.data.data).toString("base64");
       const formattedB64 = `data:image/png;base64,${buffertoB64}`;
       setFile(formattedB64);
     }
-  }, [data, setValue]);
+  }, [data?.image])
 
   return (
     <>

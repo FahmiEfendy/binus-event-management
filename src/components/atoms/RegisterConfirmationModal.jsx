@@ -31,8 +31,8 @@ const RegisterConfirmationModal = ({
     };
     await registEvent(payload);
 
-    setIsRegistrationSuccessModalOpen(true);
     setIsRegisterModalOpen(false);
+    setIsRegistrationSuccessModalOpen(true);
   };
 
   const closeModalHandler = () => {

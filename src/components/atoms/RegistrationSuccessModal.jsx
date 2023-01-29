@@ -6,14 +6,13 @@ const styles = {
   },
 };
 
-const RegistrationSuccessModal = (props) => {
-  const { setIsRegistrationSuccessModalOpen } = props;
+const RegistrationSuccessModal = ({setIsRegistrationSuccessModalOpen, eventId}) => {
 
   const navigate = useNavigate();
 
   const goCheckEventHistoryHandler = () => {
     setIsRegistrationSuccessModalOpen(false);
-    navigate("/example-event-history-path");
+    navigate(`/detail/enrolled/${eventId}`);
   };
 
   const goHomepageHandler = () => {
