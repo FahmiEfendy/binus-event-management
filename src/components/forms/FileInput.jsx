@@ -25,7 +25,12 @@ const InputImage = ({ label, file, setFile, setAcceptedFile }) => {
     if (acceptedFiles.length > 0) {
       const reader = new FileReader();
       reader.onload = (event) => {
-        setFile(event.target.result);
+        let size = acceptedFiles[0]['size'] / (1024 * 1024)
+        if (size < 2){
+          setFile(event.target.result);
+        } else {
+          alert("Maximum File size 2 MB")
+        }
       };
       reader.readAsDataURL(acceptedFiles[0]);
       setAcceptedFile(acceptedFiles[0]);

@@ -9,6 +9,7 @@ import { organizationTypeOptions } from "../../../constants/option";
 import {
   useGetPenyelenggaraDetailQuery,
   useUpdatePenyelenggaraMutation,
+  useUpdateProfilePenyelenggaraImageMutation
 } from "../../../api/authPenyelenggaraApi";
 
 const styles = {
@@ -39,6 +40,17 @@ const SettingPenyelenggara = () => {
     },
   ] = useUpdatePenyelenggaraMutation();
 
+  const [
+    updateProfilePenyelenggaraImage,
+    {
+      data: updateDataImage,
+      isSuccess: isSuccessUpdateImage,
+      isError: isErrorUpdateImage,
+      error: errUpdateImage,
+    },
+  ] = useUpdateProfilePenyelenggaraImageMutation();
+
+
   const { handleSubmit, control, setValue } = useForm({});
 
   const navigate = useNavigate();
@@ -57,6 +69,16 @@ const SettingPenyelenggara = () => {
     console.log(acceptedFile);
     console.log(payload);
 
+    const penyelenggaraId = getPenyelenggaraId();
+
+
+    if (acceptedFile !== null) {
+      let formData = new FormData();
+      formData.append("image", acceptedFile);
+      formData.append("penyelenggaraId", penyelenggaraId);
+
+      await updateProfilePenyelenggaraImage(formData);
+    }
     await updatePenyelenggara({ id: getPenyelenggaraId(), payload });
   };
 
@@ -67,8 +89,15 @@ const SettingPenyelenggara = () => {
       setResponseMessage("Failed Get Penyelenggara Detail");
     }
 
+    if (isSuccessUpdateImage) {
+      setResponseMessage(updateDataImage?.message);
+    } else if (isErrorUpdateImage) {
+      setResponseMessage(errUpdateImage?.data?.message || "Error");
+    }
+
     if (isSuccessUpdate) {
       setResponseMessage(updateData?.message);
+      goToHomePage();
     } else if (isErrorUpdate) {
       setResponseMessage(errUpdate?.data?.message);
     }
@@ -76,12 +105,17 @@ const SettingPenyelenggara = () => {
     console.log(responseMessage);
   }, [
     errUpdate?.data?.message,
+    errUpdateImage?.data?.message,
     isError,
     isErrorUpdate,
     isSuccess,
     isSuccessUpdate,
     responseMessage,
     updateData?.message,
+    goToHomePage,
+    updateDataImage?.message,
+    isSuccessUpdateImage,
+    isErrorUpdateImage
   ]);
 
   useEffect(() => {
@@ -89,7 +123,16 @@ const SettingPenyelenggara = () => {
     setValue("email", data?.email);
     setValue("organizationType", data?.organizationType);
     setValue("phoneNo", data?.phoneNo);
-  }, [data, setValue]);
+  }, [data?.email, data?.organizationName, data?.organizationType, data?.phoneNo, setValue]);
+
+  useEffect(() => {
+    if (data?.image != null) {
+      const buffertoB64 = Buffer.from(data?.image.data.data).toString("base64");
+      const formattedB64 = `data:image/png;base64,${buffertoB64}`;
+      setFile(formattedB64);
+    }
+  }, [data?.image])
+
 
   return (
     <>

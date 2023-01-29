@@ -25,6 +25,15 @@ export const authPenyelenggaraApi = api.injectEndpoints({
         body: payload,
       }),
     }),
+
+    updateProfilePenyelenggaraImage: builder.mutation({
+      invalidatesTags: ["auth"],
+      query: (payload) => ({
+        url: `${PENYELENGGARRA_AUTH_URL}/upload-profile`,
+        method: "POST",
+        body: payload,
+      }),
+    }),
   }),
 });
 
@@ -32,4 +41,5 @@ export const {
   usePenyelenggaraLoginMutation,
   useGetPenyelenggaraDetailQuery,
   useUpdatePenyelenggaraMutation,
+  useUpdateProfilePenyelenggaraImageMutation
 } = authPenyelenggaraApi;

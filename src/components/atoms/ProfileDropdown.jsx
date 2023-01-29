@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useGetMahasiswaDetailQuery } from "../../api/authApi";
+import { Buffer } from "buffer";
 
 import {
   clearStorage,
@@ -21,6 +22,8 @@ const styles = {
 };
 
 const ProfileDropdown = ({ setIsLogin }) => {
+  const [file, setFile] = useState(null);
+
   const [username, setUsername] = useState("");
   const [responseMessage, setResponseMessage] = useState(null);
 
@@ -83,16 +86,49 @@ const ProfileDropdown = ({ setIsLogin }) => {
     responseMessage,
   ]);
 
+  useEffect(() => {
+    if (data?.image != null) {
+      const buffertoB64 = Buffer.from(data?.image.data.data).toString("base64");
+      const formattedB64 = `data:image/png;base64,${buffertoB64}`;
+      setFile(formattedB64);
+    }
+  }, [data?.image])
+
+  
+  useEffect(() => {
+    if (penyelenggaraDetail?.logo != null) {
+      const buffertoB64 = Buffer.from(penyelenggaraDetail?.logo.data.data).toString("base64");
+      const formattedB64 = `data:image/png;base64,${buffertoB64}`;
+      setFile(formattedB64);
+    }
+  }, [penyelenggaraDetail?.logo])
+
   return (
     <div className="dropdown">
       <div className="d-flex" data-toggle="dropdown" id="dropdownMenuButton">
         <p className="h6 my-auto mx-4">{username}</p>
-        <img
+        { ((data?.image===null || typeof data?.image==="undefined") &&
+          (penyelenggaraDetail?.logo===null || typeof penyelenggaraDetail?.logo==="undefined")) && 
+          <img
           style={styles.profilePicture}
           src={require("../../assets/user-profile-picture.jpg")}
           alt="User Profile"
           className="rounded-circle me-4"
-        />
+        /> }
+        { (data?.image!==null && typeof data?.image!=="undefined" )&& 
+          <img
+          style={styles.profilePicture}
+          src={file}
+          alt="User Profile"
+          className="rounded-circle me-4"/>
+        }
+        { (penyelenggaraDetail?.logo!==null && typeof penyelenggaraDetail?.logo!=="undefined" )&& 
+          <img
+          style={styles.profilePicture}
+          src={file}
+          alt="Penyelenggara Profile"
+          className="rounded-circle me-4"/>
+        }
       </div>
       <div
         className="dropdown-menu me-5 mt-2"

@@ -3,7 +3,6 @@ import { Button } from "react-bootstrap";
 
 import { EventList, EventModal } from "../../molecules";
 import { useGetEventListQuery } from "../../../api/eventApi";
-import { useNavigate } from "react-router-dom";
 
 const styles = {
   container: {
@@ -16,16 +15,6 @@ const styles = {
 };
 
 const HomePenyelenggara = ({ searchValue }) => {
-  const navigate = useNavigate();
-
-  setTimeout(() => {
-    if (
-      localStorage.getItem("_loginstatus").toString() === "false" ||
-      !localStorage.getItem("_loginstatus")
-    ) {
-      navigate("/penyelenggara/login");
-    }
-  }, 100);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editId, setEditId] = useState(null);
   const [responseMessage, setResponseMessage] = useState("");
