@@ -4,7 +4,7 @@ import { STUDENT_EVENT_URL } from "../constants/api";
 export const eventApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getEventList: builder.query({
-      providesTags: ["eventList"],
+      providesTags: ["event"],
       query: () => {
         return {
           url: `${STUDENT_EVENT_URL}/`,
@@ -14,7 +14,7 @@ export const eventApi = api.injectEndpoints({
     }),
 
     getEnrolledEvent: builder.query({
-      providesTags: ["eventList"],
+      providesTags: ["event"],
       query: (id) => {
         return {
           url: `${STUDENT_EVENT_URL}-enrolled/list-enrolled/${id}`,
@@ -24,7 +24,7 @@ export const eventApi = api.injectEndpoints({
     }),
 
     getEventDetail: builder.query({
-      providesTags: ["eventList"],
+      providesTags: ["event"],
       query: (id) => {
         return {
           url: `${STUDENT_EVENT_URL}/detail/${id}`,
@@ -34,7 +34,7 @@ export const eventApi = api.injectEndpoints({
     }),
 
     getEnrolledEventDetail: builder.query({
-      providesTags: ["eventList"],
+      providesTags: ["event"],
       query: (id) => {
         return {
           url: `${STUDENT_EVENT_URL}-enrolled/view/${id}`,
