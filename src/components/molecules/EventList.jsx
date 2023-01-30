@@ -136,6 +136,7 @@ const EventList = ({ data, type, searchValue, setEditId, setIsOpen }) => {
                   location={data.location}
                   status={status}
                   type={type}
+                  image={data?.image}
                   // TODO: totalQuota atau jumlah yang udah ikut ?
                   participant={data.totalQuota}
                   price={data.price}

@@ -19,6 +19,7 @@ const EventBar = ({
   eventId,
   title,
   eventType,
+  image,
   date,
   location,
   participant,
@@ -27,6 +28,7 @@ const EventBar = ({
   setEditId,
   setIsOpen,
 }) => {
+  const [file, setFile] = useState(null);
   const [show, setShow] = useState(false);
   const handleDeleteBtnClose = () => setShow(false);
   const handleDeleteBtnShow = () => setShow(true);
@@ -70,6 +72,10 @@ const EventBar = ({
     responseMessage,
   ]);
 
+  useEffect(() => {
+    image?.data && setFile(`data:image/png;base64,${image?.data}`);
+  }, [image?.data]);
+
   return (
     <div className="row w-100 d-flex align-items-center rounded table-list-border">
       <div className="col-3 d-flex">
@@ -77,7 +83,7 @@ const EventBar = ({
         <img
           style={styles.eventOrganizerLogo}
           className="rounded my-auto"
-          src={require("../../assets/logo-binus.png")}
+          src={image?.data ? file : require("../../assets/logo-binus.png")}
           alt="Example Event Organizer Logo"
         />
         <div className="mx-3">
