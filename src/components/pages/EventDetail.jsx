@@ -1,4 +1,5 @@
 import moment from "moment";
+import { Buffer } from "buffer";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -34,6 +35,7 @@ const styles = {
 };
 
 const EventDetail = ({ type }) => {
+  const [file, setFile] = useState(null);
   const [responseMessage, setResponseMessage] = useState("");
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isRegistrationSuccessModalOpen, setIsRegistrationSuccessModalOpen] =
@@ -81,6 +83,16 @@ const EventDetail = ({ type }) => {
     responseMessage,
   ]);
 
+  useEffect(() => {
+    if (eventDetail?.image != null) {
+      const buffertoB64 = Buffer.from(eventDetail?.image.data.data).toString(
+        "base64"
+      );
+      const formattedB64 = `data:image/png;base64,${buffertoB64}`;
+      setFile(formattedB64);
+    }
+  }, [eventDetail?.image]);
+
   return (
     <div
       style={styles.container}
@@ -91,7 +103,11 @@ const EventDetail = ({ type }) => {
           <div className="d-flex me-5">
             <img
               style={styles.eventPoster}
-              src={require("../../assets/example-event-poster.jpg")}
+              src={
+                eventDetail?.image
+                  ? file
+                  : require("../../assets/example-event-poster.jpg")
+              }
               alt="Example Event Poster"
               className="img-fluid border"
             />
