@@ -11,7 +11,7 @@ const ResetPasswordSuccessModal = ({ body, isOpen, setIsOpen, title }) => {
 
   return (
     <Modal size="lg" show={isOpen} centered>
-      <Modal.Header closeButton style={{ padding: "1.5rem 2rem" }}>
+      <Modal.Header style={{ padding: "1.5rem 2rem" }}>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body

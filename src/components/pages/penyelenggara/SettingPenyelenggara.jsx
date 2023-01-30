@@ -148,6 +148,7 @@ const SettingPenyelenggara = () => {
                   placeholder="Enter your Organization Name..."
                 />
                 <TextForm
+                  isDisabled
                   control={control}
                   name="email"
                   isRequired

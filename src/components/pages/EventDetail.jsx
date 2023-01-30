@@ -34,7 +34,6 @@ const styles = {
 };
 
 const EventDetail = ({ type }) => {
-  const [data, setData] = useState([]);
   const [responseMessage, setResponseMessage] = useState("");
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isRegistrationSuccessModalOpen, setIsRegistrationSuccessModalOpen] =
@@ -46,13 +45,13 @@ const EventDetail = ({ type }) => {
     data: eventDetail,
     isSuccess,
     isError,
-  } = useGetEventDetailQuery(eventId, {
-    skip: !eventId,
-  });
+    isLoading,
+  } = useGetEventDetailQuery(eventId);
 
   const {
     data: eventEnrolledDetail,
     isSuccess: isSuccessGetEnrolledDetail,
+    isLoading: isLoadingGetEnrolledDetail,
     isError: isErrorGetEnrolledDetail,
   } = useGetEnrolledEventDetailQuery(eventId);
 
@@ -65,7 +64,9 @@ const EventDetail = ({ type }) => {
       setResponseMessage("Success get event detail");
     } else if (isError) {
       setResponseMessage("Failed get event detail");
-    } else if (isSuccessGetEnrolledDetail) {
+    }
+
+    if (isSuccessGetEnrolledDetail) {
       setResponseMessage("Success get enrolled event detail");
     } else if (isErrorGetEnrolledDetail) {
       setResponseMessage("Failed get enrolled event detail");
@@ -80,20 +81,12 @@ const EventDetail = ({ type }) => {
     responseMessage,
   ]);
 
-  useEffect(() => {
-    if (type === "history") {
-      eventEnrolledDetail && setData(eventEnrolledDetail[0]?.eventEnrolled);
-    } else {
-      setData(eventDetail);
-    }
-  }, [eventDetail, eventEnrolledDetail, type]);
-
   return (
     <div
       style={styles.container}
       className="container mx-auto rounded mb-5 general-style"
     >
-      {data?.title ? (
+      {!isLoadingGetEnrolledDetail && !isLoading ? (
         <>
           <div className="d-flex me-5">
             <img
@@ -108,37 +101,61 @@ const EventDetail = ({ type }) => {
             >
               <div className="row align-items-center mt-2">
                 <span className="col-3 h4">Title</span>
-                <span className="col-9 h5">{data?.title}</span>
+                <span className="col-9 h5">
+                  {eventDetail?.title ||
+                    (eventEnrolledDetail &&
+                      eventEnrolledDetail[0]?.eventEnrolled.title)}
+                </span>
               </div>
               <div className="row mt-3">
                 <span className="col-3 h4">Organizer</span>
-                <span className="col-9 h5">{data?.organizer}</span>
+                <span className="col-9 h5">
+                  {eventDetail?.organizer ||
+                    (eventEnrolledDetail &&
+                      eventEnrolledDetail[0]?.eventEnrolled.organizer)}
+                </span>
               </div>
               <div className="row mt-3">
                 <span className="col-3 h4">Start Date</span>
                 <span className="col-9 h5">
-                  {moment(data?.startDate).format("LL")}
+                  {moment(
+                    eventDetail?.startDate ||
+                      (eventEnrolledDetail &&
+                        eventEnrolledDetail[0]?.eventEnrolled.startDate)
+                  ).format("LL")}
                 </span>
               </div>
               <div className="row mt-3">
                 <span className="col-3 h4">Type</span>
-                <span className="col-9 h5">{data?.eventType}</span>
+                <span className="col-9 h5">
+                  {eventDetail?.eventType ||
+                    (eventEnrolledDetail &&
+                      eventEnrolledDetail[0]?.eventEnrolled.eventType)}
+                </span>
               </div>
               <div className="row mt-3">
                 <span className="col-3 h4">Location</span>
-                <span className="col-9 h5">{data?.location}</span>
+                <span className="col-9 h5">
+                  {eventDetail?.location ||
+                    (eventEnrolledDetail &&
+                      eventEnrolledDetail[0]?.eventEnrolled.location)}
+                </span>
               </div>
               <div className="row mt-3">
                 <span className="col-3 h4">Participant</span>
                 {/* TODO: participant / totalQuota */}
-                <span className="col-9 h5">{data?.totalQuota}</span>
+                <span className="col-9 h5">
+                  {eventDetail?.totalQuota ||
+                    (eventEnrolledDetail &&
+                      eventEnrolledDetail[0]?.eventEnrolled.totalQuota)}
+                </span>
               </div>
               <div className="row mt-3">
                 <span className="col-3 h4">
                   {type === "history" ? "Status" : "Price"}
                 </span>
                 <span className="col-9 h5">{`${
-                  type === "history" ? "Status" : `${data?.price}`
+                  type === "history" ? "Status" : `${eventDetail?.price}`
                 }`}</span>
               </div>
               {type === "history" ? (
@@ -161,7 +178,9 @@ const EventDetail = ({ type }) => {
           <div>
             <p className="h4 mt-5">Detail</p>
             <p className="h6 mt-3" style={styles.eventDetailDescription}>
-              {data?.description}
+              {eventDetail?.description ||
+                (eventEnrolledDetail &&
+                  eventEnrolledDetail[0]?.eventEnrolled.description)}
             </p>
           </div>
         </>

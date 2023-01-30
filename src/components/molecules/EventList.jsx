@@ -36,7 +36,7 @@ const EventList = ({ data, type, searchValue, setEditId, setIsOpen }) => {
       if (searchValue.length > 0) {
         setFilteredData(
           data?.eventList.filter((data) =>
-            data?.title.includes(searchValue.toLowerCase())
+            data?.title.toLowerCase().includes(searchValue.toLowerCase())
           )
         );
       }
@@ -56,7 +56,7 @@ const EventList = ({ data, type, searchValue, setEditId, setIsOpen }) => {
         data &&
           setFilteredData(
             data[0].eventEnrolled.filter((data) =>
-              data?.title.includes(searchValue.toLowerCase())
+              data?.title.toLowerCase().includes(searchValue.toLowerCase())
             )
           );
       }
@@ -135,6 +135,7 @@ const EventList = ({ data, type, searchValue, setEditId, setIsOpen }) => {
                   date={startDate}
                   location={data.location}
                   status={status}
+                  type={type}
                   // TODO: totalQuota atau jumlah yang udah ikut ?
                   participant={data.totalQuota}
                   price={data.price}

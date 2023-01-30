@@ -27,7 +27,7 @@ const EventBar = ({
   setEditId,
   setIsOpen,
 }) => {
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false);
   const handleDeleteBtnClose = () => setShow(false);
   const handleDeleteBtnShow = () => setShow(true);
 
@@ -134,14 +134,14 @@ const EventBar = ({
         <Modal.Header closeButton>
           <Modal.Title>Delete Event</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          Are you really sure you want to delete it?
-        </Modal.Body>
+        <Modal.Body>Are you really sure you want to delete it?</Modal.Body>
         <Modal.Footer>
           <Button variant="light" onClick={handleDeleteBtnClose}>
             Close
           </Button>
-          <Button variant="danger" onClick={deleteEventHandler}>Save Changes</Button>
+          <Button variant="danger" onClick={deleteEventHandler}>
+            Delete Event
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>

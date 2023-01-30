@@ -328,7 +328,7 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
                           className="btn btn-success px-3 py-2 mt-3"
                           type="submit"
                         >
-                          Save Changes
+                          Add Event
                         </button>
                       </div>
                     </div>

@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 
 import { getToken } from "../../utils/storage";
-import { useRegisterEventMutation } from "../../api/eventApi";
+import {
+  useGetEventDetailQuery,
+  useRegisterEventMutation,
+} from "../../api/eventApi";
 
 const styles = {
   eventPoster: {
@@ -23,6 +26,8 @@ const RegisterConfirmationModal = ({
 
   const [registEvent, { data, isSuccess, isError, error }] =
     useRegisterEventMutation();
+
+  const { data: eventDetail } = useGetEventDetailQuery(eventId);
 
   const registerHandler = async () => {
     const payload = {
@@ -92,8 +97,8 @@ const RegisterConfirmationModal = ({
               className="img-fluid mx-4 w-25 border"
             />
             <div className="w-75 d-flex flex-column mt-2">
-              <p className="h3">Example Event Title</p>
-              <p className="h4 mt-2">Example Event Organizer</p>
+              <p className="h3">{eventDetail?.title}</p>
+              <p className="h4 mt-2">{eventDetail?.organizer}</p>
               <p className=" h5 mt-auto">Are you sure want to register?</p>
               <div className="d-flex mt-3">
                 <button
