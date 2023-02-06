@@ -28,9 +28,7 @@ const Setting = () => {
   const [acceptedFile, setAcceptedFile] = useState(null);
   const [responseMessage, setResponseMessage] = useState("");
 
-  const { data, isSuccess, isError } = useGetMahasiswaDetailQuery(
-    getMahasiswaId()
-  );
+  const { data } = useGetMahasiswaDetailQuery(getMahasiswaId());
 
   const [
     updateProfileMahasiswa,
@@ -75,12 +73,6 @@ const Setting = () => {
   };
 
   useEffect(() => {
-    if (isSuccess) {
-      setResponseMessage("Success Get Detail Mahasiswa");
-    } else if (isError) {
-      setResponseMessage("Failed Get Detail Mahasiswa");
-    }
-
     if (isSuccessUpdate || isSuccessUpdateImage) {
       setResponseMessage("Mahasiswa detail changed successfully");
       goToHomePage();
@@ -88,16 +80,20 @@ const Setting = () => {
       setResponseMessage("Failed to change mahasiswa detail");
     }
 
-    console.log(responseMessage);
+    if (
+      isSuccessUpdate ||
+      isSuccessUpdateImage ||
+      isErrorUpdate ||
+      isErrorUpdateImage
+    ) {
+      setIsToastOpen(true);
+    }
   }, [
     goToHomePage,
-    isError,
     isErrorUpdate,
     isErrorUpdateImage,
-    isSuccess,
     isSuccessUpdate,
     isSuccessUpdateImage,
-    responseMessage,
   ]);
 
   useEffect(() => {
