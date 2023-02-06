@@ -1,4 +1,5 @@
 import moment from "moment";
+import { Buffer } from "buffer";
 import { useForm } from "react-hook-form";
 import Modal from "react-bootstrap/Modal";
 import React, { useEffect, useState } from "react";
