@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Loading } from "../../atoms";
+import { Loading, ToastNotif } from "../../atoms";
 import { getPenyelenggaraId } from "../../../utils/storage";
 import { FileInput, SelectForm, TextForm } from "../../forms";
 import { organizationTypeOptions } from "../../../constants/option";
@@ -25,31 +25,25 @@ const styles = {
 
 const SettingPenyelenggara = () => {
   const [file, setFile] = useState(null);
+  const [isToastOpen, setIsToastOpen] = useState(false);
   const [acceptedFile, setAcceptedFile] = useState(null);
   const [responseMessage, setResponseMessage] = useState("");
 
-  const { data, isSuccess, isLoading, isError } =
-    useGetPenyelenggaraDetailQuery(getPenyelenggaraId());
+  const { data, isLoading } = useGetPenyelenggaraDetailQuery(
+    getPenyelenggaraId()
+  );
 
   const [
     updatePenyelenggara,
-    {
-      data: updateData,
-      isSuccess: isSuccessUpdate,
-      isError: isErrorUpdate,
-      error: errUpdate,
-    },
-  ] = useUpdatePenyelenggaraMutation();
+    { isSuccess: isSuccessUpdate, isError: isErrorUpdate },
+  ] = useUpdatePenyelenggaraMutation({ fixedCacheKey: "updatePenyelenggara" });
 
   const [
     updateProfilePenyelenggaraImage,
-    {
-      data: updateDataImage,
-      isSuccess: isSuccessUpdateImage,
-      isError: isErrorUpdateImage,
-      error: errUpdateImage,
-    },
-  ] = useUpdateProfilePenyelenggaraImageMutation();
+    { isSuccess: isSuccessUpdateImage, isError: isErrorUpdateImage },
+  ] = useUpdateProfilePenyelenggaraImageMutation({
+    fixedCacheKey: "updateImagePenyelenggara",
+  });
 
   const { handleSubmit, control, setValue } = useForm({});
 
@@ -58,6 +52,10 @@ const SettingPenyelenggara = () => {
   const goToHomePage = useCallback(() => {
     navigate("/penyelenggara");
   }, [navigate]);
+
+  const closeToastHandler = () => {
+    setIsToastOpen(false);
+  };
 
   const onSubmit = async (data) => {
     const payload = {
@@ -79,39 +77,22 @@ const SettingPenyelenggara = () => {
   };
 
   useEffect(() => {
-    if (isSuccess) {
-      setResponseMessage("Success Get Penyelenggara Detail");
-    } else if (isError) {
-      setResponseMessage("Failed Get Penyelenggara Detail");
-    }
-
-    if (isSuccessUpdateImage) {
-      setResponseMessage(updateDataImage?.message);
-    } else if (isErrorUpdateImage) {
-      setResponseMessage(errUpdateImage?.data?.message || "Error");
-    }
-
-    if (isSuccessUpdate) {
-      setResponseMessage(updateData?.message);
+    if (isSuccessUpdate || isSuccessUpdateImage) {
+      setResponseMessage("Penyelenggara detail updated successfully");
       goToHomePage();
-    } else if (isErrorUpdate) {
-      setResponseMessage(errUpdate?.data?.message);
+    } else if (isErrorUpdate || isErrorUpdateImage) {
+      setResponseMessage("Failed to update penyelenggara detail!");
     }
 
-    console.log(responseMessage);
+    if (isSuccessUpdate || isErrorUpdate) {
+      setIsToastOpen(true);
+    }
   }, [
-    errUpdate?.data?.message,
-    errUpdateImage?.data?.message,
-    isError,
-    isErrorUpdate,
-    isSuccess,
-    isSuccessUpdate,
-    responseMessage,
-    updateData?.message,
     goToHomePage,
-    updateDataImage?.message,
-    isSuccessUpdateImage,
+    isErrorUpdate,
     isErrorUpdateImage,
+    isSuccessUpdate,
+    isSuccessUpdateImage,
   ]);
 
   useEffect(() => {
@@ -194,6 +175,12 @@ const SettingPenyelenggara = () => {
           <Loading />
         )}
       </div>
+
+      <ToastNotif
+        isOpen={isToastOpen}
+        onClose={closeToastHandler}
+        responseMessage={responseMessage}
+      />
     </>
   );
 };
