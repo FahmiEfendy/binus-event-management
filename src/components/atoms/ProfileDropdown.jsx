@@ -112,22 +112,20 @@ const ProfileDropdown = ({ setIsLogin }) => {
         <p className="h6 my-auto mx-4">{username}</p>
         {isLoading || isLoadingGetPenyelenggara ? (
           <Loading />
-        ) : data?.image === null && penyelenggaraDetail?.logo === null ? (
+        ) :  (data?.image !=undefined && data?.image !== null) || (penyelenggaraDetail?.logo !=undefined && penyelenggaraDetail?.logo !== null) ? (
+          <img
+              style={styles.profilePicture}
+              src={file}
+              alt="User Profile"
+              className="rounded-circle me-4"
+            />
+        ) : (
           <img
             style={styles.profilePicture}
             src={require("../../assets/user-profile-picture.jpg")}
             alt="User Profile"
             className="rounded-circle me-4"
           />
-        ) : (
-          (data?.image !== null || penyelenggaraDetail?.logo !== null) && (
-            <img
-              style={styles.profilePicture}
-              src={file}
-              alt="User Profile"
-              className="rounded-circle me-4"
-            />
-          )
         )}
       </div>
       <div
