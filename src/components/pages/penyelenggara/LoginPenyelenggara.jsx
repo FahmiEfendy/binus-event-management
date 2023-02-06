@@ -20,7 +20,7 @@ const LoginPenyelenggara = ({ setIsLogin }) => {
   const [responseMessage, setResponseMessage] = useState("");
 
   const [penyelenggaraLogin, { data, isSuccess, isError }] =
-    usePenyelenggaraLoginMutation({ fixedCacheKey: "loginPenyelenggara" });
+    usePenyelenggaraLoginMutation();
 
   const { handleSubmit, control } = useForm();
 
