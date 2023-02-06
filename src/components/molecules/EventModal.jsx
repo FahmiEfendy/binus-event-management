@@ -16,7 +16,7 @@ import {
   useUpdateEventImageMutation,
 } from "../../api/eventApi";
 
-const EventModal = ({ editId, isOpen, setIsOpen }) => {
+const EventModal = ({ editId, isOpen, setIsOpen, setEditId }) => {
   const [file, setFile] = useState(null);
   const [showPopUp, setShowPopUp] = useState(false);
   const [acceptedFile, setAcceptedFile] = useState(null);
@@ -49,7 +49,9 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
   const closeModalHandler = useCallback(() => {
     setIsOpen(false);
     setShowPopUp(false);
-  }, [setIsOpen]);
+    setEditId(null);
+    setFile(null);
+  }, [setIsOpen, setEditId]);
 
   const onSubmit = async (data) => {
     const payload = {

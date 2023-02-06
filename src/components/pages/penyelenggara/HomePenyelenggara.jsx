@@ -125,6 +125,7 @@ const HomePenyelenggara = ({ searchValue }) => {
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
         editId={editId}
+        setEditId={setEditId}
       />
     </div>
   );
