@@ -41,9 +41,10 @@ const InputImage = ({ label, file, setFile, setAcceptedFile }) => {
     <div style={styles.container}>
       <label className="mb-2 ms-2">{label}</label>
       <div {...getRootProps({ className: "dropzone" })}>
+        <input {...getInputProps()} />
         <div style={styles.input} className="border">
           {acceptedFiles.length === 0 && !file ? (
-            <input {...getInputProps()} />
+            <img style={styles.profilePicture} src="../../assets/add-image.png" alt="Profile" />
           ) : (
             <img style={styles.profilePicture} src={file} alt="Profile" />
           )}
