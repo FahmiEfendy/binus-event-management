@@ -7,6 +7,7 @@ import ProfileDropdown from "./ProfileDropdown";
 import RegisterConfirmationModal from "./RegisterConfirmationModal";
 import RegistrationSuccessModal from "./RegistrationSuccessModal";
 import SuccessModal from "./SuccessModal";
+import ToastNotif from "./ToastNotif";
 
 export {
   CarouselComponent,
@@ -18,4 +19,5 @@ export {
   RegisterConfirmationModal,
   RegistrationSuccessModal,
   SuccessModal,
+  ToastNotif,
 };

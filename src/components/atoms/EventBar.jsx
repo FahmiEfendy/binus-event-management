@@ -1,8 +1,9 @@
-import { Button, Modal } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { Pencil, Trash } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
+import { Button, Modal } from "react-bootstrap";
+import { Pencil, Trash } from "react-bootstrap-icons";
 
+import { ToastNotif } from "../atoms";
 import { getPenyelenggaraId } from "../../utils/storage";
 import { useDeleteEventMutation } from "../../api/eventApi";
 
@@ -30,15 +31,18 @@ const EventBar = ({
 }) => {
   const [file, setFile] = useState(null);
   const [show, setShow] = useState(false);
-  const handleDeleteBtnClose = () => setShow(false);
-  const handleDeleteBtnShow = () => setShow(true);
-
+  const [isToastOpen, setIsToastOpen] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
 
   const navigate = useNavigate();
 
-  const [deleteEvent, { data, isSuccess, isError, error }] =
-    useDeleteEventMutation();
+  const [deleteEvent, { isSuccess, isError }] = useDeleteEventMutation({
+    fixedCacheKey: "deleteEvent",
+  });
+
+  const handleDeleteBtnClose = () => setShow(false);
+
+  const handleDeleteBtnShow = () => setShow(true);
 
   const eventDetailHandler = () => {
     navigate(`/detail/${eventId}`);
@@ -57,20 +61,22 @@ const EventBar = ({
     setEditId(eventId);
   };
 
+  const toastCloseHandler = () => {
+    setIsToastOpen(false);
+  };
+
   useEffect(() => {
     if (isSuccess) {
-      setResponseMessage(data?.message);
+      setShow(false);
+      setResponseMessage("Event deleted successfully");
     } else if (isError) {
-      setResponseMessage(error?.data?.message);
+      setResponseMessage("Failed to delete event!");
     }
-    console.log(responseMessage);
-  }, [
-    data?.message,
-    error?.data?.message,
-    isError,
-    isSuccess,
-    responseMessage,
-  ]);
+
+    if (isSuccess || isError) {
+      setIsToastOpen(true);
+    }
+  }, [isError, isSuccess]);
 
   useEffect(() => {
     image?.data && setFile(`data:image/png;base64,${image?.data}`);
@@ -150,6 +156,11 @@ const EventBar = ({
           </Button>
         </Modal.Footer>
       </Modal>
+      <ToastNotif
+        responseMessage={responseMessage}
+        isOpen={isToastOpen}
+        onClose={toastCloseHandler}
+      />
     </div>
   );
 };

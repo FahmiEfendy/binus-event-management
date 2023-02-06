@@ -72,7 +72,7 @@ const ProfileDropdown = ({ setIsLogin }) => {
 
     if (isSuccessGetPenyelenggara) {
       setResponseMessage("Success get Penyelenggara Profile Data");
-      setUsername(penyelenggaraDetail?.name);
+      setUsername(penyelenggaraDetail?.organizationName);
     } else if (isErrorGetPenyelenggara) {
       setResponseMessage("Failed get Penyelenggara Profile Data");
     }
@@ -84,7 +84,7 @@ const ProfileDropdown = ({ setIsLogin }) => {
     isErrorGetPenyelenggara,
     isSuccess,
     isSuccessGetPenyelenggara,
-    penyelenggaraDetail?.name,
+    penyelenggaraDetail?.organizationName,
     responseMessage,
   ]);
 

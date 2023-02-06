@@ -6,11 +6,13 @@ import { useParams } from "react-router-dom";
 import {
   useGetEventDetailQuery,
   useGetEnrolledEventDetailQuery,
+  useRegisterEventMutation,
 } from "../../api/eventApi";
 import {
   Loading,
   RegisterConfirmationModal,
   RegistrationSuccessModal,
+  ToastNotif,
 } from "../atoms";
 
 const styles = {
@@ -36,6 +38,7 @@ const styles = {
 
 const EventDetail = ({ type }) => {
   const [file, setFile] = useState(null);
+  const [isToastOpen, setIsToastOpen] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isRegistrationSuccessModalOpen, setIsRegistrationSuccessModalOpen] =
@@ -43,45 +46,33 @@ const EventDetail = ({ type }) => {
 
   const { eventId } = useParams();
 
-  const {
-    data: eventDetail,
-    isSuccess,
-    isError,
-    isLoading,
-  } = useGetEventDetailQuery(eventId);
+  const { data: eventDetail, isLoading } = useGetEventDetailQuery(eventId);
 
-  const {
-    data: eventEnrolledDetail,
-    isSuccess: isSuccessGetEnrolledDetail,
-    isLoading: isLoadingGetEnrolledDetail,
-    isError: isErrorGetEnrolledDetail,
-  } = useGetEnrolledEventDetailQuery(eventId);
+  const { data: eventEnrolledDetail, isLoading: isLoadingGetEnrolledDetail } =
+    useGetEnrolledEventDetailQuery(eventId);
+
+  const [, { isSuccess: isSuccessRegister, isError: isErrorRegister }] =
+    useRegisterEventMutation({ fixedCacheKey: "registerEvent" });
 
   const registerHandler = () => {
     setIsRegisterModalOpen(true);
   };
 
+  const closeToastHandler = () => {
+    setIsToastOpen(false);
+  };
+
   useEffect(() => {
-    if (isSuccess) {
-      setResponseMessage("Success get event detail");
-    } else if (isError) {
-      setResponseMessage("Failed get event detail");
+    if (isSuccessRegister) {
+      setResponseMessage("Event registered successfully");
+    } else if (isErrorRegister) {
+      setResponseMessage("Failed to register event!");
     }
 
-    if (isSuccessGetEnrolledDetail) {
-      setResponseMessage("Success get enrolled event detail");
-    } else if (isErrorGetEnrolledDetail) {
-      setResponseMessage("Failed get enrolled event detail");
+    if (isSuccessRegister || isErrorRegister) {
+      setIsToastOpen(true);
     }
-
-    responseMessage !== "" && console.log(responseMessage);
-  }, [
-    isError,
-    isErrorGetEnrolledDetail,
-    isSuccess,
-    isSuccessGetEnrolledDetail,
-    responseMessage,
-  ]);
+  }, [isErrorRegister, isSuccessRegister]);
 
   useEffect(() => {
     if (eventDetail?.image != null) {
@@ -216,6 +207,12 @@ const EventDetail = ({ type }) => {
           setIsRegistrationSuccessModalOpen={setIsRegistrationSuccessModalOpen}
         />
       )}
+
+      <ToastNotif
+        responseMessage={responseMessage}
+        isOpen={isToastOpen}
+        onClose={closeToastHandler}
+      />
     </div>
   );
 };

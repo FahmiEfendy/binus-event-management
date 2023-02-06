@@ -1,4 +1,5 @@
 import moment from "moment";
+import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "react-bootstrap/Modal";
 import React, { useEffect, useState } from "react";
@@ -15,11 +16,8 @@ import {
 } from "../../api/eventApi";
 
 const EventModal = ({ editId, isOpen, setIsOpen }) => {
-  const [showPopUp, setShowPopUp] = useState(false);
-  const handlePopUpClose = () => setShowPopUp(false);
-  const handlePopUpShow = () => setShowPopUp(true);
-
   const [file, setFile] = useState(null);
+  const [showPopUp, setShowPopUp] = useState(false);
   const [acceptedFile, setAcceptedFile] = useState(null);
   const [responseMessage, setResponseMessage] = useState("");
 
@@ -34,47 +32,28 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
     isError: isErrorGetPenyelenggara,
   } = useGetPenyelenggaraDetailQuery(getPenyelenggaraId());
 
-  const [
-    createEvent,
-    {
-      data: createData,
-      isSuccess: isSuccessCreate,
-      isError: isErrorCreate,
-      error: errCreate,
-    },
-  ] = useCreateEventMutation();
+  const [createEvent, { isSuccess: isSuccessCreate }] = useCreateEventMutation({
+    fixedCacheKey: "createEvent",
+  });
 
-  const [
-    updateEvent,
-    {
-      data: updateData,
-      isSuccess: isSuccessUpdate,
-      isError: isErrorUpdate,
-      error: errUpdate,
-    },
-  ] = useUpdateEventMutation();
+  const [updateEvent, { isSuccess: isSuccessUpdate }] = useUpdateEventMutation({
+    fixedCacheKey: "updateEvent",
+  });
 
-  const [
-    updateImageEvent,
-    {
-      data: updateImgData,
-      isSuccess: isSuccessUpdateImg,
-      isError: isErrorUpdateImg,
-      error: errUpdateImg,
-    },
-  ] = useUpdateEventImageMutation();
+  const [updateImageEvent, { isSuccess: isSuccessUpdateImg }] =
+    useUpdateEventImageMutation({ fixedCacheKey: "updateImageEvent" });
 
   const { handleSubmit, control, reset, setValue } = useForm();
 
-  const closeModalHandler = () => {
+  const closeModalHandler = useCallback(() => {
     setIsOpen(false);
     setShowPopUp(false);
-  };
+  }, [setIsOpen]);
 
   const onSubmit = async (data) => {
     const payload = {
       ...data,
-      organizer: penyelenggaraData?.name,
+      organizer: penyelenggaraData?.organizationName,
     };
 
     if (editId === null) {
@@ -107,49 +86,26 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
       setResponseMessage("Failed Get Penyelenggara Detail");
     }
 
-    if (isSuccessCreate) {
-      setResponseMessage(createData?.message);
-      reset();
-      setIsOpen(false);
-    } else if (isErrorCreate) {
-      setResponseMessage(errCreate?.data?.message);
-    }
-
-    if (isSuccessUpdate) {
-      setResponseMessage(updateData?.message);
-      reset();
-      setIsOpen(false);
-    } else if (isErrorUpdate) {
-      setResponseMessage(errUpdate?.data?.message);
-    }
-
-    if (isSuccessUpdateImg) {
-      setResponseMessage(updateImgData?.message);
-    } else if (isErrorUpdateImg) {
-      setResponseMessage(errUpdateImg?.data?.message);
-    }
-
     console.log(responseMessage);
   }, [
-    createData?.message,
-    errCreate?.data?.message,
-    errUpdate?.data?.message,
-    errUpdateImg?.data?.message,
     isError,
-    isErrorCreate,
     isErrorGetPenyelenggara,
-    isErrorUpdate,
-    isErrorUpdateImg,
     isSuccess,
-    isSuccessCreate,
     isSuccessGetPenyelenggara,
+    responseMessage,
+  ]);
+
+  useEffect(() => {
+    if (isSuccessCreate || isSuccessUpdate || isSuccessUpdateImg) {
+      closeModalHandler();
+      reset();
+    }
+  }, [
+    closeModalHandler,
+    isSuccessCreate,
     isSuccessUpdate,
     isSuccessUpdateImg,
     reset,
-    responseMessage,
-    setIsOpen,
-    updateData?.message,
-    updateImgData?.message,
   ]);
 
   useEffect(() => {
@@ -281,7 +237,7 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
                 <button
                   type="button"
                   className="btn px-5 py-2 mx-4 btn-primary"
-                  onClick={handlePopUpShow}
+                  onClick={() => setShowPopUp(true)}
                 >
                   {editId !== null ? "Update" : "Add"} Event
                 </button>
@@ -306,7 +262,7 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
                           className="close"
                           data-dismiss="modal"
                           aria-label="Close"
-                          onClick={handlePopUpClose}
+                          onClick={() => setShowPopUp(false)}
                           style={{
                             border: "none",
                             backgroundColor: "transparent",
@@ -320,7 +276,7 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
                       <div className="text-end">
                         <button
                           className="btn btn-light px-3 py-2 ms-auto me-3 mt-3"
-                          onClick={handlePopUpClose}
+                          onClick={() => setShowPopUp(false)}
                         >
                           Cancel
                         </button>
@@ -328,7 +284,7 @@ const EventModal = ({ editId, isOpen, setIsOpen }) => {
                           className="btn btn-success px-3 py-2 mt-3"
                           type="submit"
                         >
-                          Add Event
+                          {editId !== null ? "Update" : "Add"} Event
                         </button>
                       </div>
                     </div>

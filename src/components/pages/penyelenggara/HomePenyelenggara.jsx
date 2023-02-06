@@ -1,8 +1,14 @@
 import { Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 
+import { ToastNotif } from "../../atoms";
 import { EventList, EventModal } from "../../molecules";
-import { useGetEventListQuery } from "../../../api/eventApi";
+import {
+  useGetEventListQuery,
+  useCreateEventMutation,
+  useUpdateEventMutation,
+  useUpdateEventImageMutation,
+} from "../../../api/eventApi";
 
 const styles = {
   container: {
@@ -15,26 +21,75 @@ const styles = {
 };
 
 const HomePenyelenggara = ({ searchValue }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [editId, setEditId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isToastOpen, setIsToastOpen] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
 
-  // TODO : Fix filter event list based on created event by organizer
-  const { data: eventList, error, isError, isSuccess } = useGetEventListQuery();
+  const { data: eventList } = useGetEventListQuery();
+
+  const [
+    ,
+    { isSuccess: isSuccessCreate, isError: isErrorCreate, reset: resetCreate },
+  ] = useCreateEventMutation({ fixedCacheKey: "createEvent" });
+
+  const [
+    ,
+    { isSuccess: isSuccessUpdate, isError: isErrorUpdate, reset: resetUpdate },
+  ] = useUpdateEventMutation({ fixedCacheKey: "updateEvent" });
+
+  const [
+    ,
+    {
+      isSuccess: isSuccessUpdateImage,
+      isError: isErrorUpdateImage,
+      reset: resetUpdateImage,
+    },
+  ] = useUpdateEventImageMutation({ fixedCacheKey: "updateImageEvent" });
 
   const openModalHandler = () => {
     setEditId(null);
     setIsModalOpen(true);
   };
 
+  const toastCloseHandler = () => {
+    setIsToastOpen(false);
+    resetCreate();
+    resetUpdate();
+    resetUpdateImage();
+  };
+
   useEffect(() => {
-    if (isSuccess) {
-      setResponseMessage("Success get Event List");
-    } else if (isError) {
-      setResponseMessage(error);
+    if (isSuccessCreate) {
+      setResponseMessage("Event created successfully");
+    } else if (isErrorCreate) {
+      setResponseMessage("Failed to create event!");
     }
-    console.log(responseMessage);
-  }, [error, isError, isSuccess, responseMessage]);
+
+    if (isSuccessUpdate || isSuccessUpdateImage) {
+      setResponseMessage("Event updated successfully");
+    } else if (isErrorUpdate || isErrorUpdateImage) {
+      setResponseMessage("Failed to update event!");
+    }
+
+    if (
+      isSuccessCreate ||
+      isErrorCreate ||
+      isSuccessUpdate ||
+      isErrorUpdate ||
+      isSuccessUpdateImage ||
+      isErrorUpdateImage
+    ) {
+      setIsToastOpen(true);
+    }
+  }, [
+    isErrorCreate,
+    isErrorUpdate,
+    isErrorUpdateImage,
+    isSuccessCreate,
+    isSuccessUpdate,
+    isSuccessUpdateImage,
+  ]);
 
   return (
     <div>
@@ -59,6 +114,12 @@ const HomePenyelenggara = ({ searchValue }) => {
           setEditId={setEditId}
         />
       </div>
+
+      <ToastNotif
+        responseMessage={responseMessage}
+        isOpen={isToastOpen}
+        onClose={toastCloseHandler}
+      />
 
       <EventModal
         isOpen={isModalOpen}
