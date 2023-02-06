@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { TextForm } from "../forms";
-import { SuccessModal } from "../atoms";
+import { SuccessModal, ToastNotif } from "../atoms";
 import { useMahasiswaNewPasswordMutation } from "../../api/authApi";
 
 const styles = {
@@ -15,6 +15,7 @@ const styles = {
 };
 
 const NewPassword = () => {
+  const [isToastOpen, setIsToastOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
 
@@ -23,10 +24,8 @@ const NewPassword = () => {
   const [
     mahasiswaNewPassword,
     {
-      data: dataMahasiswaNewPassword,
       isSuccess: isSuccessMahasiswaNewPassword,
       isError: isErrorMahasiswaNewPassword,
-      error: errorMahasiswaNewPassword,
     },
   ] = useMahasiswaNewPasswordMutation();
 
@@ -36,6 +35,10 @@ const NewPassword = () => {
 
   const goToLoginPage = () => {
     navigate("/login");
+  };
+
+  const closeToastHandler = () => {
+    setIsToastOpen(false);
   };
 
   const onSubmit = async (data) => {
@@ -50,18 +53,15 @@ const NewPassword = () => {
   useEffect(() => {
     if (isSuccessMahasiswaNewPassword) {
       setIsModalOpen(true);
-      setResponseMessage(dataMahasiswaNewPassword?.message);
+      setResponseMessage("Password changed successfully");
     } else if (isErrorMahasiswaNewPassword) {
-      setResponseMessage(errorMahasiswaNewPassword?.data?.error || "Error");
+      setResponseMessage("Failed to change password!");
     }
-    console.log(responseMessage);
-  }, [
-    dataMahasiswaNewPassword,
-    errorMahasiswaNewPassword?.data?.error,
-    isErrorMahasiswaNewPassword,
-    isSuccessMahasiswaNewPassword,
-    responseMessage,
-  ]);
+
+    if (isSuccessMahasiswaNewPassword || isErrorMahasiswaNewPassword) {
+      setIsToastOpen(true);
+    }
+  }, [isErrorMahasiswaNewPassword, isSuccessMahasiswaNewPassword]);
 
   return (
     <>
@@ -113,6 +113,12 @@ const NewPassword = () => {
           </div>
         </div>
       </form>
+
+      <ToastNotif
+        responseMessage={responseMessage}
+        isOpen={isToastOpen}
+        onClose={closeToastHandler}
+      />
 
       <SuccessModal
         isOpen={isModalOpen}

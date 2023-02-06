@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 
+import { ToastNotif } from "../atoms";
 import { getMahasiswaId } from "../../utils/storage";
 import { FileInput, SelectForm, TextForm } from "../forms";
 import { genderOptions, religionOptions } from "../../constants/option";
@@ -23,6 +24,7 @@ const styles = {
 
 const Setting = () => {
   const [file, setFile] = useState(null);
+  const [isToastOpen, setIsToastOpen] = useState(false);
   const [acceptedFile, setAcceptedFile] = useState(null);
   const [responseMessage, setResponseMessage] = useState("");
 
@@ -32,22 +34,12 @@ const Setting = () => {
 
   const [
     updateProfileMahasiswa,
-    {
-      data: updateData,
-      isSuccess: isSuccessUpdate,
-      isError: isErrorUpdate,
-      error: errUpdate,
-    },
+    { isSuccess: isSuccessUpdate, isError: isErrorUpdate },
   ] = useUpdateProfileMahasiswaMutation();
 
   const [
     updateProfileImageMahasiswa,
-    {
-      data: updateDataImage,
-      isSuccess: isSuccessUpdateImage,
-      isError: isErrorUpdateImage,
-      error: errUpdateImage,
-    },
+    { isSuccess: isSuccessUpdateImage, isError: isErrorUpdateImage },
   ] = useUpdateProfileImageMahasiswaMutation();
 
   const { handleSubmit, control, setValue } = useForm();
@@ -57,6 +49,10 @@ const Setting = () => {
   const goToHomePage = useCallback(() => {
     navigate("/");
   }, [navigate]);
+
+  const closeToastHandler = () => {
+    setIsToastOpen(false);
+  };
 
   const onSubmit = async (data) => {
     const payload = {
@@ -85,23 +81,15 @@ const Setting = () => {
       setResponseMessage("Failed Get Detail Mahasiswa");
     }
 
-    if (isSuccessUpdateImage) {
-      setResponseMessage(updateDataImage?.message);
-    } else if (isErrorUpdateImage) {
-      setResponseMessage(errUpdateImage?.data?.message || "Error");
-    }
-
-    if (isSuccessUpdate) {
-      setResponseMessage(updateData?.message);
+    if (isSuccessUpdate || isSuccessUpdateImage) {
+      setResponseMessage("Mahasiswa detail changed successfully");
       goToHomePage();
-    } else if (isErrorUpdate) {
-      setResponseMessage(errUpdate?.data?.message || "Error");
+    } else if (isErrorUpdate || isErrorUpdateImage) {
+      setResponseMessage("Failed to change mahasiswa detail");
     }
 
     console.log(responseMessage);
   }, [
-    errUpdate?.data?.message,
-    errUpdateImage?.data?.message,
     goToHomePage,
     isError,
     isErrorUpdate,
@@ -110,8 +98,6 @@ const Setting = () => {
     isSuccessUpdate,
     isSuccessUpdateImage,
     responseMessage,
-    updateData?.message,
-    updateDataImage?.message,
   ]);
 
   useEffect(() => {
@@ -226,6 +212,12 @@ const Setting = () => {
           </div>
         </form>
       </div>
+
+      <ToastNotif
+        responseMessage={responseMessage}
+        onClose={closeToastHandler}
+        isOpen={isToastOpen}
+      />
     </>
   );
 };

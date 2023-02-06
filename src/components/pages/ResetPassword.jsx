@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { TextForm } from "../forms";
-import { SuccessModal } from "../atoms";
+import { SuccessModal, ToastNotif } from "../atoms";
 import { useMahasiswaResetPasswordMutation } from "../../api/authApi";
 
 const styles = {
@@ -15,16 +15,15 @@ const styles = {
 };
 
 const ResetPassword = () => {
+  const [isToastOpen, setIsToastOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
 
   const [
     mahasiswaResetPassword,
     {
-      data: dataMahasiswaResetPassword,
       isSuccess: isSuccessMahasiswaResetPassword,
       isError: isErrorMahasiswaResetPassword,
-      error: errorMahasiswaResetPassword,
     },
   ] = useMahasiswaResetPasswordMutation();
 
@@ -34,6 +33,10 @@ const ResetPassword = () => {
 
   const goToLoginPage = () => {
     navigate("/login");
+  };
+
+  const closeToastHandler = () => {
+    setIsToastOpen(false);
   };
 
   const onSubmit = async (data) => {
@@ -46,19 +49,16 @@ const ResetPassword = () => {
 
   useEffect(() => {
     if (isSuccessMahasiswaResetPassword) {
-      setResponseMessage(dataMahasiswaResetPassword?.message);
+      setResponseMessage("Reset password email request successfully");
       setIsModalOpen(true);
     } else if (isErrorMahasiswaResetPassword) {
-      setResponseMessage(errorMahasiswaResetPassword?.data?.error || "Error");
+      setResponseMessage("Failed to request reset password email!");
     }
-    console.log(responseMessage);
-  }, [
-    dataMahasiswaResetPassword?.message,
-    errorMahasiswaResetPassword?.data?.error,
-    isErrorMahasiswaResetPassword,
-    isSuccessMahasiswaResetPassword,
-    responseMessage,
-  ]);
+
+    if (isSuccessMahasiswaResetPassword || isErrorMahasiswaResetPassword) {
+      setIsToastOpen(true);
+    }
+  }, [isErrorMahasiswaResetPassword, isSuccessMahasiswaResetPassword]);
 
   return (
     <>
@@ -104,6 +104,12 @@ const ResetPassword = () => {
           </div>
         </div>
       </form>
+
+      <ToastNotif
+        responseMessage={responseMessage}
+        isOpen={isToastOpen}
+        onClose={closeToastHandler}
+      />
 
       <SuccessModal
         isOpen={isModalOpen}
