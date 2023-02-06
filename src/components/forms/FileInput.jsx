@@ -4,8 +4,8 @@ import AddImageBackground from "../../assets/add-image.png";
 
 const styles = {
   input: {
-    height: "180px",
-    width: "180px",
+    height: "200px",
+    width: "200px",
     borderRadius: "5px",
     cursor: "pointer",
     backgroundImage: `url(${AddImageBackground})`,
@@ -44,7 +44,7 @@ const InputImage = ({ label, file, setFile, setAcceptedFile }) => {
         <input {...getInputProps()} />
         <div style={styles.input} className="border">
           {acceptedFiles.length === 0 && !file ? (
-            <img style={styles.profilePicture} src="../../assets/add-image.png" alt="Profile" />
+            <i></i>
           ) : (
             <img style={styles.profilePicture} src={file} alt="Profile" />
           )}
