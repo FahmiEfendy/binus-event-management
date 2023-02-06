@@ -115,7 +115,7 @@ const SettingPenyelenggara = () => {
   ]);
 
   useEffect(() => {
-    setValue("organizationName", data?.name);
+    setValue("organizationName", data?.organizationName);
     setValue("email", data?.email);
     setValue("organizationType", data?.organizationType);
     setValue("phoneNo", data?.phoneNo);
