@@ -81,9 +81,15 @@ const EventList = ({ data, type, searchValue, setEditId, setIsOpen }) => {
         <div className="col-2 my-auto" style={styles.header}>
           Participant
         </div>
-        <div className="col-2 my-auto" style={styles.header}>
-          Price
-        </div>
+        {type === "history" ? (
+            <div className="col-2 my-auto" style={styles.header}>
+              Status
+            </div>
+          ) : (
+            <div className="col-2 my-auto" style={styles.header}>
+              Price
+            </div>
+          )}
         <div className="col-1" style={styles.header}>
           <Dropdown align="end">
             <Dropdown.Toggle id="dropdown-basic">
