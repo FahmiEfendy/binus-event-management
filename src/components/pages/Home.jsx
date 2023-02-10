@@ -16,9 +16,13 @@ const styles = {
 };
 
 const Home = ({ searchValue }) => {
+  const delay = 500; // 0.5 second after user not type, API will fetch
   const [responseMessage, setResponseMessage] = useState("");
+  const [debouncedValue, setDebouncedValue] = useState(searchValue); // Delay for search event API
 
-  const { data: eventList, isError, isSuccess } = useGetEventListQuery();
+  const { data: eventList } = useGetEventListQuery({
+    searchKeyword: debouncedValue,
+  });
 
   const {
     data: recEventData,
@@ -28,12 +32,6 @@ const Home = ({ searchValue }) => {
   } = useGetEventListQuery(getToken());
 
   useEffect(() => {
-    if (isSuccess) {
-      setResponseMessage("Success get Event List");
-    } else if (isError) {
-      setResponseMessage("Failed get Event List");
-    }
-
     if (isSucessGetRecEvent) {
       setResponseMessage("Success get event recommendation");
     } else if (isErrorGetRecEvent) {
@@ -41,14 +39,17 @@ const Home = ({ searchValue }) => {
     }
 
     console.log(responseMessage);
-  }, [
-    isError,
-    isErrorGetRecEvent,
-    isSuccess,
-    isSucessGetRecEvent,
-    recEventData,
-    responseMessage,
-  ]);
+  }, [isErrorGetRecEvent, isSucessGetRecEvent, responseMessage]);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(searchValue);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchValue]);
 
   return (
     <div>

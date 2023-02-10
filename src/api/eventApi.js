@@ -5,10 +5,11 @@ export const eventApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getEventList: builder.query({
       providesTags: ["event"],
-      query: () => {
+      query: ({ searchKeyword }) => {
         return {
           url: `${STUDENT_EVENT_URL}/`,
           method: "GET",
+          params: { searchKeyword },
         };
       },
     }),

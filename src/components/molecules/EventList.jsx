@@ -19,7 +19,7 @@ const styles = {
   },
 };
 
-const EventList = ({ data, type, searchValue, setEditId, setIsOpen }) => {
+const EventList = ({ data, type, setEditId, setIsOpen }) => {
   const [filterType, setFilterType] = useState("");
   const [filteredData, setFilteredData] = useState();
 
@@ -32,14 +32,6 @@ const EventList = ({ data, type, searchValue, setEditId, setIsOpen }) => {
       } else {
         setFilteredData(data?.eventList);
       }
-
-      if (searchValue.length > 0) {
-        setFilteredData(
-          data?.eventList.filter((data) =>
-            data?.title.toLowerCase().includes(searchValue.toLowerCase())
-          )
-        );
-      }
     } else if (type === "history") {
       if (filterType !== "") {
         data &&
@@ -51,17 +43,8 @@ const EventList = ({ data, type, searchValue, setEditId, setIsOpen }) => {
       } else {
         data && setFilteredData(data[0].eventEnrolled);
       }
-
-      if (searchValue.length > 0) {
-        data &&
-          setFilteredData(
-            data[0].eventEnrolled.filter((data) =>
-              data?.title.toLowerCase().includes(searchValue.toLowerCase())
-            )
-          );
-      }
     }
-  }, [data, filterType, searchValue, type]);
+  }, [data, filterType, type]);
 
   return (
     <div
@@ -82,14 +65,14 @@ const EventList = ({ data, type, searchValue, setEditId, setIsOpen }) => {
           Participant
         </div>
         {type === "history" ? (
-            <div className="col-2 my-auto" style={styles.header}>
-              Status
-            </div>
-          ) : (
-            <div className="col-2 my-auto" style={styles.header}>
-              Price
-            </div>
-          )}
+          <div className="col-2 my-auto" style={styles.header}>
+            Status
+          </div>
+        ) : (
+          <div className="col-2 my-auto" style={styles.header}>
+            Price
+          </div>
+        )}
         <div className="col-1" style={styles.header}>
           <Dropdown align="end">
             <Dropdown.Toggle id="dropdown-basic">
