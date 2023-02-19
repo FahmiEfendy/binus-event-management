@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
-import { Pencil, Trash } from "react-bootstrap-icons";
+import React, { useEffect, useState } from "react";
+import { Eye, Pencil, Trash } from "react-bootstrap-icons";
 
 import { ToastNotif } from "../atoms";
 import { getPenyelenggaraId } from "../../utils/storage";
@@ -15,6 +15,10 @@ const styles = {
     height: "40px",
     width: "60px",
     backgroundColor: "white",
+  },
+  list: {
+    maxHeight: "30rem",
+    overflow: "auto",
   },
 };
 
@@ -36,6 +40,7 @@ const EventBar = ({
   const [show, setShow] = useState(false);
   const [isToastOpen, setIsToastOpen] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
+  const [showRegistrantModal, setShowRegistrantModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -44,6 +49,8 @@ const EventBar = ({
   const [deleteEvent, { isSuccess, isError }] = useDeleteEventMutation({
     fixedCacheKey: "deleteEvent",
   });
+
+  const handleViewBtnClose = () => setShowRegistrantModal(false);
 
   const handleDeleteBtnClose = () => setShow(false);
 
@@ -64,6 +71,10 @@ const EventBar = ({
   const updateEventHandler = () => {
     setIsOpen(true);
     setEditId(eventId);
+  };
+
+  const viewRegisteredEventHandler = () => {
+    setShowRegistrantModal(true);
   };
 
   const toastCloseHandler = () => {
@@ -119,6 +130,13 @@ const EventBar = ({
             <Button
               variant="light"
               className="ms-auto me-1"
+              onClick={viewRegisteredEventHandler}
+            >
+              <Eye />
+            </Button>
+            <Button
+              variant="light"
+              className="mx-1"
               onClick={updateEventHandler}
             >
               <Pencil />
@@ -145,6 +163,28 @@ const EventBar = ({
           </button>
         )}
       </div>
+
+      <Modal
+        show={showRegistrantModal}
+        onHide={handleViewBtnClose}
+        centered
+        size="lg"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Participant Detail</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <ul style={styles.list}>
+            {eventParticipant &&
+              eventParticipant[0]?.mahasiswaList?.map((data, i) => (
+                <li key={i} className="py-2">
+                  <h5>{data}</h5>
+                </li>
+              ))}
+          </ul>
+        </Modal.Body>
+      </Modal>
+
       <Modal
         show={show}
         onHide={handleDeleteBtnClose}
@@ -164,6 +204,7 @@ const EventBar = ({
           </Button>
         </Modal.Footer>
       </Modal>
+
       <ToastNotif
         responseMessage={responseMessage}
         isOpen={isToastOpen}
