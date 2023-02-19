@@ -41,7 +41,7 @@ const EventList = ({ data, type, setEditId, setIsOpen }) => {
             )
           );
       } else {
-        data && setFilteredData(data[0].eventEnrolled);
+        data && setFilteredData(data[0]?.eventEnrolled || []);
       }
     }
   }, [data, filterType, type]);

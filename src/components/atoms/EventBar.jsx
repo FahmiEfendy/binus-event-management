@@ -5,7 +5,10 @@ import { Pencil, Trash } from "react-bootstrap-icons";
 
 import { ToastNotif } from "../atoms";
 import { getPenyelenggaraId } from "../../utils/storage";
-import { useDeleteEventMutation } from "../../api/eventApi";
+import {
+  useGetEventParticipantQuery,
+  useDeleteEventMutation,
+} from "../../api/eventApi";
 
 const styles = {
   eventOrganizerLogo: {
@@ -35,6 +38,8 @@ const EventBar = ({
   const [responseMessage, setResponseMessage] = useState("");
 
   const navigate = useNavigate();
+
+  const { data: eventParticipant } = useGetEventParticipantQuery(eventId);
 
   const [deleteEvent, { isSuccess, isError }] = useDeleteEventMutation({
     fixedCacheKey: "deleteEvent",
@@ -85,7 +90,6 @@ const EventBar = ({
   return (
     <div className="row w-100 d-flex align-items-center rounded table-list-border">
       <div className="col-3 d-flex">
-        {/* TODO : img src should get from BE */}
         <img
           style={styles.eventOrganizerLogo}
           className="rounded my-auto"
@@ -101,7 +105,11 @@ const EventBar = ({
       </div>
       <div className="col-2">{date}</div>
       <div className="col-2">{location}</div>
-      <div className="col-2">{participant}</div>
+      <div className="col-2">
+        {(eventParticipant && eventParticipant[0]?.mahasiswaList.length) || 0}
+        {" / "}
+        {participant}
+      </div>
       <div className="col-1">{`${
         type === "history" ? status : `${price}`
       }`}</div>

@@ -3,7 +3,10 @@ import { useEffect, useState } from "react";
 import { EventList } from "../molecules";
 import { getToken } from "../../utils/storage";
 import { CarouselComponent, Loading } from "../atoms";
-import { useGetEventListQuery } from "../../api/eventApi";
+import {
+  useGetEventListQuery,
+  useGetEventRecommendationQuery,
+} from "../../api/eventApi";
 
 const styles = {
   container: {
@@ -17,29 +20,15 @@ const styles = {
 
 const Home = ({ searchValue }) => {
   const delay = 500; // 0.5 second after user not type, API will fetch
-  const [responseMessage, setResponseMessage] = useState("");
   const [debouncedValue, setDebouncedValue] = useState(searchValue); // Delay for search event API
 
   const { data: eventList } = useGetEventListQuery({
+    token: getToken(),
     searchKeyword: debouncedValue,
   });
 
-  const {
-    data: recEventData,
-    isSuccess: isSucessGetRecEvent,
-    isLoading: isLoadingGetRecEvent,
-    isError: isErrorGetRecEvent,
-  } = useGetEventListQuery(getToken());
-
-  useEffect(() => {
-    if (isSucessGetRecEvent) {
-      setResponseMessage("Success get event recommendation");
-    } else if (isErrorGetRecEvent) {
-      setResponseMessage("Failed get event recommendation");
-    }
-
-    console.log(responseMessage);
-  }, [isErrorGetRecEvent, isSucessGetRecEvent, responseMessage]);
+  const { data: recEventData, isLoading: isLoadingGetRecEvent } =
+    useGetEventRecommendationQuery(getToken());
 
   useEffect(() => {
     const handler = setTimeout(() => {

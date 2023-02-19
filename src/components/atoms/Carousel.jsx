@@ -18,10 +18,10 @@ const CarouselComponent = ({ data }) => {
       onSelect={handleSelect}
     >
       <div className="carousel-inner">
-        {data?.eventList.map((data, i) => {
+        {data?.map((data, i) => {
           return (
             <div
-              key={data._id}
+              key={data[0]._id}
               className={`carousel-item ${currentIndex === i && "active"}`}
             >
               <div className="row justify-content-around w-75 mx-auto">
@@ -30,16 +30,16 @@ const CarouselComponent = ({ data }) => {
                     className="card-img-top"
                     src={require("../../assets/logo-binus.png")}
                     style={{ height: "250px" }}
-                    alt={data.title}
+                    alt={data[0].title}
                   />
                   <div className="card-body">
-                    <h5 className="card-title">{data.title}</h5>
-                    <p className="card-text">{data.description}</p>
+                    <h5 className="card-title">{data[0].title}</h5>
+                    <p className="card-text">{data[0].description}</p>
                     <button
                       type="button"
                       className="btn btn-primary px-4 mx-auto"
                       onClick={() => {
-                        navigate(`/detail/${data._id}`);
+                        navigate(`/detail/${data[0]._id}`);
                       }}
                     >
                       Detail

@@ -5,9 +5,9 @@ export const eventApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getEventList: builder.query({
       providesTags: ["event"],
-      query: ({ searchKeyword }) => {
+      query: ({ token, searchKeyword }) => {
         return {
-          url: `${STUDENT_EVENT_URL}/`,
+          url: `${STUDENT_EVENT_URL}/${token}`,
           method: "GET",
           params: { searchKeyword },
         };
@@ -48,6 +48,16 @@ export const eventApi = api.injectEndpoints({
       query: (id) => {
         return {
           url: `${STUDENT_EVENT_URL}-enrolled/view/${id}`,
+          method: "GET",
+        };
+      },
+    }),
+
+    getEventParticipant: builder.query({
+      providesTags: ["event"],
+      query: (eventId) => {
+        return {
+          url: `${STUDENT_EVENT_URL}-enrolled/view-event/registered/${eventId}`,
           method: "GET",
         };
       },
@@ -111,6 +121,7 @@ export const {
   useGetEnrolledEventQuery,
   useGetEventRecommendationQuery,
   useGetEventDetailQuery,
+  useGetEventParticipantQuery,
   useGetEnrolledEventDetailQuery,
   useCreateEventMutation,
   useDeleteEventMutation,

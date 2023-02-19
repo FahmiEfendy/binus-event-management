@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 
 import {
   useGetEventDetailQuery,
+  useGetEventParticipantQuery,
   useGetEnrolledEventDetailQuery,
   useRegisterEventMutation,
 } from "../../api/eventApi";
@@ -51,8 +52,10 @@ const EventDetail = ({ type }) => {
   const { data: eventEnrolledDetail, isLoading: isLoadingGetEnrolledDetail } =
     useGetEnrolledEventDetailQuery(eventId);
 
+  const { data: eventParticipant } = useGetEventParticipantQuery(eventId);
+
   const [, { isSuccess: isSuccessRegister, isError: isErrorRegister }] =
-    useRegisterEventMutation({ fixedCacheKey: "registerEvent" });
+    useRegisterEventMutation();
 
   const registerHandler = () => {
     setIsRegisterModalOpen(true);
@@ -150,8 +153,11 @@ const EventDetail = ({ type }) => {
               </div>
               <div className="row mt-3">
                 <span className="col-3 h4">Participant</span>
-                {/* TODO: participant / totalQuota */}
                 <span className="col-9 h5">
+                  {(eventParticipant &&
+                    eventParticipant[0]?.mahasiswaList.length) ||
+                    0}
+                  {" / "}
                   {eventDetail?.totalQuota ||
                     (eventEnrolledDetail &&
                       eventEnrolledDetail[0]?.eventEnrolled.totalQuota)}

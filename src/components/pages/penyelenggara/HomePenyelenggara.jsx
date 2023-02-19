@@ -2,6 +2,7 @@ import { Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 
 import { ToastNotif } from "../../atoms";
+import { getToken } from "../../../utils/storage";
 import { EventList, EventModal } from "../../molecules";
 import {
   useGetEventListQuery,
@@ -21,13 +22,17 @@ const styles = {
 };
 
 const HomePenyelenggara = ({ searchValue }) => {
+  const delay = 500; // 0.5 second after user not type, API will fetch
   const [editId, setEditId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isToastOpen, setIsToastOpen] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
+  const [debouncedValue, setDebouncedValue] = useState(searchValue); // Delay for search event API
 
-  const { data: eventList } = useGetEventListQuery();
-
+  const { data: eventList } = useGetEventListQuery({
+    token: getToken(),
+    searchKeyword: debouncedValue,
+  });
   const [
     ,
     { isSuccess: isSuccessCreate, isError: isErrorCreate, reset: resetCreate },
@@ -90,6 +95,16 @@ const HomePenyelenggara = ({ searchValue }) => {
     isSuccessUpdate,
     isSuccessUpdateImage,
   ]);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(searchValue);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchValue]);
 
   return (
     <div>
