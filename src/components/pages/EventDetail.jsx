@@ -55,7 +55,7 @@ const EventDetail = ({ type }) => {
   const { data: eventParticipant } = useGetEventParticipantQuery(eventId);
 
   const [, { isSuccess: isSuccessRegister, isError: isErrorRegister }] =
-    useRegisterEventMutation();
+    useRegisterEventMutation({ fixedCacheKey: "registerEvent" });
 
   const registerHandler = () => {
     setIsRegisterModalOpen(true);
@@ -207,12 +207,11 @@ const EventDetail = ({ type }) => {
           setIsRegistrationSuccessModalOpen={setIsRegistrationSuccessModalOpen}
         />
       )}
-      {isRegistrationSuccessModalOpen && (
-        <RegistrationSuccessModal
-          eventId={eventId}
-          setIsRegistrationSuccessModalOpen={setIsRegistrationSuccessModalOpen}
-        />
-      )}
+      <RegistrationSuccessModal
+        eventId={eventId}
+        isRegistrationSuccessModalOpen={isRegistrationSuccessModalOpen}
+        setIsRegistrationSuccessModalOpen={setIsRegistrationSuccessModalOpen}
+      />
 
       <ToastNotif
         responseMessage={responseMessage}

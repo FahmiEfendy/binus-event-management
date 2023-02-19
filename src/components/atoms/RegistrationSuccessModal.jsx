@@ -1,3 +1,4 @@
+import { Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const styles = {
@@ -6,8 +7,11 @@ const styles = {
   },
 };
 
-const RegistrationSuccessModal = ({setIsRegistrationSuccessModalOpen, eventId}) => {
-
+const RegistrationSuccessModal = ({
+  eventId,
+  isRegistrationSuccessModalOpen,
+  setIsRegistrationSuccessModalOpen,
+}) => {
   const navigate = useNavigate();
 
   const goCheckEventHistoryHandler = () => {
@@ -21,19 +25,9 @@ const RegistrationSuccessModal = ({setIsRegistrationSuccessModalOpen, eventId}) 
   };
 
   return (
-    <div
-      className="modal fade"
-      id="registrationSuccessModal"
-      tabIndex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalCenterTitle"
-      aria-hidden="true"
-    >
-      <div
-        className="modal-dialog modal-dialog-centered modal-lg"
-        role="document"
-      >
-        <div className="modal-content">
+    <Modal show={isRegistrationSuccessModalOpen} size="lg" centered>
+      <Modal.Dialog className="border-0">
+        <Modal.Body>
           <div className="modal-body d-flex flex-column align-items-center pt-4 pb-5">
             <img
               style={styles.successVector}
@@ -63,9 +57,9 @@ const RegistrationSuccessModal = ({setIsRegistrationSuccessModalOpen, eventId}) 
               </button>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </Modal.Body>
+      </Modal.Dialog>
+    </Modal>
   );
 };
 

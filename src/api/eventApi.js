@@ -15,7 +15,6 @@ export const eventApi = api.injectEndpoints({
     }),
 
     getEnrolledEvent: builder.query({
-      providesTags: ["event"],
       query: (token) => {
         return {
           url: `${STUDENT_EVENT_URL}-enrolled/${token}`,
@@ -44,7 +43,6 @@ export const eventApi = api.injectEndpoints({
     }),
 
     getEnrolledEventDetail: builder.query({
-      providesTags: ["event"],
       query: (id) => {
         return {
           url: `${STUDENT_EVENT_URL}-enrolled/view/${id}`,
@@ -54,7 +52,6 @@ export const eventApi = api.injectEndpoints({
     }),
 
     getEventParticipant: builder.query({
-      providesTags: ["event"],
       query: (eventId) => {
         return {
           url: `${STUDENT_EVENT_URL}-enrolled/view-event/registered/${eventId}`,
