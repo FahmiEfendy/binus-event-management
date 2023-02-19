@@ -19,7 +19,7 @@ const styles = {
   },
 };
 
-const EventList = ({ data, type, setEditId, setIsOpen }) => {
+const EventList = ({ data, type, searchValue, setEditId, setIsOpen }) => {
   const [filterType, setFilterType] = useState("");
   const [filteredData, setFilteredData] = useState();
 
@@ -43,8 +43,16 @@ const EventList = ({ data, type, setEditId, setIsOpen }) => {
       } else {
         data && setFilteredData(data[0]?.eventEnrolled || []);
       }
+
+      if (searchValue.length > 0) {
+        setFilteredData(
+          data[0]?.eventEnrolled.filter((data) =>
+            data?.title.toLowerCase().includes(searchValue.toLowerCase())
+          )
+        );
+      }
     }
-  }, [data, filterType, type]);
+  }, [data, filterType, searchValue, type]);
 
   return (
     <div
