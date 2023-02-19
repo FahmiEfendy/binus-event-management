@@ -2,10 +2,9 @@ import { Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 
 import { ToastNotif } from "../../atoms";
-import { getToken } from "../../../utils/storage";
 import { EventList, EventModal } from "../../molecules";
 import {
-  useGetEventListQuery,
+  useGetEventListPenyelenggaraQuery,
   useCreateEventMutation,
   useUpdateEventMutation,
   useUpdateEventImageMutation,
@@ -29,8 +28,7 @@ const HomePenyelenggara = ({ searchValue }) => {
   const [responseMessage, setResponseMessage] = useState("");
   const [debouncedValue, setDebouncedValue] = useState(searchValue); // Delay for search event API
 
-  const { data: eventList } = useGetEventListQuery({
-    token: getToken(),
+  const { data: eventList } = useGetEventListPenyelenggaraQuery({
     searchKeyword: debouncedValue,
   });
   const [

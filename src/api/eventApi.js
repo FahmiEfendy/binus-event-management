@@ -14,6 +14,17 @@ export const eventApi = api.injectEndpoints({
       },
     }),
 
+    getEventListPenyelenggara: builder.query({
+      providesTags: ["event"],
+      query: ({ searchKeyword }) => {
+        return {
+          url: `${STUDENT_EVENT_URL}/`,
+          method: "GET",
+          params: { searchKeyword },
+        };
+      },
+    }),
+
     getEnrolledEvent: builder.query({
       query: (token) => {
         return {
@@ -115,6 +126,7 @@ export const eventApi = api.injectEndpoints({
 
 export const {
   useGetEventListQuery,
+  useGetEventListPenyelenggaraQuery,
   useGetEnrolledEventQuery,
   useGetEventRecommendationQuery,
   useGetEventDetailQuery,
