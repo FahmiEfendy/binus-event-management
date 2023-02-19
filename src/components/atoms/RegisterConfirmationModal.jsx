@@ -19,8 +19,9 @@ const RegisterConfirmationModal = ({
   eventId,
   setIsRegisterModalOpen,
   setIsRegistrationSuccessModalOpen,
+  eventImage,
 }) => {
-  const [registEvent] = useRegisterEventMutation({
+  const [registEvent, { reset }] = useRegisterEventMutation({
     fixedCacheKey: "registerEvent",
   });
 
@@ -35,6 +36,7 @@ const RegisterConfirmationModal = ({
 
     setIsRegisterModalOpen(false);
     setIsRegistrationSuccessModalOpen(true);
+    reset();
   };
 
   const closeModalHandler = () => {
@@ -75,7 +77,7 @@ const RegisterConfirmationModal = ({
             <div className="modal-body d-flex pt-4 pb-5">
               <img
                 style={styles.eventPoster}
-                src={require("../../assets/example-event-poster.jpg")}
+                src={eventImage}
                 alt="Example Event Poster"
                 className="img-fluid mx-4 w-25 border"
               />

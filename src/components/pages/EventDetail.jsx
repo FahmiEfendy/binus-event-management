@@ -205,6 +205,11 @@ const EventDetail = ({ type }) => {
           eventId={eventId}
           setIsRegisterModalOpen={setIsRegisterModalOpen}
           setIsRegistrationSuccessModalOpen={setIsRegistrationSuccessModalOpen}
+          eventImage={
+            eventDetail?.image
+              ? file
+              : require("../../assets/example-event-poster.jpg")
+          }
         />
       )}
       <RegistrationSuccessModal
