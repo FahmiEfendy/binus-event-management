@@ -39,8 +39,10 @@ const styles = {
 
 const EventDetail = ({ type }) => {
   const [file, setFile] = useState(null);
+  const [totalQuota, setTotalQuota] = useState(0);
   const [isToastOpen, setIsToastOpen] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
+  const [totalParticipant, setTotalParticipant] = useState(0);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isRegistrationSuccessModalOpen, setIsRegistrationSuccessModalOpen] =
     useState(false);
@@ -58,12 +60,28 @@ const EventDetail = ({ type }) => {
     useRegisterEventMutation({ fixedCacheKey: "registerEvent" });
 
   const registerHandler = () => {
-    setIsRegisterModalOpen(true);
+    if (totalParticipant >= totalQuota) {
+      setResponseMessage("This event total quota already run out!");
+      setIsToastOpen();
+    } else {
+      registerHandler();
+    }
   };
 
   const closeToastHandler = () => {
     setIsToastOpen(false);
   };
+
+  useEffect(() => {
+    setTotalParticipant(
+      (eventParticipant && eventParticipant[0]?.mahasiswaList.length) || 0
+    );
+    setTotalQuota(
+      eventDetail?.totalQuota ||
+        (eventEnrolledDetail &&
+          eventEnrolledDetail[0]?.eventEnrolled.totalQuota)
+    );
+  }, [eventDetail?.totalQuota, eventEnrolledDetail, eventParticipant]);
 
   useEffect(() => {
     if (isSuccessRegister) {
@@ -209,6 +227,14 @@ const EventDetail = ({ type }) => {
             eventDetail?.image
               ? file
               : require("../../assets/example-event-poster.jpg")
+          }
+          eventParticipant={
+            (eventParticipant && eventParticipant[0]?.mahasiswaList.length) || 0
+          }
+          eventQuota={
+            eventDetail?.totalQuota ||
+            (eventEnrolledDetail &&
+              eventEnrolledDetail[0]?.eventEnrolled.totalQuota)
           }
         />
       )}

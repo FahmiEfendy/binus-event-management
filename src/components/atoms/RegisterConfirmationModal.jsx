@@ -20,6 +20,8 @@ const RegisterConfirmationModal = ({
   setIsRegisterModalOpen,
   setIsRegistrationSuccessModalOpen,
   eventImage,
+  eventQuota,
+  eventParticipant,
 }) => {
   const [registEvent, { reset }] = useRegisterEventMutation({
     fixedCacheKey: "registerEvent",
