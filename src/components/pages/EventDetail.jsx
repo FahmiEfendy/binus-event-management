@@ -64,7 +64,7 @@ const EventDetail = ({ type }) => {
       setResponseMessage("This event total quota already run out!");
       setIsToastOpen();
     } else {
-      registerHandler();
+      setIsRegisterModalOpen(true);
     }
   };
 

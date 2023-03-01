@@ -109,15 +109,17 @@ const EventList = ({ data, type, searchValue, setEditId, setIsOpen }) => {
         {filteredData ? (
           filteredData?.length !== 0 ? (
             filteredData?.map((data) => {
-              const currDate = moment(new Date()).format("LL");
-              const startDate = moment(data.startDate).format("LL");
-              const endDate = moment(data.endDate).format("LL");
+              const currDate = new Date().getTime();
+              const startDate = new Date(data.startDate).getTime();
+              const endDate = new Date(data.endDate).getTime();
+
+              const formattedStartDate = moment(data.startDate).format("LL");
 
               let status = "";
 
               if (currDate < startDate) {
                 status = "Upcoming";
-              } else if (startDate < currDate && currDate < endDate) {
+              } else if (startDate >= currDate && currDate <= endDate) {
                 status = "Ongoing";
               } else {
                 status = "Completed";
@@ -129,7 +131,7 @@ const EventList = ({ data, type, searchValue, setEditId, setIsOpen }) => {
                   eventId={data._id}
                   title={data.title}
                   eventType={data.eventType}
-                  date={startDate}
+                  date={formattedStartDate}
                   location={data.location}
                   status={status}
                   type={type}

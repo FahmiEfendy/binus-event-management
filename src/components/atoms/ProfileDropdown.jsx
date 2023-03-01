@@ -109,16 +109,18 @@ const ProfileDropdown = ({ setIsLogin }) => {
   return (
     <div className="dropdown">
       <div className="d-flex" data-toggle="dropdown" id="dropdownMenuButton">
-        <p className="h6 my-auto mx-4">{username}</p>
+        <p className="h6 my-auto mx-3">{username}</p>
         {isLoading || isLoadingGetPenyelenggara ? (
           <Loading />
-        ) :  (data?.image !=undefined && data?.image !== null) || (penyelenggaraDetail?.logo !=undefined && penyelenggaraDetail?.logo !== null) ? (
+        ) : (data?.image != undefined && data?.image !== null) ||
+          (penyelenggaraDetail?.logo != undefined &&
+            penyelenggaraDetail?.logo !== null) ? (
           <img
-              style={styles.profilePicture}
-              src={file}
-              alt="User Profile"
-              className="rounded-circle me-4"
-            />
+            style={styles.profilePicture}
+            src={file}
+            alt="User Profile"
+            className="rounded-circle me-4"
+          />
         ) : (
           <img
             style={styles.profilePicture}
