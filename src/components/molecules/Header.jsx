@@ -106,7 +106,9 @@ const Header = ({ setIsLogin, setSearchValue }) => {
         </p>
       )}
       <div className="ms-auto me-3">
-        <Notification filteredEventList={filteredEventList} />
+        {getMahasiswaId() !== null && filteredEventList && (
+          <Notification filteredEventList={filteredEventList} />
+        )}
       </div>
       <div style={{ cursor: "pointer" }}>
         <ProfileDropdown setIsLogin={setIsLogin} />

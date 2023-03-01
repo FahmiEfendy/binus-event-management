@@ -45,7 +45,7 @@ const NotificationItem = ({ title, startDate, image, eventId }) => {
       </div>
       <div>
         <h6>{title}</h6>
-        <p classname="m-0">{moment(startDate).format("LL")}</p>
+        <p className="m-0">{moment(startDate).format("LL")}</p>
       </div>
     </Dropdown.Item>
   );

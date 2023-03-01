@@ -1,3 +1,4 @@
+import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 
 import NotificationItem from "./NotificationItem";
@@ -37,16 +38,15 @@ const Notification = ({ filteredEventList }) => {
         </h6>
         {filteredEventList.map((data) => {
           return (
-            <>
+            <React.Fragment key={data._id}>
               <NotificationItem
-                key={data._id}
                 eventId={data._id}
                 title={data.title}
                 startDate={data.startDate}
                 image={data.image}
               />
               <Dropdown.Divider />
-            </>
+            </React.Fragment>
           );
         })}
       </Dropdown.Menu>
