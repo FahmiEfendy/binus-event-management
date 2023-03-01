@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
-import { ProfileDropdown } from "../atoms";
-import { getMahasiswaId } from "../../utils/storage";
+import { Notification, ProfileDropdown } from "../atoms";
+import { useGetEnrolledEventQuery } from "../../api/eventApi";
+import { getMahasiswaId, getToken } from "../../utils/storage";
 
 const styles = {
   container: {
@@ -25,6 +27,22 @@ const styles = {
 };
 
 const Header = ({ setIsLogin, setSearchValue }) => {
+  const { data, isSuccess } = useGetEnrolledEventQuery(getToken());
+  const [filteredEventList, setFilteredEventList] = useState([]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      setFilteredEventList(
+        data[0]?.eventEnrolled.filter((data) => {
+          const currDate = new Date().getTime();
+          const startDate = new Date(data.startDate).getTime();
+
+          return currDate < startDate;
+        })
+      );
+    }
+  }, [data, isSuccess]);
+
   return (
     <div
       style={styles.container}
@@ -87,7 +105,10 @@ const Header = ({ setIsLogin, setSearchValue }) => {
           </NavLink>
         </p>
       )}
-      <div className="ms-auto" style={{ cursor: "pointer" }}>
+      <div className="ms-auto me-3">
+        <Notification filteredEventList={filteredEventList} />
+      </div>
+      <div style={{ cursor: "pointer" }}>
         <ProfileDropdown setIsLogin={setIsLogin} />
       </div>
     </div>

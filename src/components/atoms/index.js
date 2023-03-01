@@ -2,6 +2,8 @@ import CarouselComponent from "./Carousel";
 import EventBar from "./EventBar";
 import EventNotFound from "./EventNotFound";
 import Loading from "./Loading";
+import Notification from "./Notification";
+import NotificationItem from "./NotificationItem";
 import OrganizationBar from "./OrganizationBar";
 import ProfileDropdown from "./ProfileDropdown";
 import RegisterConfirmationModal from "./RegisterConfirmationModal";
@@ -14,6 +16,8 @@ export {
   EventBar,
   EventNotFound,
   Loading,
+  Notification,
+  NotificationItem,
   OrganizationBar,
   ProfileDropdown,
   RegisterConfirmationModal,
