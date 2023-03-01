@@ -2,6 +2,7 @@ import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 
 import NotificationItem from "./NotificationItem";
+import { getMahasiswaId } from "../../utils/storage";
 import { ExclamationCircle } from "react-bootstrap-icons";
 
 const styles = {
@@ -32,24 +33,26 @@ const Notification = ({ filteredEventList }) => {
         </div>
         <ExclamationCircle style={{ fontSize: "28px" }} />
       </Dropdown.Toggle>
-      <Dropdown.Menu>
-        <h6 style={{ textAlign: "center", padding: ".6rem 0" }}>
-          Upcoming Event
-        </h6>
-        {filteredEventList.map((data) => {
-          return (
-            <React.Fragment key={data._id}>
-              <NotificationItem
-                eventId={data._id}
-                title={data.title}
-                startDate={data.startDate}
-                image={data.image}
-              />
-              <Dropdown.Divider />
-            </React.Fragment>
-          );
-        })}
-      </Dropdown.Menu>
+      {getMahasiswaId() !== null && filteredEventList && (
+        <Dropdown.Menu>
+          <h6 style={{ textAlign: "center", padding: ".6rem 0" }}>
+            Upcoming Event
+          </h6>
+          {filteredEventList.map((data) => {
+            return (
+              <React.Fragment key={data._id}>
+                <NotificationItem
+                  eventId={data._id}
+                  title={data.title}
+                  startDate={data.startDate}
+                  image={data.image}
+                />
+                <Dropdown.Divider />
+              </React.Fragment>
+            );
+          })}
+        </Dropdown.Menu>
+      )}
     </Dropdown>
   );
 };

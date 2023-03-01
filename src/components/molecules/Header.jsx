@@ -105,7 +105,7 @@ const Header = ({ setIsLogin, setSearchValue }) => {
           </NavLink>
         </p>
       )}
-      <div className="ms-auto me-3">
+      <div className="ms-auto">
         {getMahasiswaId() !== null && filteredEventList && (
           <Notification filteredEventList={filteredEventList} />
         )}
