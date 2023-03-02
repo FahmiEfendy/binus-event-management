@@ -26,6 +26,7 @@ export const eventApi = api.injectEndpoints({
     }),
 
     getEnrolledEvent: builder.query({
+      providesTags: ["event"],
       query: (token) => {
         return {
           url: `${STUDENT_EVENT_URL}-enrolled/${token}`,
@@ -35,6 +36,7 @@ export const eventApi = api.injectEndpoints({
     }),
 
     getEventRecommendation: builder.query({
+      providesTags: ["event"],
       query: (token) => {
         return {
           url: `http://binus-event.com:3002/binus-event-api/preference-mahasiswa/recommendation/${token}`,
@@ -63,6 +65,7 @@ export const eventApi = api.injectEndpoints({
     }),
 
     getEventParticipant: builder.query({
+      providesTags: ["event"],
       query: (eventId) => {
         return {
           url: `${STUDENT_EVENT_URL}-enrolled/view-event/registered/${eventId}`,
@@ -104,6 +107,7 @@ export const eventApi = api.injectEndpoints({
     }),
 
     registerEvent: builder.mutation({
+      invalidatesTags: ["event"],
       query: (payload) => {
         return {
           url: `${STUDENT_EVENT_URL}-enrolled/regis-event`,

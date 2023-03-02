@@ -62,7 +62,7 @@ const EventDetail = ({ type }) => {
   const registerHandler = () => {
     if (totalParticipant >= totalQuota) {
       setResponseMessage("This event total quota already run out!");
-      setIsToastOpen();
+      setIsToastOpen(true);
     } else {
       setIsRegisterModalOpen(true);
     }
@@ -86,6 +86,7 @@ const EventDetail = ({ type }) => {
   useEffect(() => {
     if (isSuccessRegister) {
       setResponseMessage("Event registered successfully");
+      setIsRegistrationSuccessModalOpen(true);
     } else if (isErrorRegister) {
       setResponseMessage("Failed to register event!");
     }
