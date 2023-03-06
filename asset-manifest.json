@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.68e7e79e.css",
-    "main.js": "/static/js/main.94ce4f70.js",
+    "main.js": "/static/js/main.89b9b8cb.js",
     "static/media/login-image.jpg": "/static/media/login-image.cc88af8d5c54a0a75979.jpg",
     "static/media/example-event-poster.jpg": "/static/media/example-event-poster.729709b02791279e6b35.jpg",
     "static/media/logo-binus.png": "/static/media/logo-binus.728434cc841b32f63933.png",
@@ -9,10 +9,10 @@
     "static/media/user-profile-picture.jpg": "/static/media/user-profile-picture.81a12e993eea4c13aed9.jpg",
     "index.html": "/index.html",
     "main.68e7e79e.css.map": "/static/css/main.68e7e79e.css.map",
-    "main.94ce4f70.js.map": "/static/js/main.94ce4f70.js.map"
+    "main.89b9b8cb.js.map": "/static/js/main.89b9b8cb.js.map"
   },
   "entrypoints": [
     "static/css/main.68e7e79e.css",
-    "static/js/main.94ce4f70.js"
+    "static/js/main.89b9b8cb.js"
   ]
 }
