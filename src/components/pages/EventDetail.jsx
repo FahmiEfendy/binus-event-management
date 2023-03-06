@@ -72,6 +72,20 @@ const EventDetail = ({ type }) => {
     setIsToastOpen(false);
   };
 
+  const status = (startDate, endDate) => {
+    const currDate = new Date().getTime();
+    const newStartDate = new Date(startDate).getTime();
+    const newEndDate = new Date(endDate).getTime();
+
+    if (currDate < newStartDate) {
+      return "Upcoming";
+    } else if (newStartDate >= currDate && currDate <= newEndDate) {
+      return "Ongoing";
+    } else {
+      return "Completed";
+    }
+  };
+
   useEffect(() => {
     setTotalParticipant(
       (eventParticipant && eventParticipant[0]?.mahasiswaList.length) || 0
@@ -187,7 +201,9 @@ const EventDetail = ({ type }) => {
                   {type === "history" ? "Status" : "Price"}
                 </span>
                 <span className="col-9 h5">{`${
-                  type === "history" ? "Status" : `${eventDetail?.price}`
+                  type === "history"
+                    ? status(eventDetail?.startDate, eventDetail?.endDate)
+                    : `${eventDetail?.price}`
                 }`}</span>
               </div>
               {type === "history" ? (
