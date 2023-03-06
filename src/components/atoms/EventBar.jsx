@@ -65,6 +65,13 @@ const EventBar = ({
   };
 
   const deleteEventHandler = async () => {
+    if(eventParticipant!=null){
+      if(eventParticipant[0].mahasiswaList!=null && eventParticipant[0].mahasiswaList.length>0){
+        setResponseMessage("You can't delete this event");
+        setIsToastOpen(true)
+        return
+      }
+    }
     await deleteEvent(eventId);
   };
 
