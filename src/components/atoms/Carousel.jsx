@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Buffer } from "buffer";
 
 const CarouselComponent = ({ data }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -28,7 +29,7 @@ const CarouselComponent = ({ data }) => {
                 <div className="card">
                   <img
                     className="card-img-top"
-                    src={require("../../assets/logo-binus.png")}
+                    src={data[0].image.data ? `data:image/png;base64,${Buffer.from(data[0]?.image.data.data).toString("base64")}` : require("../../assets/logo-binus.png")}
                     style={{ height: "250px" }}
                     alt={data[0].title}
                   />
